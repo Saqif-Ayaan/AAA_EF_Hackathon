@@ -1,10 +1,10 @@
 /**
- * Data for the "Load demo applicant" button.
+ * Fallback data for the "Load demo applicant" button.
  *
- * ⚠ PLACEHOLDER: "Jordan Lee" is a fictional person. For the real demo, replace
- * this with a teammate's real profile (with their consent) so the verification
- * agents hit real data. This repo is PUBLIC — only include details that person
- * is happy to have published.
+ * ⚠ PLACEHOLDER: "Jordan Lee" is a fictional person. The real demo applicant
+ * lives in demo/applicant.local.json (gitignored — a real person's details must
+ * not go in this public repo). GET /api/demo-applicant serves that file when it
+ * exists and falls back to this placeholder otherwise.
  *
  * The profile is built around the spec's three scripted discrepancies:
  *  1. Membership — claims "Thiel Fellow"; truth: finalist only

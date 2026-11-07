@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { SubmitApplicationResponse } from "@/app/api/applications/route";
-import { DEMO_SUBMISSION } from "@/lib/demo-applicant";
+import type { DemoApplicantResponse } from "@/app/api/demo-applicant/route";
 import type { Criterion } from "@/lib/schemas";
 import { ABOUT_SECTIONS, CRITERION_STEPS, STEPS, type StepId } from "./form-config";
 import { CvUpload, Field } from "./fields";
@@ -24,6 +24,7 @@ export function IntakeForm() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>({ state: "idle" });
   const [submitted, setSubmitted] = useState<SubmitApplicationResponse | null>(null);
+  const [demoState, setDemoState] = useState<{ loading: boolean; error: string | null }>({ loading: false, error: null });
 
   const step = STEPS[stepIndex];
   const isReview = step.id === "review";
@@ -79,10 +80,22 @@ export function IntakeForm() {
     clearError(`${entryKey}.${fieldKey}`);
   }
 
-  function loadDemo() {
-    setForm(fromSubmission(DEMO_SUBMISSION));
-    setSubmitStatus({ state: "idle" });
-    goTo("review");
+  async function loadDemo() {
+    setDemoState({ loading: true, error: null });
+    try {
+      const res = await fetch("/api/demo-applicant");
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setDemoState({ loading: false, error: data.error ?? "Couldn't load the demo applicant" });
+        return;
+      }
+      setForm(fromSubmission((data as DemoApplicantResponse).submission));
+      setSubmitStatus({ state: "idle" });
+      setDemoState({ loading: false, error: null });
+      goTo("review");
+    } catch {
+      setDemoState({ loading: false, error: "Couldn't reach the server. Is `npm run dev` running?" });
+    }
   }
   function reset() {
     setForm(emptyFormState());
@@ -123,13 +136,17 @@ export function IntakeForm() {
             <h1 className="text-xl font-bold">O-1A application</h1>
             <p className="text-sm text-slate-600">Tell us about your achievements. We&apos;ll verify them and build your case.</p>
           </div>
-          <button
-            type="button"
-            onClick={loadDemo}
-            className="rounded-md border border-indigo-300 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-100"
-          >
-            Load demo applicant
-          </button>
+          <div className="text-right">
+            <button
+              type="button"
+              onClick={loadDemo}
+              disabled={demoState.loading}
+              className="rounded-md border border-indigo-300 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-100 disabled:opacity-60"
+            >
+              {demoState.loading ? "Loading…" : "Load demo applicant"}
+            </button>
+            {demoState.error && <p className="mt-1 text-xs font-medium text-red-600">{demoState.error}</p>}
+          </div>
         </div>
       </header>
 

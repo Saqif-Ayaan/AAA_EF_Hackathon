@@ -48,3 +48,6 @@ next-env.d.ts
 *.db-wal
 *.db-shm
 .mastra/
+
+# real demo applicant data (a real person's details — never commit; this repo is public)
+/demo/*.local.json

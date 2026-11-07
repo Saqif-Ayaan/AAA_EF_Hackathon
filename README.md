@@ -34,3 +34,7 @@ npm run dev                  # http://localhost:3000
 ## Scoring agent handoff
 
 The scorer reads `GET /api/cases/[id]/bundle` (shape: `CaseBundleSchema`) and posts `POST /api/cases/[id]/score` (shape: `ScoreInputSchema`). Both are defined in `src/lib/schemas.ts`.
+
+## Demo applicant
+
+"Load demo applicant" on `/apply` calls `GET /api/demo-applicant`, which serves `demo/applicant.local.json` if it exists, otherwise the fictional placeholder in `src/lib/demo-applicant.ts`. The local file holds a real person's details, so it is **gitignored and must never be committed** (this repo is public). Copy it between machines/worktrees by hand, like `.env`.
