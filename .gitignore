@@ -48,3 +48,6 @@ next-env.d.ts
 *.db-wal
 *.db-shm
 .mastra/
+
+# cached tool results (Apify LinkedIn scrapes)
+.cache/

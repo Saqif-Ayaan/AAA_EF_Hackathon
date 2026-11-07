@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
+    "try": "tsx scripts/try.ts",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio"
   },
