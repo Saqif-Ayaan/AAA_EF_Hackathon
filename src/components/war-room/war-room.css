@@ -1,0 +1,196 @@
+/*
+ * War room styles. A global stylesheet with a "wr-" prefix (this project's
+ * next.config turns CSS Modules into plain CSS). Class names are mapped in
+ * styles.ts. Calm on purpose: dark stage, one accent, solid panels, and a
+ * faint static grid behind the title. Motion is limited to status dots,
+ * progress bars and fade-ins, all off under prefers-reduced-motion.
+ */
+
+.wr-root {
+  --bg: #050807;
+  --panel: #0b110f;
+  --line: rgb(233 241 237 / 0.09);
+  --track: rgb(233 241 237 / 0.08);
+  --text: #e9f1ed;
+  --muted: #a3b3ac;
+  --dim: #7f8e88;
+  --accent: #45d6e8;
+
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--text);
+  color-scheme: dark;
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+.wr-root ::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.wr-root :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── Type ─────────────────────────────────────────────────────────────── */
+
+.wr-display {
+  font-family: var(--font-display), Impact, "Arial Narrow", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.92;
+}
+
+.wr-mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+.wr-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+/* ── Surfaces ─────────────────────────────────────────────────────────── */
+
+.wr-panel {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.wr-topbar {
+  background: rgb(5 8 7 / 0.88);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.wr-navLink {
+  border-radius: 8px;
+  color: var(--muted);
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+}
+
+.wr-navLink:hover {
+  color: var(--text);
+  background: rgb(233 241 237 / 0.06);
+}
+
+.wr-bar {
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--track);
+}
+
+.wr-barFill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s ease-out;
+}
+
+.wr-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #050807;
+  font-weight: 700;
+  transition: filter 0.2s;
+}
+
+.wr-button:hover:not(:disabled) {
+  filter: brightness(1.12);
+}
+
+.wr-buttonGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-weight: 600;
+  transition: border-color 0.2s;
+}
+
+.wr-buttonGhost:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+/* ── Backdrop: a faint, still grid floor behind the title ─────────────── */
+
+.wr-scene {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 560px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.wr-floor {
+  position: absolute;
+  top: 330px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  perspective: 520px;
+  perspective-origin: 50% 0%;
+  overflow: hidden;
+  opacity: 0.14;
+  mask-image: linear-gradient(to bottom, transparent, #000 25%, transparent);
+}
+
+.wr-floorPlane {
+  position: absolute;
+  top: 0;
+  left: -150%;
+  right: -150%;
+  height: 520px;
+  transform-origin: 50% 0%;
+  transform: rotateX(76deg);
+  background-image:
+    linear-gradient(to right, var(--accent) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--accent) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* ── One-shot fade for new rows ───────────────────────────────────────── */
+
+.wr-enter {
+  animation: wr-enter 0.5s ease-out;
+}
+
+@keyframes wr-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wr-enter {
+    animation: none;
+  }
+
+  .wr-barFill,
+  .wr-navLink,
+  .wr-button,
+  .wr-buttonGhost {
+    transition: none;
+  }
+}

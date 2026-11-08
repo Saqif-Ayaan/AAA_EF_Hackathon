@@ -4,6 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:ui": "next dev -p 3001",
+    "mock": "tsx scripts/mock-events.ts",
+    "replay:save": "tsx scripts/save-replay.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

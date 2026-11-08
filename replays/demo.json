@@ -1,0 +1,1966 @@
+{
+  "version": 1,
+  "caseId": "demo",
+  "savedAt": "2026-11-08T00:43:51.520Z",
+  "applicant": {
+    "id": "demo",
+    "name": "Ada Okafor",
+    "alternateNames": [
+      "Ada Nwosu"
+    ],
+    "field": "Machine learning systems (retrieval & inference)",
+    "currentRole": "Founding Engineer",
+    "currentOrganization": "Lumen Labs",
+    "createdAt": "2026-11-08T00:42:36.656Z"
+  },
+  "claims": [
+    {
+      "id": "cb51bd26-24b2-4836-8949-2d9995921e34",
+      "criterion": "awards",
+      "summary": "Grand Prize — Bay Area AI Hackathon 2025"
+    },
+    {
+      "id": "2594cc7b-074b-486b-b244-602ece8e1caf",
+      "criterion": "membership",
+      "summary": "Thiel Fellow (2024 cohort)"
+    },
+    {
+      "id": "b2b521fd-0081-4cfc-a6cd-b9bbc35c50bb",
+      "criterion": "press",
+      "summary": "Bay Tech Review — “The engineer making retrieval cheap” (Sep 2025)"
+    },
+    {
+      "id": "1b93a97d-1a2c-4b85-bc7a-c82d2bf5e75f",
+      "criterion": "press",
+      "summary": "SF Business Daily — Lumen Labs $8M seed round (Mar 2025)"
+    },
+    {
+      "id": "a62f15b1-3c78-47a1-8e21-87fe1767ab99",
+      "criterion": "judging",
+      "summary": "Judge, Bay Area AI Hackathon 2026 — 12 projects reviewed"
+    },
+    {
+      "id": "e40f804e-74da-4743-aec5-0b7d5133eb5b",
+      "criterion": "contributions",
+      "summary": "Created tinyrag, an open-source retrieval library (4.2k ★)"
+    },
+    {
+      "id": "7cfd18ac-2e3f-44e4-a513-e37192edaa6d",
+      "criterion": "scholarly",
+      "summary": "6 papers, 10 citations (Google Scholar)"
+    },
+    {
+      "id": "0bc05f51-321d-4087-bba9-8c44c4cdb8ed",
+      "criterion": "critical_role",
+      "summary": "Founding Engineer, Lumen Labs (Jan 2023 – present)"
+    },
+    {
+      "id": "2aeaa553-9bec-4b5c-a133-87e1ecc3f93c",
+      "criterion": "remuneration",
+      "summary": "$210,000 USD total compensation (2025)"
+    }
+  ],
+  "events": [
+    {
+      "id": 982,
+      "applicantId": "demo",
+      "agentId": "pipeline",
+      "type": "status",
+      "message": "Case created — 9 claims across 8 criteria",
+      "status": null,
+      "currentAction": null,
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:36.675Z"
+    },
+    {
+      "id": 983,
+      "applicantId": "demo",
+      "agentId": "pipeline",
+      "type": "handoff",
+      "message": "Fanning out to 5 source agents in parallel",
+      "status": null,
+      "currentAction": null,
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:37.277Z"
+    },
+    {
+      "id": 984,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "status",
+      "message": "Received 9 claims",
+      "status": "queued",
+      "currentAction": "Queued — received 9 claims",
+      "progress": 0,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:37.679Z"
+    },
+    {
+      "id": 985,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "status",
+      "message": "Received 9 claims",
+      "status": "queued",
+      "currentAction": "Queued — received 9 claims",
+      "progress": 0,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:37.830Z"
+    },
+    {
+      "id": 986,
+      "applicantId": "demo",
+      "agentId": "github",
+      "type": "status",
+      "message": "Received 9 claims",
+      "status": "queued",
+      "currentAction": "Queued — received 9 claims",
+      "progress": 0,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:37.983Z"
+    },
+    {
+      "id": 987,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "status",
+      "message": "Received 9 claims",
+      "status": "queued",
+      "currentAction": "Queued — received 9 claims",
+      "progress": 0,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:38.131Z"
+    },
+    {
+      "id": 988,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "status",
+      "message": "Received 9 claims",
+      "status": "queued",
+      "currentAction": "Queued — received 9 claims",
+      "progress": 0,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:38.281Z"
+    },
+    {
+      "id": 989,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "tool_call",
+      "message": "fetchPage(devpost profile)",
+      "status": "searching",
+      "currentAction": "Opening Devpost profile from intake links",
+      "progress": 6,
+      "url": "https://devpost.com/adaokafor",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:38.679Z"
+    },
+    {
+      "id": 990,
+      "applicantId": "demo",
+      "agentId": "github",
+      "type": "tool_call",
+      "message": "githubUser(adaokafor)",
+      "status": "searching",
+      "currentAction": "GitHub API: GET /users/adaokafor",
+      "progress": 8,
+      "url": "https://github.com/adaokafor",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:39.075Z"
+    },
+    {
+      "id": 991,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "tool_call",
+      "message": "openAlexAuthor(Ada Okafor)",
+      "status": "searching",
+      "currentAction": "OpenAlex: author search “Ada Okafor”",
+      "progress": 6,
+      "url": "https://api.openalex.org/authors?search=Ada%20Okafor",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:39.688Z"
+    },
+    {
+      "id": 992,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "tool_call",
+      "message": "apify: LinkedIn profile scraper",
+      "status": "searching",
+      "currentAction": "Starting Apify LinkedIn profile scraper",
+      "progress": 4,
+      "url": "https://www.linkedin.com/in/ada-okafor",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:39.690Z"
+    },
+    {
+      "id": 993,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "tool_call",
+      "message": "exaSearch(Ada Okafor Lumen Labs)",
+      "status": "searching",
+      "currentAction": "Exa: “Ada Okafor” Lumen Labs",
+      "progress": 5,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:40.185Z"
+    },
+    {
+      "id": 994,
+      "applicantId": "demo",
+      "agentId": "github",
+      "type": "tool_result",
+      "message": "User found",
+      "status": "reading",
+      "currentAction": null,
+      "progress": 18,
+      "url": "https://github.com/adaokafor",
+      "found": "@adaokafor — 38 public repos, name matches intake",
+      "createdAt": "2026-11-08T00:42:40.877Z"
+    },
+    {
+      "id": 995,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "tool_result",
+      "message": "Profile fetched",
+      "status": "reading",
+      "currentAction": "Reading Devpost profile",
+      "progress": 15,
+      "url": "https://devpost.com/adaokafor",
+      "found": "Profile matches Ada Okafor — 7 projects, 4 hackathons",
+      "createdAt": "2026-11-08T00:42:41.175Z"
+    },
+    {
+      "id": 996,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "tool_result",
+      "message": "Cache miss — starting a fresh run",
+      "status": null,
+      "currentAction": null,
+      "progress": 6,
+      "url": "https://www.linkedin.com/in/ada-okafor",
+      "found": "Cache miss for this profile URL — fresh Apify run",
+      "createdAt": "2026-11-08T00:42:41.179Z"
+    },
+    {
+      "id": 997,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "tool_result",
+      "message": "3 candidates",
+      "status": "reading",
+      "currentAction": null,
+      "progress": 15,
+      "url": "https://api.openalex.org/authors?search=Ada%20Okafor",
+      "found": "3 candidate authors — 1 matches affiliation Lumen Labs",
+      "createdAt": "2026-11-08T00:42:42.186Z"
+    },
+    {
+      "id": 998,
+      "applicantId": "demo",
+      "agentId": "github",
+      "type": "tool_call",
+      "message": "list repos by stars",
+      "status": "reading",
+      "currentAction": "Ranking repositories by stars",
+      "progress": 28,
+      "url": "https://github.com/adaokafor?tab=repositories",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:42.679Z"
+    },
+    {
+      "id": 999,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "tool_result",
+      "message": "8 results across 5 news domains",
+      "status": null,
+      "currentAction": null,
+      "progress": 12,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:42.688Z"
+    },
+    {
+      "id": 1000,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "message",
+      "message": "Apify run started",
+      "status": null,
+      "currentAction": "Apify run started — waiting for the scraper",
+      "progress": 8,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:42.690Z"
+    },
+    {
+      "id": 1001,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "tool_call",
+      "message": "fetchPage(project)",
+      "status": "reading",
+      "currentAction": "Reading project page “tinyrag-live”",
+      "progress": 24,
+      "url": "https://devpost.com/software/tinyrag-live",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:43.687Z"
+    },
+    {
+      "id": 1002,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "tool_call",
+      "message": "openAlexWorks(A5091827364)",
+      "status": "reading",
+      "currentAction": "Fetching works for A. Okafor",
+      "progress": 26,
+      "url": "https://api.openalex.org/works?filter=author.id:A5091827364",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:44.684Z"
+    },
+    {
+      "id": 1003,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "tool_call",
+      "message": "fetchPage(Bay Tech Review)",
+      "status": "reading",
+      "currentAction": "Opening Bay Tech Review profile article",
+      "progress": 20,
+      "url": "https://www.baytechreview.com/2025/09/ada-okafor-retrieval-infrastructure",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:44.686Z"
+    },
+    {
+      "id": 1004,
+      "applicantId": "demo",
+      "agentId": "github",
+      "type": "tool_result",
+      "message": "Top repo identified",
+      "status": null,
+      "currentAction": null,
+      "progress": 40,
+      "url": "https://github.com/adaokafor/tinyrag",
+      "found": "Top repo: adaokafor/tinyrag — ★ 4,218",
+      "createdAt": "2026-11-08T00:42:44.877Z"
+    },
+    {
+      "id": 1005,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "finding",
+      "message": "Winner badge found",
+      "status": null,
+      "currentAction": null,
+      "progress": 33,
+      "url": "https://devpost.com/software/tinyrag-live",
+      "found": "🏆 Winner badge: Grand Prize — Bay Area AI Hackathon 2025",
+      "createdAt": "2026-11-08T00:42:46.181Z"
+    },
+    {
+      "id": 1006,
+      "applicantId": "demo",
+      "agentId": "github",
+      "type": "tool_call",
+      "message": "githubRepo(adaokafor/tinyrag) contributors",
+      "status": "reading",
+      "currentAction": "Reading contributor stats for tinyrag",
+      "progress": 52,
+      "url": "https://github.com/adaokafor/tinyrag/graphs/contributors",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:47.184Z"
+    },
+    {
+      "id": 1007,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "finding",
+      "message": "Works counted",
+      "status": null,
+      "currentAction": null,
+      "progress": 38,
+      "url": "https://api.openalex.org/works?filter=author.id:A5091827364",
+      "found": "4 works as “Ada Okafor” — 4 citations",
+      "createdAt": "2026-11-08T00:42:47.677Z"
+    },
+    {
+      "id": 1008,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "message",
+      "message": "Apify run RUNNING (7s)",
+      "status": null,
+      "currentAction": "Apify run RUNNING — 7s elapsed, polling every 5s",
+      "progress": 16,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:47.697Z"
+    },
+    {
+      "id": 1009,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "tool_call",
+      "message": "fetchPage(project gallery)",
+      "status": "reading",
+      "currentAction": "Checking hackathon size on the project gallery",
+      "progress": 42,
+      "url": "https://bayarea-ai-2025.devpost.com/project-gallery",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:48.178Z"
+    },
+    {
+      "id": 1010,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "finding",
+      "message": "Article is about her",
+      "status": null,
+      "currentAction": null,
+      "progress": 30,
+      "url": "https://www.baytechreview.com/2025/09/ada-okafor-retrieval-infrastructure",
+      "found": "Feature ABOUT her: “The engineer making retrieval cheap”",
+      "createdAt": "2026-11-08T00:42:48.197Z"
+    },
+    {
+      "id": 1011,
+      "applicantId": "demo",
+      "agentId": "github",
+      "type": "finding",
+      "message": "Ownership confirmed",
+      "status": null,
+      "currentAction": null,
+      "progress": 64,
+      "url": "https://github.com/adaokafor/tinyrag/graphs/contributors",
+      "found": "Owner + top contributor: 61% of 1,284 commits",
+      "createdAt": "2026-11-08T00:42:49.688Z"
+    },
+    {
+      "id": 1012,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "tool_call",
+      "message": "openAlexAuthor(Ada Nwosu)",
+      "status": "searching",
+      "currentAction": "OpenAlex: former name “Ada Nwosu”",
+      "progress": 46,
+      "url": "https://api.openalex.org/authors?search=Ada%20Nwosu",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:50.174Z"
+    },
+    {
+      "id": 1013,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "tool_call",
+      "message": "fetchPage(SF Business Daily)",
+      "status": "reading",
+      "currentAction": "Opening SF Business Daily funding story",
+      "progress": 38,
+      "url": "https://www.sfbusinessdaily.com/2025/03/lumen-labs-raises-8m-seed",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:50.188Z"
+    },
+    {
+      "id": 1014,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "finding",
+      "message": "Field size counted",
+      "status": null,
+      "currentAction": null,
+      "progress": 52,
+      "url": "https://bayarea-ai-2025.devpost.com/project-gallery",
+      "found": "Field size: 31 teams submitted — a small event",
+      "createdAt": "2026-11-08T00:42:51.180Z"
+    },
+    {
+      "id": 1015,
+      "applicantId": "demo",
+      "agentId": "github",
+      "type": "tool_call",
+      "message": "dependents",
+      "status": "reading",
+      "currentAction": "Checking dependents and forks",
+      "progress": 72,
+      "url": "https://github.com/adaokafor/tinyrag/network/dependents",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:51.678Z"
+    },
+    {
+      "id": 1016,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "message",
+      "message": "Apify run RUNNING (12s)",
+      "status": null,
+      "currentAction": "Apify run RUNNING — 12s elapsed, polling every 5s",
+      "progress": 24,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:52.677Z"
+    },
+    {
+      "id": 1017,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "tool_result",
+      "message": "Identity match",
+      "status": "reading",
+      "currentAction": null,
+      "progress": 56,
+      "url": "https://api.openalex.org/authors?search=Ada%20Nwosu",
+      "found": "Same person: 2 shared co-authors (identity 0.86)",
+      "createdAt": "2026-11-08T00:42:53.180Z"
+    },
+    {
+      "id": 1018,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "finding",
+      "message": "Company story",
+      "status": null,
+      "currentAction": null,
+      "progress": 47,
+      "url": "https://www.sfbusinessdaily.com/2025/03/lumen-labs-raises-8m-seed",
+      "found": "Lumen Labs $8M seed — names her founding engineer",
+      "createdAt": "2026-11-08T00:42:53.200Z"
+    },
+    {
+      "id": 1019,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "tool_call",
+      "message": "exaSearch(site:devpost.com judge)",
+      "status": "searching",
+      "currentAction": "Exa: site:devpost.com “Ada Okafor” judge",
+      "progress": 60,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:53.674Z"
+    },
+    {
+      "id": 1020,
+      "applicantId": "demo",
+      "agentId": "github",
+      "type": "finding",
+      "message": "Adoption measured",
+      "status": null,
+      "currentAction": null,
+      "progress": 82,
+      "url": "https://github.com/adaokafor/tinyrag/network/dependents",
+      "found": "312 dependent repos · 401 forks",
+      "createdAt": "2026-11-08T00:42:54.175Z"
+    },
+    {
+      "id": 1021,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "tool_call",
+      "message": "openAlexWorks(A5012983746)",
+      "status": "reading",
+      "currentAction": "Fetching works for A. Nwosu",
+      "progress": 64,
+      "url": "https://api.openalex.org/works?filter=author.id:A5012983746",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:55.684Z"
+    },
+    {
+      "id": 1022,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "tool_call",
+      "message": "exaSearch(Thiel Fellowship 2024 Okafor)",
+      "status": "searching",
+      "currentAction": "Exa: “Thiel Fellowship” 2024 “Okafor”",
+      "progress": 54,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:55.704Z"
+    },
+    {
+      "id": 1023,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "tool_result",
+      "message": "2 results, 1 judging panel match",
+      "status": null,
+      "currentAction": null,
+      "progress": 66,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:56.189Z"
+    },
+    {
+      "id": 1024,
+      "applicantId": "demo",
+      "agentId": "github",
+      "type": "tool_call",
+      "message": "org repos",
+      "status": "reading",
+      "currentAction": "Checking Lumen Labs org repositories",
+      "progress": 88,
+      "url": "https://github.com/lumen-labs",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:56.199Z"
+    },
+    {
+      "id": 1025,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "tool_call",
+      "message": "fetchPage(judges)",
+      "status": "reading",
+      "currentAction": "Reading judges panel — Bay Area AI Hackathon 2026",
+      "progress": 72,
+      "url": "https://bayarea-ai-2026.devpost.com/#judges",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:57.680Z"
+    },
+    {
+      "id": 1026,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "message",
+      "message": "Apify run RUNNING (17s)",
+      "status": null,
+      "currentAction": "Apify run RUNNING — 17s elapsed, polling every 5s",
+      "progress": 32,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:42:57.699Z"
+    },
+    {
+      "id": 1027,
+      "applicantId": "demo",
+      "agentId": "github",
+      "type": "finding",
+      "message": "Org role found",
+      "status": null,
+      "currentAction": null,
+      "progress": 95,
+      "url": "https://github.com/lumen-labs",
+      "found": "#2 contributor to lumen-labs/inference-gateway",
+      "createdAt": "2026-11-08T00:42:58.181Z"
+    },
+    {
+      "id": 1028,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "finding",
+      "message": "More works found",
+      "status": null,
+      "currentAction": null,
+      "progress": 74,
+      "url": "https://api.openalex.org/works?filter=author.id:A5012983746",
+      "found": "2 more works as “Ada Nwosu” — 2 citations",
+      "createdAt": "2026-11-08T00:42:58.688Z"
+    },
+    {
+      "id": 1029,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "tool_call",
+      "message": "fetchPage(Founders Digest)",
+      "status": "reading",
+      "currentAction": "Opening Founders Digest: 2024 Thiel finalists",
+      "progress": 62,
+      "url": "https://www.foundersdigest.com/2024/06/thiel-fellowship-2024-finalists",
+      "found": null,
+      "createdAt": "2026-11-08T00:42:58.708Z"
+    },
+    {
+      "id": 1030,
+      "applicantId": "demo",
+      "agentId": "github",
+      "type": "handoff",
+      "message": "github → reconciler: 2 source findings (contributions, critical_role)",
+      "status": "done",
+      "currentAction": "Done — 2 source findings sent to reconciler",
+      "progress": 100,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:00.177Z"
+    },
+    {
+      "id": 1031,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "finding",
+      "message": "Judge listing found",
+      "status": null,
+      "currentAction": null,
+      "progress": 82,
+      "url": "https://bayarea-ai-2026.devpost.com/#judges",
+      "found": "Listed as a judge — Bay Area AI Hackathon 2026",
+      "createdAt": "2026-11-08T00:43:00.687Z"
+    },
+    {
+      "id": 1032,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "status",
+      "message": "Reconciling Original contributions",
+      "status": "thinking",
+      "currentAction": "Reconciling Original contributions",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:00.878Z"
+    },
+    {
+      "id": 1033,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "status",
+      "message": "Comparing counts",
+      "status": "reading",
+      "currentAction": "Comparing claimed 10 citations with OpenAlex",
+      "progress": 82,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:01.675Z"
+    },
+    {
+      "id": 1034,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "finding",
+      "message": "Original contributions → corroborated",
+      "status": "queued",
+      "currentAction": "Waiting for more source findings",
+      "progress": null,
+      "url": null,
+      "found": "Owner & top contributor (61% of commits) · ★ 4,218 · 312 dependents",
+      "createdAt": "2026-11-08T00:43:01.734Z"
+    },
+    {
+      "id": 1035,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "finding",
+      "message": "Finalist, not Fellow",
+      "status": null,
+      "currentAction": null,
+      "progress": 70,
+      "url": "https://www.foundersdigest.com/2024/06/thiel-fellowship-2024-finalists",
+      "found": "⚠ Listed among 2024 Thiel finalists — not Fellows",
+      "createdAt": "2026-11-08T00:43:02.176Z"
+    },
+    {
+      "id": 1036,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "message",
+      "message": "Apify run RUNNING (22s)",
+      "status": null,
+      "currentAction": "Apify run RUNNING — 22s elapsed, polling every 5s",
+      "progress": 40,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:02.679Z"
+    },
+    {
+      "id": 1037,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "tool_call",
+      "message": "fetchPage(project team)",
+      "status": "reading",
+      "currentAction": "Cross-checking the team list on “tinyrag-live”",
+      "progress": 89,
+      "url": "https://devpost.com/software/tinyrag-live",
+      "found": null,
+      "createdAt": "2026-11-08T00:43:03.185Z"
+    },
+    {
+      "id": 1038,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "finding",
+      "message": "Count mismatch",
+      "status": null,
+      "currentAction": null,
+      "progress": 90,
+      "url": null,
+      "found": "Total 6 works, 6 citations on OpenAlex (claimed 10)",
+      "createdAt": "2026-11-08T00:43:04.688Z"
+    },
+    {
+      "id": 1039,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "tool_call",
+      "message": "fetchPage(thielfellowship.org)",
+      "status": "reading",
+      "currentAction": "Checking the official Thiel Fellowship roster",
+      "progress": 76,
+      "url": "https://thielfellowship.org/",
+      "found": null,
+      "createdAt": "2026-11-08T00:43:04.697Z"
+    },
+    {
+      "id": 1040,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "tool_result",
+      "message": "Team list read",
+      "status": null,
+      "currentAction": null,
+      "progress": 94,
+      "url": "https://devpost.com/software/tinyrag-live",
+      "found": "Credited as 1 of 3 team members",
+      "createdAt": "2026-11-08T00:43:05.686Z"
+    },
+    {
+      "id": 1041,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "status",
+      "message": "Reviewer credits",
+      "status": "searching",
+      "currentAction": "Looking for peer-reviewer credits (judging)",
+      "progress": 94,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:07.190Z"
+    },
+    {
+      "id": 1042,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "message",
+      "message": "Apify run RUNNING (27s)",
+      "status": null,
+      "currentAction": "Apify run RUNNING — 27s elapsed, polling every 5s",
+      "progress": 48,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:07.688Z"
+    },
+    {
+      "id": 1043,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "tool_result",
+      "message": "Roster checked",
+      "status": null,
+      "currentAction": null,
+      "progress": 82,
+      "url": "https://thielfellowship.org/",
+      "found": "Not on the official 2024 Fellows list",
+      "createdAt": "2026-11-08T00:43:08.184Z"
+    },
+    {
+      "id": 1044,
+      "applicantId": "demo",
+      "agentId": "devpost",
+      "type": "handoff",
+      "message": "devpost → reconciler: 3 source findings (awards, judging, contributions)",
+      "status": "done",
+      "currentAction": "Done — 3 source findings sent to reconciler",
+      "progress": 100,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:09.181Z"
+    },
+    {
+      "id": 1045,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "status",
+      "message": "Reconciling Judging",
+      "status": "thinking",
+      "currentAction": "Reconciling Judging",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:09.882Z"
+    },
+    {
+      "id": 1046,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "tool_result",
+      "message": "No reviewer records",
+      "status": null,
+      "currentAction": null,
+      "progress": 97,
+      "url": null,
+      "found": "No reviewer credits visible — left to other agents",
+      "createdAt": "2026-11-08T00:43:10.179Z"
+    },
+    {
+      "id": 1047,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "tool_call",
+      "message": "exaSearch(Bay Area AI Hackathon 2025 winners)",
+      "status": "searching",
+      "currentAction": "Exa: “Bay Area AI Hackathon” 2025 winners",
+      "progress": 86,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:10.688Z"
+    },
+    {
+      "id": 1048,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "finding",
+      "message": "Judging → corroborated",
+      "status": "queued",
+      "currentAction": "Waiting for more source findings",
+      "progress": null,
+      "url": null,
+      "found": "Listed on the judges panel, Bay Area AI Hackathon 2026",
+      "createdAt": "2026-11-08T00:43:10.730Z"
+    },
+    {
+      "id": 1049,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "message",
+      "message": "Apify run RUNNING (32s)",
+      "status": null,
+      "currentAction": "Apify run RUNNING — 32s elapsed, polling every 5s",
+      "progress": 56,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:12.687Z"
+    },
+    {
+      "id": 1050,
+      "applicantId": "demo",
+      "agentId": "scholar",
+      "type": "handoff",
+      "message": "scholar → reconciler: 1 source finding (scholarly)",
+      "status": "done",
+      "currentAction": "Done — 1 source finding sent to reconciler",
+      "progress": 100,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:13.177Z"
+    },
+    {
+      "id": 1051,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "tool_call",
+      "message": "fetchPage(recap)",
+      "status": "reading",
+      "currentAction": "Opening hackathon recap post",
+      "progress": 90,
+      "url": "https://www.baytechreview.com/2025/05/bay-area-ai-hackathon-recap",
+      "found": null,
+      "createdAt": "2026-11-08T00:43:13.687Z"
+    },
+    {
+      "id": 1052,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "status",
+      "message": "Reconciling Scholarly articles",
+      "status": "thinking",
+      "currentAction": "Reconciling Scholarly articles",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:14.383Z"
+    },
+    {
+      "id": 1053,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "finding",
+      "message": "Scholarly articles → partial",
+      "status": "queued",
+      "currentAction": "Waiting for more source findings",
+      "progress": null,
+      "url": null,
+      "found": "6 works, 6 citations on OpenAlex (claimed 10) · 2 works under “Ada Nwosu”",
+      "createdAt": "2026-11-08T00:43:15.230Z"
+    },
+    {
+      "id": 1054,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "tool_result",
+      "message": "Apify run SUCCEEDED",
+      "status": "reading",
+      "currentAction": "Apify run succeeded — parsing profile",
+      "progress": 62,
+      "url": "https://www.linkedin.com/in/ada-okafor",
+      "found": "Profile scraped in 35s: 6 roles · 3 honors · 2 schools",
+      "createdAt": "2026-11-08T00:43:15.675Z"
+    },
+    {
+      "id": 1055,
+      "applicantId": "demo",
+      "agentId": "questioner",
+      "type": "status",
+      "message": "Writing follow-up for Scholarly articles",
+      "status": "thinking",
+      "currentAction": "Writing follow-up for Scholarly articles",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:15.785Z"
+    },
+    {
+      "id": 1056,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "finding",
+      "message": "Recap confirms win",
+      "status": null,
+      "currentAction": null,
+      "progress": 95,
+      "url": "https://www.baytechreview.com/2025/05/bay-area-ai-hackathon-recap",
+      "found": "Recap confirms Grand Prize (about 30 teams)",
+      "createdAt": "2026-11-08T00:43:16.688Z"
+    },
+    {
+      "id": 1057,
+      "applicantId": "demo",
+      "agentId": "questioner",
+      "type": "message",
+      "message": "Question ready: Scholarly articles (numerical)",
+      "status": "queued",
+      "currentAction": "Waiting for findings that need a follow-up",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:16.728Z"
+    },
+    {
+      "id": 1058,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "status",
+      "message": "Reconciling Awards",
+      "status": "thinking",
+      "currentAction": "Reconciling Awards",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:17.386Z"
+    },
+    {
+      "id": 1059,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "tool_call",
+      "message": "read experience",
+      "status": "reading",
+      "currentAction": "Reading the experience section",
+      "progress": 68,
+      "url": "https://www.linkedin.com/in/ada-okafor/details/experience/",
+      "found": null,
+      "createdAt": "2026-11-08T00:43:18.181Z"
+    },
+    {
+      "id": 1060,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "finding",
+      "message": "Awards → partial",
+      "status": "queued",
+      "currentAction": "Waiting for more source findings",
+      "progress": null,
+      "url": null,
+      "found": "Grand Prize confirmed — but only 31 teams entered",
+      "createdAt": "2026-11-08T00:43:18.239Z"
+    },
+    {
+      "id": 1061,
+      "applicantId": "demo",
+      "agentId": "questioner",
+      "type": "status",
+      "message": "Writing follow-up for Awards",
+      "status": "thinking",
+      "currentAction": "Writing follow-up for Awards",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:18.788Z"
+    },
+    {
+      "id": 1062,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "status",
+      "message": "Filtering press releases",
+      "status": "reading",
+      "currentAction": "Filtering out press releases and brief mentions",
+      "progress": 97,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:19.674Z"
+    },
+    {
+      "id": 1063,
+      "applicantId": "demo",
+      "agentId": "questioner",
+      "type": "message",
+      "message": "Question ready: Awards (criterion_fit)",
+      "status": "queued",
+      "currentAction": "Waiting for findings that need a follow-up",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:19.731Z"
+    },
+    {
+      "id": 1064,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "finding",
+      "message": "Role confirmed",
+      "status": null,
+      "currentAction": null,
+      "progress": 76,
+      "url": "https://www.linkedin.com/in/ada-okafor/details/experience/",
+      "found": "Founding Engineer, Lumen Labs · Jan 2023 – present",
+      "createdAt": "2026-11-08T00:43:20.675Z"
+    },
+    {
+      "id": 1065,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "tool_call",
+      "message": "read honors",
+      "status": "reading",
+      "currentAction": "Reading honors & awards",
+      "progress": 82,
+      "url": "https://www.linkedin.com/in/ada-okafor/details/honors/",
+      "found": null,
+      "createdAt": "2026-11-08T00:43:22.684Z"
+    },
+    {
+      "id": 1066,
+      "applicantId": "demo",
+      "agentId": "press",
+      "type": "handoff",
+      "message": "press → reconciler: 5 source findings (press ×2, membership, awards, critical_role)",
+      "status": "done",
+      "currentAction": "Done — 5 source findings sent to reconciler",
+      "progress": 100,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:23.188Z"
+    },
+    {
+      "id": 1067,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "status",
+      "message": "Reconciling Press (Bay Tech Review)",
+      "status": "thinking",
+      "currentAction": "Reconciling Press (Bay Tech Review)",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:23.375Z"
+    },
+    {
+      "id": 1068,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "status",
+      "message": "Reconciling Press (SF Business Daily)",
+      "status": "thinking",
+      "currentAction": "Reconciling Press (SF Business Daily)",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:24.204Z"
+    },
+    {
+      "id": 1069,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "finding",
+      "message": "Press (Bay Tech Review) → corroborated",
+      "status": null,
+      "currentAction": null,
+      "progress": null,
+      "url": null,
+      "found": "Feature article about her work (Sep 2025)",
+      "createdAt": "2026-11-08T00:43:24.230Z"
+    },
+    {
+      "id": 1070,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "finding",
+      "message": "Press (SF Business Daily) → corroborated",
+      "status": "queued",
+      "currentAction": "Waiting for more source findings",
+      "progress": null,
+      "url": null,
+      "found": "Funding story names her as founding engineer and quotes her",
+      "createdAt": "2026-11-08T00:43:25.033Z"
+    },
+    {
+      "id": 1071,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "finding",
+      "message": "Honor: Thiel finalist",
+      "status": null,
+      "currentAction": null,
+      "progress": 87,
+      "url": "https://www.linkedin.com/in/ada-okafor/details/honors/",
+      "found": "Honors list “Thiel Fellowship Finalist (2024)”",
+      "createdAt": "2026-11-08T00:43:25.186Z"
+    },
+    {
+      "id": 1072,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "finding",
+      "message": "Honor: hackathon",
+      "status": null,
+      "currentAction": null,
+      "progress": 91,
+      "url": "https://www.linkedin.com/in/ada-okafor/details/honors/",
+      "found": "Honors list “Grand Prize, Bay Area AI Hackathon 2025”",
+      "createdAt": "2026-11-08T00:43:27.183Z"
+    },
+    {
+      "id": 1073,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "status",
+      "message": "Compensation context",
+      "status": "searching",
+      "currentAction": "Looking for compensation context (title, level, location)",
+      "progress": 94,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:28.677Z"
+    },
+    {
+      "id": 1074,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "tool_result",
+      "message": "No salary data",
+      "status": null,
+      "currentAction": null,
+      "progress": 97,
+      "url": null,
+      "found": "No public salary data — title and SF location only",
+      "createdAt": "2026-11-08T00:43:30.678Z"
+    },
+    {
+      "id": 1075,
+      "applicantId": "demo",
+      "agentId": "linkedin",
+      "type": "handoff",
+      "message": "linkedin → reconciler: 4 source findings (critical_role, membership, awards, remuneration)",
+      "status": "done",
+      "currentAction": "Done — 4 source findings sent to reconciler",
+      "progress": 100,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:32.176Z"
+    },
+    {
+      "id": 1076,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "status",
+      "message": "Reconciling Membership",
+      "status": "thinking",
+      "currentAction": "Reconciling Membership",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:32.375Z"
+    },
+    {
+      "id": 1077,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "status",
+      "message": "Reconciling Critical role",
+      "status": "thinking",
+      "currentAction": "Reconciling Critical role",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:33.197Z"
+    },
+    {
+      "id": 1078,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "finding",
+      "message": "Membership → contradicted",
+      "status": null,
+      "currentAction": null,
+      "progress": null,
+      "url": null,
+      "found": "Listed as a 2024 finalist, not a Fellow",
+      "createdAt": "2026-11-08T00:43:33.237Z"
+    },
+    {
+      "id": 1079,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "status",
+      "message": "Reconciling Remuneration",
+      "status": "thinking",
+      "currentAction": "Reconciling Remuneration",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:33.886Z"
+    },
+    {
+      "id": 1080,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "finding",
+      "message": "Critical role → corroborated",
+      "status": null,
+      "currentAction": null,
+      "progress": null,
+      "url": null,
+      "found": "Founding Engineer at Lumen Labs since Jan 2023; company raised $8M",
+      "createdAt": "2026-11-08T00:43:34.032Z"
+    },
+    {
+      "id": 1081,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "finding",
+      "message": "Remuneration → unverified",
+      "status": "queued",
+      "currentAction": "Waiting for more source findings",
+      "progress": null,
+      "url": null,
+      "found": "No public salary data (expected) — needs documents",
+      "createdAt": "2026-11-08T00:43:34.726Z"
+    },
+    {
+      "id": 1082,
+      "applicantId": "demo",
+      "agentId": "questioner",
+      "type": "status",
+      "message": "Writing follow-up for Membership",
+      "status": "thinking",
+      "currentAction": "Writing follow-up for Membership",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:35.180Z"
+    },
+    {
+      "id": 1083,
+      "applicantId": "demo",
+      "agentId": "reconciler",
+      "type": "status",
+      "message": "All 9 claims reconciled",
+      "status": "done",
+      "currentAction": "All 9 claims reconciled",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:35.279Z"
+    },
+    {
+      "id": 1084,
+      "applicantId": "demo",
+      "agentId": "questioner",
+      "type": "message",
+      "message": "Question ready: Membership (evidence)",
+      "status": "queued",
+      "currentAction": "Waiting for findings that need a follow-up",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:36.131Z"
+    },
+    {
+      "id": 1085,
+      "applicantId": "demo",
+      "agentId": "questioner",
+      "type": "status",
+      "message": "Writing follow-up for Remuneration",
+      "status": "thinking",
+      "currentAction": "Writing follow-up for Remuneration",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:36.376Z"
+    },
+    {
+      "id": 1086,
+      "applicantId": "demo",
+      "agentId": "questioner",
+      "type": "message",
+      "message": "Question ready: Remuneration (insufficient_proof)",
+      "status": "queued",
+      "currentAction": "Waiting for findings that need a follow-up",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:37.325Z"
+    },
+    {
+      "id": 1087,
+      "applicantId": "demo",
+      "agentId": "questioner",
+      "type": "status",
+      "message": "4 follow-up questions ready",
+      "status": "done",
+      "currentAction": "4 follow-up questions ready",
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:37.981Z"
+    },
+    {
+      "id": 1088,
+      "applicantId": "demo",
+      "agentId": "pipeline",
+      "type": "status",
+      "message": "Vetting complete — 5 corroborated · 2 partial · 1 contradicted · 1 unverified → 4 follow-ups",
+      "status": "done",
+      "currentAction": null,
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:38.685Z"
+    },
+    {
+      "id": 1089,
+      "applicantId": "demo",
+      "agentId": "pipeline",
+      "type": "handoff",
+      "message": "Build case requested → case builder",
+      "status": null,
+      "currentAction": null,
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:39.008Z"
+    },
+    {
+      "id": 1090,
+      "applicantId": "demo",
+      "agentId": "caseBuilder",
+      "type": "status",
+      "message": "Case builder started",
+      "status": "thinking",
+      "currentAction": "Selecting the strongest criteria from verified evidence",
+      "progress": 8,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:39.012Z"
+    },
+    {
+      "id": 1091,
+      "applicantId": "demo",
+      "agentId": "caseBuilder",
+      "type": "status",
+      "message": "Arguing 4 criteria",
+      "status": "thinking",
+      "currentAction": "Drafting arguments for 4 criteria",
+      "progress": 38,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:40.536Z"
+    },
+    {
+      "id": 1092,
+      "applicantId": "demo",
+      "agentId": "caseBuilder",
+      "type": "status",
+      "message": "Citing 9 exhibits",
+      "status": "thinking",
+      "currentAction": "Citing 9 exhibits and flagging weaknesses",
+      "progress": 72,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:42.056Z"
+    },
+    {
+      "id": 1093,
+      "applicantId": "demo",
+      "agentId": "caseBuilder",
+      "type": "status",
+      "message": "Dossier ready — 4 criteria argued, 9 exhibits",
+      "status": "done",
+      "currentAction": "Dossier ready — 4 criteria argued",
+      "progress": 100,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:43.393Z"
+    },
+    {
+      "id": 1094,
+      "applicantId": "demo",
+      "agentId": "caseBuilder",
+      "type": "handoff",
+      "message": "case builder → scoring agent: case bundle ready",
+      "status": null,
+      "currentAction": null,
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:43.395Z"
+    },
+    {
+      "id": 1095,
+      "applicantId": "demo",
+      "agentId": "scorer",
+      "type": "status",
+      "message": "Scoring the case",
+      "status": "thinking",
+      "currentAction": "Estimating approval likelihood and RFE risk",
+      "progress": 30,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:44.303Z"
+    },
+    {
+      "id": 1096,
+      "applicantId": "demo",
+      "agentId": "scorer",
+      "type": "verdict",
+      "message": "Readiness 75/100 · RFE risk 53/100",
+      "status": "done",
+      "currentAction": "Readiness 75/100",
+      "progress": 100,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:46.640Z"
+    },
+    {
+      "id": 1097,
+      "applicantId": "demo",
+      "agentId": "pipeline",
+      "type": "status",
+      "message": "Case ready — readiness 75/100, RFE risk 53/100",
+      "status": "done",
+      "currentAction": null,
+      "progress": null,
+      "url": null,
+      "found": null,
+      "createdAt": "2026-11-08T00:43:46.642Z"
+    }
+  ],
+  "findings": [
+    {
+      "claimId": "e40f804e-74da-4743-aec5-0b7d5133eb5b",
+      "status": "corroborated",
+      "foundValue": "Owner & top contributor (61% of commits) · ★ 4,218 · 312 dependents",
+      "identityConfidence": 0.97,
+      "sources": [
+        {
+          "url": "https://github.com/adaokafor/tinyrag",
+          "title": "adaokafor/tinyrag",
+          "excerpt": "4,218 stars · 401 forks"
+        },
+        {
+          "url": "https://github.com/adaokafor/tinyrag/graphs/contributors",
+          "title": "Contributors · adaokafor/tinyrag",
+          "excerpt": "adaokafor — 783 of 1,284 commits"
+        },
+        {
+          "url": "https://github.com/adaokafor/tinyrag/network/dependents",
+          "title": "Dependents · adaokafor/tinyrag",
+          "excerpt": "312 repositories depend on tinyrag"
+        }
+      ],
+      "reasoning": "Repo is owned by the applicant's verified GitHub account, she authored most commits, and adoption is visible independently.",
+      "id": "627a764a-5b3a-4563-850b-35bcdf850878",
+      "createdAt": "2026-11-08T00:43:01.697Z"
+    },
+    {
+      "claimId": "a62f15b1-3c78-47a1-8e21-87fe1767ab99",
+      "status": "corroborated",
+      "foundValue": "Listed on the judges panel, Bay Area AI Hackathon 2026",
+      "identityConfidence": 0.9,
+      "sources": [
+        {
+          "url": "https://bayarea-ai-2026.devpost.com/#judges",
+          "title": "Judges · Bay Area AI Hackathon 2026",
+          "excerpt": "Ada Okafor — Founding Engineer, Lumen Labs"
+        }
+      ],
+      "reasoning": "Judges panel lists her by name and current role. Number of projects reviewed is self-reported.",
+      "id": "f643ccc9-a852-4f6c-bba1-3b66d575a4dc",
+      "createdAt": "2026-11-08T00:43:10.707Z"
+    },
+    {
+      "claimId": "7cfd18ac-2e3f-44e4-a513-e37192edaa6d",
+      "status": "partial",
+      "foundValue": "6 works, 6 citations on OpenAlex (claimed 10) · 2 works under “Ada Nwosu”",
+      "identityConfidence": 0.86,
+      "sources": [
+        {
+          "url": "https://api.openalex.org/works?filter=author.id:A5091827364",
+          "title": "OpenAlex works · Ada Okafor",
+          "excerpt": "4 works, 4 citations"
+        },
+        {
+          "url": "https://api.openalex.org/works?filter=author.id:A5012983746",
+          "title": "OpenAlex works · Ada Nwosu",
+          "excerpt": "2 works, 2 citations"
+        }
+      ],
+      "reasoning": "Papers exist and are hers (former name linked via co-authors). Citation count is lower than claimed; Google Scholar often counts more sources than OpenAlex.",
+      "id": "e974b632-badb-4df3-a4d1-ee0ea116529e",
+      "createdAt": "2026-11-08T00:43:15.175Z"
+    },
+    {
+      "claimId": "cb51bd26-24b2-4836-8949-2d9995921e34",
+      "status": "partial",
+      "foundValue": "Grand Prize confirmed — but only 31 teams entered",
+      "identityConfidence": 0.95,
+      "sources": [
+        {
+          "url": "https://devpost.com/software/tinyrag-live",
+          "title": "tinyrag-live · Devpost",
+          "excerpt": "Winner: Grand Prize"
+        },
+        {
+          "url": "https://bayarea-ai-2025.devpost.com/project-gallery",
+          "title": "Project gallery · Bay Area AI Hackathon 2025",
+          "excerpt": "31 submissions"
+        },
+        {
+          "url": "https://www.baytechreview.com/2025/05/bay-area-ai-hackathon-recap",
+          "title": "Bay Area AI Hackathon recap · Bay Tech Review",
+          "excerpt": "…about 30 teams competed…"
+        }
+      ],
+      "reasoning": "The win is real, but a ~30-team hackathon is unlikely to count as a nationally recognized prize on its own.",
+      "id": "3c44a8f1-4c93-4fe4-b02c-18863f6c0fbf",
+      "createdAt": "2026-11-08T00:43:18.201Z"
+    },
+    {
+      "claimId": "b2b521fd-0081-4cfc-a6cd-b9bbc35c50bb",
+      "status": "corroborated",
+      "foundValue": "Feature article about her work (Sep 2025)",
+      "identityConfidence": 0.96,
+      "sources": [
+        {
+          "url": "https://www.baytechreview.com/2025/09/ada-okafor-retrieval-infrastructure",
+          "title": "The engineer making retrieval cheap · Bay Tech Review",
+          "excerpt": "Okafor, a founding engineer at Lumen Labs, built…"
+        }
+      ],
+      "reasoning": "Independent editorial piece whose main subject is the applicant. Not a press release.",
+      "id": "486a2909-2f17-4fff-81d9-c379bed16e0d",
+      "createdAt": "2026-11-08T00:43:24.185Z"
+    },
+    {
+      "claimId": "1b93a97d-1a2c-4b85-bc7a-c82d2bf5e75f",
+      "status": "corroborated",
+      "foundValue": "Funding story names her as founding engineer and quotes her",
+      "identityConfidence": 0.94,
+      "sources": [
+        {
+          "url": "https://www.sfbusinessdaily.com/2025/03/lumen-labs-raises-8m-seed",
+          "title": "Lumen Labs raises $8M seed · SF Business Daily",
+          "excerpt": "“We cut inference cost by 4×,” said founding engineer Ada Okafor"
+        }
+      ],
+      "reasoning": "Article is about the company (as claimed) and quotes her directly.",
+      "id": "1df4f7b7-2624-4f34-a7a7-9316f9acff41",
+      "createdAt": "2026-11-08T00:43:24.974Z"
+    },
+    {
+      "claimId": "2594cc7b-074b-486b-b244-602ece8e1caf",
+      "status": "contradicted",
+      "foundValue": "Listed as a 2024 finalist, not a Fellow",
+      "identityConfidence": 0.93,
+      "sources": [
+        {
+          "url": "https://www.foundersdigest.com/2024/06/thiel-fellowship-2024-finalists",
+          "title": "2024 Thiel Fellowship finalists · Founders Digest",
+          "excerpt": "Finalists include… Ada Okafor (Lumen Labs)"
+        },
+        {
+          "url": "https://thielfellowship.org/",
+          "title": "Thiel Fellowship",
+          "excerpt": "2024 Fellows roster — applicant not listed"
+        },
+        {
+          "url": "https://www.linkedin.com/in/ada-okafor/details/honors/",
+          "title": "Honors · Ada Okafor · LinkedIn",
+          "excerpt": "Thiel Fellowship Finalist (2024)"
+        }
+      ],
+      "reasoning": "Two independent sources plus her own LinkedIn say finalist; the official roster does not list her as a Fellow.",
+      "id": "316e64bd-8f06-4efb-a596-6d033c51c1ce",
+      "createdAt": "2026-11-08T00:43:33.178Z"
+    },
+    {
+      "claimId": "0bc05f51-321d-4087-bba9-8c44c4cdb8ed",
+      "status": "corroborated",
+      "foundValue": "Founding Engineer at Lumen Labs since Jan 2023; company raised $8M",
+      "identityConfidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.linkedin.com/in/ada-okafor/details/experience/",
+          "title": "Experience · Ada Okafor · LinkedIn",
+          "excerpt": "Founding Engineer · Lumen Labs · Jan 2023 – Present"
+        },
+        {
+          "url": "https://www.sfbusinessdaily.com/2025/03/lumen-labs-raises-8m-seed",
+          "title": "Lumen Labs raises $8M seed · SF Business Daily",
+          "excerpt": "founding engineer Ada Okafor"
+        },
+        {
+          "url": "https://github.com/lumen-labs",
+          "title": "lumen-labs · GitHub",
+          "excerpt": "adaokafor — #2 contributor to inference-gateway"
+        }
+      ],
+      "reasoning": "Title and dates match across LinkedIn and press; GitHub shows substantive engineering work at the org.",
+      "id": "bb9adc70-f091-481f-8b90-26f9e2450010",
+      "createdAt": "2026-11-08T00:43:33.975Z"
+    },
+    {
+      "claimId": "2aeaa553-9bec-4b5c-a133-87e1ecc3f93c",
+      "status": "unverified",
+      "foundValue": "No public salary data (expected) — needs documents",
+      "identityConfidence": 0.9,
+      "sources": [],
+      "reasoning": "Compensation is rarely public. Not a red flag; request an offer letter or W-2.",
+      "id": "09078322-e43e-4b1a-a3b0-6c9d21672321",
+      "createdAt": "2026-11-08T00:43:34.677Z"
+    }
+  ],
+  "discrepancies": [
+    {
+      "claimId": "7cfd18ac-2e3f-44e4-a513-e37192edaa6d",
+      "type": "numerical",
+      "description": "Claimed 10 citations (Google Scholar); OpenAlex shows 6 across 6 works — 2 of them under the former name “Ada Nwosu”.",
+      "question": "We found 6 citations on OpenAlex, including two papers under the name Ada Nwosu — could you share your Google Scholar profile so we can confirm the full count?",
+      "requestedDocument": "Google Scholar profile link",
+      "id": "d174ce65-9ea6-4f6c-b39c-f45d00006bfc",
+      "resolution": "open",
+      "applicantResponse": null,
+      "resolvedAt": null,
+      "createdAt": "2026-11-08T00:43:16.709Z"
+    },
+    {
+      "claimId": "cb51bd26-24b2-4836-8949-2d9995921e34",
+      "type": "criterion_fit",
+      "description": "The Grand Prize is real, but the event had about 31 teams — likely too small to count as a nationally recognized award on its own.",
+      "question": "We confirmed your Grand Prize; was the prize covered by press or judged by recognized experts outside the event?",
+      "requestedDocument": "Press coverage or judging-panel page for the prize",
+      "id": "1035b134-9410-4b31-96cf-dbf119e34df2",
+      "resolution": "open",
+      "applicantResponse": null,
+      "resolvedAt": null,
+      "createdAt": "2026-11-08T00:43:19.693Z"
+    },
+    {
+      "claimId": "2594cc7b-074b-486b-b244-602ece8e1caf",
+      "type": "evidence",
+      "description": "Claimed Thiel Fellow (2024); two sources and her LinkedIn list her as a 2024 finalist, and she is not on the official Fellows roster.",
+      "question": "We found you listed as a 2024 Thiel Fellowship finalist rather than a Fellow — which best describes your status?",
+      "requestedDocument": "Fellowship acceptance letter, if you were admitted as a Fellow",
+      "id": "1b6d2957-f841-40ac-a283-5f74a820d4d5",
+      "resolution": "open",
+      "applicantResponse": null,
+      "resolvedAt": null,
+      "createdAt": "2026-11-08T00:43:36.088Z"
+    },
+    {
+      "claimId": "2aeaa553-9bec-4b5c-a133-87e1ecc3f93c",
+      "type": "insufficient_proof",
+      "description": "Claimed $210,000 USD (2025). Salary isn't public — that's expected — so we need a document.",
+      "question": "Could you upload a document showing your 2025 compensation, such as an offer letter or W-2?",
+      "requestedDocument": "Offer letter or W-2 (upload in the app, not over voice)",
+      "id": "c3853660-95a7-4875-8e83-b5fccabd5ae4",
+      "resolution": "open",
+      "applicantResponse": null,
+      "resolvedAt": null,
+      "createdAt": "2026-11-08T00:43:37.290Z"
+    }
+  ],
+  "cases": [
+    {
+      "id": "d6e776d6-9328-4fca-99e2-79960c1dbb73",
+      "applicantId": "demo",
+      "caseJson": {
+        "applicantId": "demo",
+        "summary": "Ada Okafor meets 4 of the 8 O-1A criteria on evidence corroborated online (9 exhibits), led by original contributions. 4 open questions stay out of the case until resolved.",
+        "criteriaArgued": [
+          {
+            "criterion": "contributions",
+            "strength": "strong",
+            "argument": "The applicant has made original contributions of major significance to the field: Created tinyrag, an open-source retrieval library (4.2k ★).",
+            "exhibits": [
+              {
+                "label": "adaokafor/tinyrag",
+                "url": "https://github.com/adaokafor/tinyrag",
+                "status": "corroborated"
+              },
+              {
+                "label": "Contributors · adaokafor/tinyrag",
+                "url": "https://github.com/adaokafor/tinyrag/graphs/contributors",
+                "status": "corroborated"
+              },
+              {
+                "label": "Dependents · adaokafor/tinyrag",
+                "url": "https://github.com/adaokafor/tinyrag/network/dependents",
+                "status": "corroborated"
+              }
+            ],
+            "weaknesses": [
+              "Show significance beyond usage metrics with letters from organisations that depend on the work."
+            ]
+          },
+          {
+            "criterion": "critical_role",
+            "strength": "strong",
+            "argument": "The applicant has been employed in a critical or essential capacity for an organization with a distinguished reputation: Founding Engineer, Lumen Labs (Jan 2023 – present).",
+            "exhibits": [
+              {
+                "label": "Experience · Ada Okafor · LinkedIn",
+                "url": "https://www.linkedin.com/in/ada-okafor/details/experience/",
+                "status": "corroborated"
+              },
+              {
+                "label": "Lumen Labs raises $8M seed · SF Business Daily",
+                "url": "https://www.sfbusinessdaily.com/2025/03/lumen-labs-raises-8m-seed",
+                "status": "corroborated"
+              },
+              {
+                "label": "lumen-labs · GitHub",
+                "url": "https://github.com/lumen-labs",
+                "status": "corroborated"
+              }
+            ],
+            "weaknesses": [
+              "Show the organisation's distinguished reputation (investors, press, rankings), not just the title."
+            ]
+          },
+          {
+            "criterion": "press",
+            "strength": "strong",
+            "argument": "Published material in professional or major media is about the applicant and the applicant's work: Bay Tech Review — “The engineer making retrieval cheap” (Sep 2025); SF Business Daily — Lumen Labs $8M seed round (Mar 2025).",
+            "exhibits": [
+              {
+                "label": "The engineer making retrieval cheap · Bay Tech Review",
+                "url": "https://www.baytechreview.com/2025/09/ada-okafor-retrieval-infrastructure",
+                "status": "corroborated"
+              },
+              {
+                "label": "Lumen Labs raises $8M seed · SF Business Daily",
+                "url": "https://www.sfbusinessdaily.com/2025/03/lumen-labs-raises-8m-seed",
+                "status": "corroborated"
+              }
+            ],
+            "weaknesses": [
+              "Lead with coverage about the applicant personally; company-focused pieces are supporting evidence."
+            ]
+          },
+          {
+            "criterion": "judging",
+            "strength": "moderate",
+            "argument": "The applicant has participated as a judge of the work of others in the field: Judge, Bay Area AI Hackathon 2026 — 12 projects reviewed.",
+            "exhibits": [
+              {
+                "label": "Judges · Bay Area AI Hackathon 2026",
+                "url": "https://bayarea-ai-2026.devpost.com/#judges",
+                "status": "corroborated"
+              }
+            ],
+            "weaknesses": [
+              "One judging engagement is thin on its own — add the invitation and any other review work."
+            ]
+          }
+        ],
+        "criteriaNotArgued": [
+          {
+            "criterion": "awards",
+            "reason": "Only partially verified — grand Prize confirmed — but only 31 teams entered. A follow-up question is open."
+          },
+          {
+            "criterion": "membership",
+            "reason": "Contradicted by sources — listed as a 2024 finalist, not a Fellow. A follow-up question is open."
+          },
+          {
+            "criterion": "scholarly",
+            "reason": "Only partially verified — 6 works, 6 citations on OpenAlex (claimed 10) · 2 works under “Ada Nwosu”. A follow-up question is open."
+          },
+          {
+            "criterion": "remuneration",
+            "reason": "No public evidence yet — no public salary data (expected) — needs documents. A follow-up question is open."
+          }
+        ],
+        "unresolvedIssues": [
+          "Membership: Claimed Thiel Fellow (2024); two sources and her LinkedIn list her as a 2024 finalist, and she is not on the official Fellows roster.",
+          "High remuneration: Claimed $210,000 USD (2025). Salary isn't public — that's expected — so we need a document.",
+          "Scholarly articles: Claimed 10 citations (Google Scholar); OpenAlex shows 6 across 6 works — 2 of them under the former name “Ada Nwosu”.",
+          "Awards: The Grand Prize is real, but the event had about 31 teams — likely too small to count as a nationally recognized award on its own."
+        ],
+        "suggestedLetterWriters": [
+          {
+            "role": "Engineering lead at an organisation that relies on the applicant's work",
+            "reason": "Independent view of the contribution's significance from outside the employer."
+          },
+          {
+            "role": "Co-founder or lead investor at the applicant's company",
+            "reason": "Can attest to the applicant's essential role and the company's standing."
+          },
+          {
+            "role": "Senior practitioner who knows the covered work",
+            "reason": "Can put the coverage in the context of the field."
+          },
+          {
+            "role": "Organiser who selected the applicant as a judge",
+            "reason": "Confirms the invitation was based on expertise."
+          }
+        ],
+        "evidenceStats": {
+          "totalClaims": 9,
+          "corroborated": 5,
+          "substantiated": 0,
+          "unverified": 1,
+          "contradicted": 1
+        }
+      },
+      "markdown": "# O-1A case dossier — Ada Okafor\n\nAda Okafor meets 4 of the 8 O-1A criteria on evidence corroborated online (9 exhibits), led by original contributions. 4 open questions stay out of the case until resolved.\n\n## Criteria argued\n\n### Original contributions — strong\n\nThe applicant has made original contributions of major significance to the field: Created tinyrag, an open-source retrieval library (4.2k ★).\n\n**Exhibits**\n\n1. [adaokafor/tinyrag](https://github.com/adaokafor/tinyrag) — corroborated\n2. [Contributors · adaokafor/tinyrag](https://github.com/adaokafor/tinyrag/graphs/contributors) — corroborated\n3. [Dependents · adaokafor/tinyrag](https://github.com/adaokafor/tinyrag/network/dependents) — corroborated\n\n**Weaknesses**\n\n- Show significance beyond usage metrics with letters from organisations that depend on the work.\n\n### Critical role — strong\n\nThe applicant has been employed in a critical or essential capacity for an organization with a distinguished reputation: Founding Engineer, Lumen Labs (Jan 2023 – present).\n\n**Exhibits**\n\n1. [Experience · Ada Okafor · LinkedIn](https://www.linkedin.com/in/ada-okafor/details/experience/) — corroborated\n2. [Lumen Labs raises $8M seed · SF Business Daily](https://www.sfbusinessdaily.com/2025/03/lumen-labs-raises-8m-seed) — corroborated\n3. [lumen-labs · GitHub](https://github.com/lumen-labs) — corroborated\n\n**Weaknesses**\n\n- Show the organisation's distinguished reputation (investors, press, rankings), not just the title.\n\n### Published material (press) — strong\n\nPublished material in professional or major media is about the applicant and the applicant's work: Bay Tech Review — “The engineer making retrieval cheap” (Sep 2025); SF Business Daily — Lumen Labs $8M seed round (Mar 2025).\n\n**Exhibits**\n\n1. [The engineer making retrieval cheap · Bay Tech Review](https://www.baytechreview.com/2025/09/ada-okafor-retrieval-infrastructure) — corroborated\n2. [Lumen Labs raises $8M seed · SF Business Daily](https://www.sfbusinessdaily.com/2025/03/lumen-labs-raises-8m-seed) — corroborated\n\n**Weaknesses**\n\n- Lead with coverage about the applicant personally; company-focused pieces are supporting evidence.\n\n### Judging — moderate\n\nThe applicant has participated as a judge of the work of others in the field: Judge, Bay Area AI Hackathon 2026 — 12 projects reviewed.\n\n**Exhibits**\n\n1. [Judges · Bay Area AI Hackathon 2026](https://bayarea-ai-2026.devpost.com/#judges) — corroborated\n\n**Weaknesses**\n\n- One judging engagement is thin on its own — add the invitation and any other review work.\n\n## Not argued\n\n- **Awards:** Only partially verified — grand Prize confirmed — but only 31 teams entered. A follow-up question is open.\n- **Membership:** Contradicted by sources — listed as a 2024 finalist, not a Fellow. A follow-up question is open.\n- **Scholarly articles:** Only partially verified — 6 works, 6 citations on OpenAlex (claimed 10) · 2 works under “Ada Nwosu”. A follow-up question is open.\n- **High remuneration:** No public evidence yet — no public salary data (expected) — needs documents. A follow-up question is open.\n\n## Unresolved issues\n\n- Membership: Claimed Thiel Fellow (2024); two sources and her LinkedIn list her as a 2024 finalist, and she is not on the official Fellows roster.\n- High remuneration: Claimed $210,000 USD (2025). Salary isn't public — that's expected — so we need a document.\n- Scholarly articles: Claimed 10 citations (Google Scholar); OpenAlex shows 6 across 6 works — 2 of them under the former name “Ada Nwosu”.\n- Awards: The Grand Prize is real, but the event had about 31 teams — likely too small to count as a nationally recognized award on its own.\n\n## Suggested letter writers\n\n- **Engineering lead at an organisation that relies on the applicant's work** — Independent view of the contribution's significance from outside the employer.\n- **Co-founder or lead investor at the applicant's company** — Can attest to the applicant's essential role and the company's standing.\n- **Senior practitioner who knows the covered work** — Can put the coverage in the context of the field.\n- **Organiser who selected the applicant as a judge** — Confirms the invitation was based on expertise.\n\n## Evidence\n\n9 claims · 5 corroborated · 0 substantiated · 1 unverified · 1 contradicted",
+      "createdAt": "2026-11-08T00:43:43.389Z"
+    }
+  ],
+  "scores": [
+    {
+      "approvalLikelihood": 75,
+      "rfeRisk": 53,
+      "reasoning": "4 criteria argued (3 strong, 1 moderate), so the three-criterion minimum is met. The case rests on original contributions, critical role, published material (press). RFE risk comes from 4 open follow-up questions, 1 contradicted claim, thin evidence for judging. Resolving the open questions should lower the risk.",
+      "id": "33e1a571-5875-498b-babf-6fd965e21368",
+      "caseId": "d6e776d6-9328-4fca-99e2-79960c1dbb73",
+      "createdAt": "2026-11-08T00:43:46.620Z"
+    }
+  ]
+}

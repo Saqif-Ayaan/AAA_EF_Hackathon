@@ -1,0 +1,136 @@
+import { CRITERIA, type FindingRecord } from "@/lib/schemas";
+import type { WarRoomClaim } from "@/lib/war-room";
+import type { AgentView } from "./derive";
+import { CRITERION_LABEL, LEDGER_STYLE, alpha, splitUrl, type LedgerStatus } from "./meta";
+import { StatusPill } from "./status-pill";
+import styles from "./styles";
+import { Label, SectionTitle } from "./ui";
+
+const FRESH_MS = 3000;
+const LEGEND: LedgerStatus[] = ["corroborated", "partial", "unverified", "contradicted"];
+
+export function EvidenceLedger({
+  claims,
+  findings,
+  researchStarted,
+  reconciler,
+  now,
+}: {
+  claims: WarRoomClaim[];
+  findings: FindingRecord[];
+  researchStarted: boolean;
+  reconciler: AgentView;
+  now: number;
+}) {
+  const byClaim = new Map(findings.map((f) => [f.claimId, f]));
+  const statusOf = (c: WarRoomClaim): LedgerStatus =>
+    byClaim.get(c.id)?.status ?? (researchStarted ? "pending" : "queued");
+
+  const counts = new Map<LedgerStatus, number>();
+  for (const c of claims) counts.set(statusOf(c), (counts.get(statusOf(c)) ?? 0) + 1);
+
+  return (
+    <section id="ledger" aria-labelledby="ledger-title" className={`${styles.panel} min-w-0 scroll-mt-24 p-6 lg:p-8`}>
+      <SectionTitle
+        id="ledger-title"
+        title="Evidence ledger"
+        sub={`${byClaim.size} of ${claims.length} claims checked`}
+        right={
+          <div className="flex items-center gap-3">
+            <Label>Reconciler</Label>
+            <StatusPill status={reconciler.status} />
+          </div>
+        }
+      />
+
+      <ul className="mb-4 flex flex-wrap gap-x-6 gap-y-2 text-lg" aria-label="Verdict counts">
+        {LEGEND.map((s) => (
+          <li key={s} className="flex items-center gap-2">
+            <span className="size-3 rounded-full" style={{ backgroundColor: LEDGER_STYLE[s].color }} aria-hidden />
+            <span className="font-semibold tabular-nums" style={{ color: LEDGER_STYLE[s].text }}>
+              {counts.get(s) ?? 0}
+            </span>
+            <span className="text-[color:var(--muted)]">{LEDGER_STYLE[s].label.toLowerCase()}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div className="divide-y divide-[color:var(--line)] border-t border-[color:var(--line)]">
+        {CRITERIA.map((criterion) => {
+          const rows = claims.filter((c) => c.criterion === criterion);
+          return (
+            <div key={criterion} className="grid grid-cols-1 gap-x-6 gap-y-2 py-3 md:grid-cols-[12rem_minmax(0,1fr)]">
+              <h3 className={`pt-2 text-xl font-semibold ${rows.length ? "" : "text-[color:var(--dim)]"}`}>
+                {CRITERION_LABEL[criterion]}
+              </h3>
+              <div className="space-y-2">
+                {rows.length === 0 ? (
+                  <p className="pt-2 text-lg text-[color:var(--dim)]">Not claimed</p>
+                ) : (
+                  rows.map((c) => (
+                    // Keyed by finding id too, so a new verdict remounts the row and fades it in.
+                    <ClaimRow
+                      key={`${c.id}:${byClaim.get(c.id)?.id ?? "pending"}`}
+                      claim={c}
+                      status={statusOf(c)}
+                      finding={byClaim.get(c.id)}
+                      now={now}
+                    />
+                  ))
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function ClaimRow({
+  claim,
+  status,
+  finding,
+  now,
+}: {
+  claim: WarRoomClaim;
+  status: LedgerStatus;
+  finding: FindingRecord | undefined;
+  now: number;
+}) {
+  const s = LEDGER_STYLE[status];
+  const fresh = finding !== undefined && now - Date.parse(finding.createdAt) < FRESH_MS;
+  const hosts = [...new Set((finding?.sources ?? []).map((src) => src.url))];
+
+  return (
+    <div
+      className={`rounded-lg border-l-4 px-4 py-2.5 ${fresh ? styles.enter : ""}`}
+      style={{ borderLeftColor: s.color, backgroundColor: alpha(s.color, status === "queued" ? 4 : 8) }}
+    >
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span className="shrink-0 text-base font-bold" style={{ color: s.text }}>
+          {s.label}
+          {status === "pending" && <span className="motion-safe:animate-pulse">…</span>}
+        </span>
+        <p className="min-w-0 flex-1 text-xl leading-snug font-medium">{claim.summary}</p>
+      </div>
+      {finding?.foundValue && <p className="mt-1 text-lg leading-snug text-[color:var(--muted)]">{finding.foundValue}</p>}
+      {hosts.length > 0 && (
+        <p className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+          {hosts.map((url) => (
+            <a
+              key={url}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={url}
+              className={`${styles.mono} text-sm text-[color:var(--accent)] hover:underline`}
+            >
+              {splitUrl(url).host} ↗
+            </a>
+          ))}
+        </p>
+      )}
+    </div>
+  );
+}
