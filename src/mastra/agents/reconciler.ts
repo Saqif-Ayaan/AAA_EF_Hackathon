@@ -22,6 +22,7 @@ For each claim, decide the status:
 Rules:
 - Use only the sources the agents reported. Copy their URLs exactly; never invent URLs. Every status except unverified needs at least one source.
 - Identity: evidence an agent could not tie to this applicant (identityConfidence below 0.5, or an account/record found only by searching a shared name) counts in NEITHER direction — it must not corroborate the claim, and it must not weaken it (e.g. "0 commits from an account" that may be someone else's). Don't mention it in foundValue; at most note the identity uncertainty in reasoning. Name variants and former names in the identity are the same person.
+- DOI exception: if the applicant listed a paper's DOI on the form and a source agent found that exact DOI (or title) with an author matching the applicant's name or a former name, treat authorship of THAT paper as corroborated despite an unconfirmed author record. This applies only to the listed papers: never credit the record's other works or its total citation count to the applicant unless something else ties the record to them. Mention any affiliation mismatch in reasoning.
 - When agents disagree, prefer the more authoritative source (official announcement > news article > self-reported profile) and explain it.
 - foundValue: a short, factual statement of what the evidence shows (e.g. "OpenAlex: 5 citations across 3 papers"), or null.
 - identityConfidence: your overall confidence (0–1) that the evidence is about this applicant.
