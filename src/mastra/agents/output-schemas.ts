@@ -56,11 +56,22 @@ export const ReconcilerModelOutput = z.object({
   ),
 });
 
+const IMPACT_LEVELS = ["high", "medium", "low"] as const;
+
 export const QuestionerModelOutput = z.object({
-  type: DiscrepancyTypeSchema,
-  description: z.string().describe('What we found vs. what was claimed, e.g. "Claimed 10 citations; OpenAlex shows 5"'),
-  question: z.string().describe("One neutral, specific question the applicant can answer in a sentence"),
-  requestedDocument: z.string().nullable().describe("The document that would resolve it, or null"),
+  discrepancies: z
+    .array(
+      z.object({
+        claimId: z.string().describe("The finding's claimId, copied exactly"),
+        type: DiscrepancyTypeSchema,
+        description: z.string().describe('What we found vs. what was claimed, e.g. "Claimed 10 citations; OpenAlex shows 5"'),
+        question: z.string().describe("One neutral, specific question the applicant can answer in a sentence"),
+        requestedDocument: z.string().nullable().describe("The document that would resolve it, or null"),
+        impact: z.enum(IMPACT_LEVELS).describe("Impact on the O-1A case"),
+        impactReason: z.string().describe("One short sentence: why this matters (or doesn't) for the case"),
+      }),
+    )
+    .describe("One entry per finding, most impactful first"),
 });
 
 const clamp01 = (n: number) => (Number.isFinite(n) ? Math.min(1, Math.max(0, n)) : 0);
@@ -123,7 +134,37 @@ export function toFindings(raw: z.infer<typeof ReconcilerModelOutput> | undefine
   );
 }
 
-/** The questioner's answer for one finding → a valid QuestionerOutput. */
-export function toDiscrepancy(raw: z.infer<typeof QuestionerModelOutput>, claimId: string): QuestionerOutput {
-  return QuestionerOutputSchema.parse({ ...raw, claimId, requestedDocument: raw.requestedDocument?.trim() || null });
+export type RankedIssue = z.infer<typeof QuestionerModelOutput>["discrepancies"][number];
+
+/**
+ * The questioner's ranked answer → the top `maxQuestions` as discrepancies to
+ * ask, and the rest as notes. Ordered by impact level, keeping the model's
+ * order within a level; unknown or repeated claim ids are dropped.
+ */
+export function rankDiscrepancies(
+  raw: z.infer<typeof QuestionerModelOutput> | undefined,
+  openClaimIds: string[],
+  maxQuestions: number,
+): { questions: QuestionerOutput[]; askedIssues: RankedIssue[]; notes: RankedIssue[] } {
+  const seen = new Set<string>();
+  const issues = (raw?.discrepancies ?? []).filter((d) => {
+    if (!openClaimIds.includes(d.claimId) || seen.has(d.claimId)) return false;
+    seen.add(d.claimId);
+    return true;
+  });
+  issues.sort((a, b) => IMPACT_LEVELS.indexOf(a.impact) - IMPACT_LEVELS.indexOf(b.impact)); // stable sort
+  const askedIssues = issues.slice(0, maxQuestions);
+  return {
+    askedIssues,
+    questions: askedIssues.map((d) =>
+      QuestionerOutputSchema.parse({
+        claimId: d.claimId,
+        type: d.type,
+        description: d.description,
+        question: d.question,
+        requestedDocument: d.requestedDocument?.trim() || null,
+      }),
+    ),
+    notes: issues.slice(maxQuestions),
+  };
 }

@@ -33,14 +33,15 @@ import {
   QuestionerModelOutput,
   ReconcilerModelOutput,
   SourceAgentModelOutput,
-  toDiscrepancy,
+  rankDiscrepancies,
   toFindings,
   toSourceFindings,
 } from "../agents/output-schemas";
 import { eventLogger, toolEventHooks } from "../events";
 
 const SOURCE_MAX_STEPS = 14;
-const QUESTIONER_CONCURRENCY = 4;
+/** Only the most impactful discrepancies become questions; the rest are kept as notes on their findings. */
+const MAX_QUESTIONS = 4;
 const CV_EXCERPT_CHARS = 4_000;
 
 const truncate = (s: string, n = 140) => (s.length > n ? `${s.slice(0, n - 1)}…` : s);
@@ -88,28 +89,24 @@ ${failedAgents.length ? `\nThese agents failed, so their sources are missing (tr
 Return exactly one finding for each of these claim ids: ${claims.map((c) => c.id).join(", ")}`;
 }
 
-function questionerPrompt(applicant: Applicant, claim: Claim, finding: Finding) {
+function questionerPrompt(applicant: Applicant, claims: Claim[], allFindings: Finding[], open: Finding[]) {
+  const criteriaStatus = claims.map((c) => ({
+    criterion: c.criterion,
+    summary: c.summary,
+    status: allFindings.find((f) => f.claimId === c.id)?.status ?? "unverified",
+  }));
   return `Applicant: ${applicant.name}${applicant.alternateNames.length ? ` (also known as ${applicant.alternateNames.join(", ")})` : ""}
 
-Claim (${claim.criterion}):
-${json(claimForPrompt(claim))}
+The whole case at a glance (every claim and its verification status):
+${json(criteriaStatus)}
 
-Verification finding:
-${json(finding)}`;
-}
-
-/** Run `fn` over `items` with at most `limit` in flight. */
-async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T, index: number) => Promise<R>): Promise<R[]> {
-  const results = new Array<R>(items.length);
-  let next = 0;
-  const worker = async () => {
-    while (next < items.length) {
-      const i = next++;
-      results[i] = await fn(items[i], i);
-    }
-  };
-  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
-  return results;
+Findings that need follow-up (draft one discrepancy for each, then rank by impact):
+${json(
+  open.map((f) => {
+    const claim = claims.find((c) => c.id === f.claimId)!;
+    return { claim: claimForPrompt(claim), finding: f };
+  }),
+)}`;
 }
 
 // ─── Steps ───────────────────────────────────────────────────────────────────
@@ -276,57 +273,61 @@ const QuestionsSchema = z.object({ findings: z.array(FindingSchema), discrepanci
 
 const questionsStep = createStep({
   id: "generate-questions",
-  description: "Create a discrepancy with one neutral question for every finding that isn't corroborated",
+  description: `Rank the issues behind findings that aren't corroborated by impact on the case; ask the top ${MAX_QUESTIONS}, keep the rest as notes`,
   inputSchema: FindingsSchema,
   outputSchema: QuestionsSchema,
   execute: async ({ inputData, getStepResultAsync, mastra, abortSignal }) => {
     const { applicant, claims } = await getStepResultAsync(loadStep);
     const open = inputData.findings.filter((f) => f.status !== "corroborated");
     const log = eventLogger(applicant.id, "questioner");
+    const criterionOf = (claimId: string) => claims.find((c) => c.id === claimId)?.criterion ?? "claim";
 
     await eventLogger(applicant.id, "pipeline")("handoff", `Reconciler → questioner: ${open.length} finding(s) need follow-up`);
-    await log("status", `Drafting questions for ${open.length} finding(s)`, {
-      status: open.length ? "thinking" : "done",
-      progress: open.length ? 10 : 100,
-      currentAction: open.length ? "Classifying discrepancies" : "Nothing to ask",
+    if (open.length === 0) {
+      await log("status", "Nothing to ask: every claim is corroborated", { status: "done", progress: 100, currentAction: "Done" });
+      return { findings: inputData.findings, discrepancies: [] };
+    }
+    await log("status", `Ranking ${open.length} issue(s) by impact on the case`, {
+      status: "thinking",
+      progress: 10,
+      currentAction: "Classifying and ranking discrepancies",
     });
 
-    let completed = 0;
-    const drafted = await mapLimit(open, QUESTIONER_CONCURRENCY, async (finding) => {
-      const claim = claims.find((c) => c.id === finding.claimId)!;
-      try {
-        const result = await mastra.getAgent("questioner").generate(questionerPrompt(applicant, claim, finding), {
-          structuredOutput: { schema: QuestionerModelOutput },
-          abortSignal,
-          modelSettings: { maxOutputTokens: 8_000 },
+    try {
+      const result = await mastra.getAgent("questioner").generate(questionerPrompt(applicant, claims, inputData.findings, open), {
+        structuredOutput: { schema: QuestionerModelOutput },
+        abortSignal,
+        modelSettings: { maxOutputTokens: 16_000 },
+      });
+      const { questions, askedIssues, notes } = rankDiscrepancies(result.object, open.map((f) => f.claimId), MAX_QUESTIONS);
+
+      for (const [i, q] of questions.entries()) {
+        await log("message", `Q${i + 1} · ${criterionOf(q.claimId)} (${q.type}, ${askedIssues[i].impact} impact): ${q.question}`, {
+          found: truncate(q.description),
+          progress: 90,
+          currentAction: `Question ${i + 1} of ${questions.length}`,
         });
-        const discrepancy = toDiscrepancy(result.object, claim.id);
-        completed++;
-        await log("message", `${claim.criterion} (${discrepancy.type}): ${discrepancy.question}`, {
-          found: truncate(discrepancy.description),
-          progress: 10 + (80 * completed) / open.length,
-          currentAction: `Question ${completed} of ${open.length}`,
-        });
-        return discrepancy;
-      } catch (err) {
-        completed++;
-        await log("status", `Couldn't draft a question for ${claim.criterion}: ${truncate(errorMessage(err), 200)}`, {
-          status: "error",
-          progress: 10 + (80 * completed) / open.length,
-        });
-        return null;
       }
-    });
-    const discrepancies = drafted.filter((d) => d !== null);
-    if (open.length) {
-      await log("status", `Done: ${discrepancies.length} question(s)`, {
+
+      // Lower-impact issues become notes on their findings instead of questions.
+      const noteByClaim = new Map(notes.map((n) => [n.claimId, n]));
+      const findings = inputData.findings.map((f) => {
+        const note = noteByClaim.get(f.claimId);
+        return note ? { ...f, reasoning: `${f.reasoning} Note (${note.impact} impact, not asked): ${note.description}` } : f;
+      });
+      const kept = notes.length ? `; ${notes.length} kept as notes (${notes.map((n) => criterionOf(n.claimId)).join(", ")})` : "";
+      await log("status", `Done: ${questions.length} question(s)${kept}`, {
         status: "done",
         progress: 100,
         currentAction: "Done",
-        found: `${discrepancies.length} question(s)`,
+        found: `${questions.length} question(s)${kept}`,
       });
+      return { findings, discrepancies: questions };
+    } catch (err) {
+      // Keep the run's findings even if questions can't be drafted.
+      await log("status", `Failed to draft questions: ${truncate(errorMessage(err), 300)}`, { status: "error", progress: 100 });
+      return { findings: inputData.findings, discrepancies: [] };
     }
-    return { findings: inputData.findings, discrepancies };
   },
 });
 

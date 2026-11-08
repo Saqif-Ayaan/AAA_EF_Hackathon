@@ -102,9 +102,9 @@ async function main() {
     for (const s of f.sources) console.log(`  source:   ${s.url}${s.title ? `  (${s.title})` : ""}`);
   }
 
-  console.log(`\n${"═".repeat(80)}\nDISCREPANCIES (${discrepancies.length})\n${"═".repeat(80)}`);
-  for (const d of discrepancies) {
-    console.log(`\n[${d.type}] ${label(d.claimId)}`);
+  console.log(`\n${"═".repeat(80)}\nQUESTIONS (${discrepancies.length}, most impactful first)\n${"═".repeat(80)}`);
+  for (const [i, d] of discrepancies.entries()) {
+    console.log(`\nQ${i + 1} [${d.type}] ${label(d.claimId)}`);
     console.log(`  ${d.description}`);
     console.log(`  Q: ${d.question}`);
     if (d.requestedDocument) console.log(`  Requested document: ${d.requestedDocument}`);
@@ -112,7 +112,7 @@ async function main() {
 
   const counts = findings.reduce<Record<string, number>>((acc, f) => ({ ...acc, [f.status]: (acc[f.status] ?? 0) + 1 }), {});
   console.log(
-    `\n✓ Done in ${secs}s — ${Object.entries(counts).map(([s, n]) => `${n} ${s}`).join(", ")}; ${discrepancies.length} open question(s). Saved to the database.`,
+    `\n✓ Done in ${secs}s — ${Object.entries(counts).map(([s, n]) => `${n} ${s}`).join(", ")}; ${discrepancies.length} open question(s), lower-impact issues kept as notes on their findings. Saved to the database.`,
   );
 }
 

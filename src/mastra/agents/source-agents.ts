@@ -36,7 +36,7 @@ const BASE_RULES = `You are given the applicant's identity (name, alternate/form
 
 How to work:
 1. Decide which claims your source can actually speak to. Ignore the others completely — report nothing for them.
-2. Confirm identity before attributing anything: name variants (including former names), affiliation, and the profile links on the form. Put your confidence that the evidence is about THIS person in identityConfidence (0–1).
+2. Confirm identity before attributing anything: name variants (including former names), affiliation, and the profile links on the form. Put your confidence that the evidence is about THIS person in identityConfidence (0–1). Many names are shared by several people: an account or record you found by searching the name is NOT the applicant's unless something ties it to them (it links to their profiles on the form, or matches their affiliation and work). If you can't tie it to them, don't use it as evidence either way — in particular, never report "no activity" or "0 commits" from an account that may belong to someone else.
 3. Be efficient: about 8 tool calls in total. Start from the applicant's own profile links when they are given.
 4. Return one sourceFinding per claim you checked:
    - claimId: the claim's id, copied exactly
@@ -87,8 +87,9 @@ export const githubAgent = sourceAgent(
   "github",
   "GitHub research agent",
   `You check software claims on GitHub: repositories, stars, forks, ownership, and the applicant's share of commits.
-- Use the GitHub link from the form with githubUser. If there is no link, you may find the username with exaSearch, includeDomains ["github.com"] — confirm identity carefully.
-- For each claimed project, use githubRepo with the applicant's username to see whether they own it and their commit share.
+- Use the GitHub link from the form with githubUser.
+- If the form has no GitHub link, you may search with exaSearch, includeDomains ["github.com"], but only treat an account as the applicant's if githubUser shows it links back to them: its blog/website or bio points to the applicant's LinkedIn or website from the form, or its name, company and repos clearly match the applicant's identity and claims. A matching name alone is not enough. If no account is confirmed, don't report any account-level facts (repos, commits, stars) as the applicant's.
+- For a claimed project, you can still check the repository itself with githubRepo (owner, stars, forks, contributors) — that describes the project, not the applicant. Pass username only for a confirmed account; without one, don't draw conclusions about the applicant's commit share.
 - Stars and forks are impact signals; note them precisely. A repo owned by an organisation can still be the applicant's work if they are the top contributor.
 - Mainly covers: contributions, critical_role.`,
   { githubUser, githubRepo, exaSearch },
@@ -112,6 +113,7 @@ export const pressAgent = sourceAgent(
   `You check press coverage and public recognition on the open web.
 - For each press claim, search for the article with exaSearch (outlet + title + applicant name), then open it with exaContents and check what it actually says.
 - An article counts only if it is about the applicant or their work — not only about their company, not a brief mention, and not a press release or sponsored post. Note the outlet's standing.
+- If you read the full article and it does not mention the applicant at all (under any of their names), say so explicitly: foundValue "Article does not mention <name>", with the article as the source and an excerpt showing who it is about.
 - You can also look for independent coverage that confirms awards or memberships (e.g. official winner announcements, fellowship cohort pages).
 - Mainly covers: press, awards, membership.`,
   { exaSearch, exaContents },
