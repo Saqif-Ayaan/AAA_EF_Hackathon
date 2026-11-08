@@ -90,7 +90,7 @@ Open the pages you rely on with exaContents and quote the supporting sentence in
   },
   linkedin: {
     role: `You measure career context from LinkedIn (checks: org_reputation context, and role dates for critical-role hypotheses).
-- Call apifyLinkedIn once. Report the role's exact title and dates, team or organisation size, and anything showing the organisation's standing.
+- Call apifyLinkedIn once, with fullName exactly as the applicant's name and company exactly as their current organisation from the identity, plus the LinkedIn link if there is one (results are cached and shared under exactly those values). Report the role's exact title and dates, team or organisation size, and anything showing the organisation's standing.
 - LinkedIn is self-reported, so it can show dates and titles but is not independent evidence of distinction. Say so in the note.`,
     tools: {},
   },

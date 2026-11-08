@@ -185,20 +185,28 @@ ${extraContext ? `\n${extraContext}\n` : ""}`;
 
 /** The `wages` investigator: code only. Benchmarks the claimed salary against OFLC Level 4. */
 function measureWages(applicant: Applicant, claims: Claim[], a: Assignment): Measurement[] {
+  // The salary evidence: this hypothesis's claim if it is about pay, else the applicant's pay claim.
+  // Form entries use annualCompensation; sceptic (RAG) evidence uses total.
+  const claim = claims.find((c) => c.id === a.qh.hypothesis.claimId);
+  const payClaim = claim?.criterion === "remuneration" ? claim : claims.find((c) => c.criterion === "remuneration");
+  const pay = (payClaim?.payload ?? {}) as Record<string, unknown>;
+  const num = (v: unknown) => (typeof v === "number" && v > 0 ? v : null);
+  const text = (v: unknown) => (typeof v === "string" && v.trim() ? v.trim() : null);
+  const currency = text(pay.currency);
+
   return a.checks.map((check) => {
-    const claim = claims.find((c) => c.id === a.qh.hypothesis.claimId);
-    const fromClaim = claim?.criterion === "remuneration" ? claim.payload : null;
     const [title, location, amount] = check.target.split("|").map((s) => s.trim());
-    const salary = fromClaim?.annualCompensation ?? (Number(String(amount ?? "").replace(/[^\d.]/g, "")) || null);
+    // Prefer the evidence's own figures over the target the drafter wrote.
+    const salary = num(pay.annualCompensation) ?? num(pay.total) ?? (Number(String(amount ?? "").replace(/[^\d.]/g, "")) || null);
     const result = benchmarkSalary({
-      jobTitle: fromClaim?.jobTitle || title || applicant.currentRole,
-      location: fromClaim?.location || location || null,
+      jobTitle: text(pay.jobTitle) || title || applicant.currentRole,
+      location: text(pay.location) || location || null,
       salary,
     });
     const base = { hypothesisId: a.qh.hypothesis.hypothesisId, checkId: check.checkId, agentId: "wages" as const, metric: check.metric, identityConfidence: 1 };
     if ("error" in result) return { ...base, value: null, benchmark: null, sources: [], note: `Couldn't benchmark: ${result.error}.` };
-    if (fromClaim && fromClaim.currency.toUpperCase() !== "USD") {
-      return { ...base, value: null, benchmark: null, sources: [], note: `Salary is in ${fromClaim.currency}; the OFLC table is in USD, so it wasn't compared.` };
+    if (currency && currency.toUpperCase() !== "USD") {
+      return { ...base, value: null, benchmark: null, sources: [], note: `Salary is in ${currency}; the OFLC table is in USD, so it wasn't compared.` };
     }
     const { levels } = result;
     const fmt = (n: number) => `$${n.toLocaleString("en-US")}`;

@@ -107,6 +107,25 @@ export function areaForLocation(location: string): { areaCode: string; name: str
   return best ? { areaCode: best.areaCode, name: best.name } : null;
 }
 
+const STATES: Record<string, string> = {
+  california: "CA", washington: "WA", "new york": "NY", "new jersey": "NJ", massachusetts: "MA", texas: "TX",
+  illinois: "IL", colorado: "CO", georgia: "GA", florida: "FL", pennsylvania: "PA", "north carolina": "NC",
+  oregon: "OR", minnesota: "MN", utah: "UT", arizona: "AZ", michigan: "MI", virginia: "VA", maryland: "MD",
+};
+
+/** "California" / "CA" / "Remote, CA" → the preloaded metros in that state. Used when only a state is known. */
+export function areasInState(location: string): { state: string; areas: { areaCode: string; name: string }[] } | null {
+  const loc = location.trim().toLowerCase();
+  const fromName = Object.entries(STATES).find(([name]) => new RegExp(`\\b${name}\\b`).test(loc))?.[1];
+  const fromAbbr = location.match(/\b([A-Z]{2})\b/)?.[1];
+  const state = fromName ?? (fromAbbr && Object.values(STATES).includes(fromAbbr) ? fromAbbr : null);
+  if (!state) return null;
+  const areas = Object.entries(WAGES.areas)
+    .filter(([, a]) => (a.name.split(", ")[1] ?? "").split("-").includes(state))
+    .map(([areaCode, a]) => ({ areaCode, name: a.name }));
+  return areas.length ? { state, areas } : null;
+}
+
 export type WageBenchmark = {
   socCode: string;
   occupation: string;
@@ -149,7 +168,21 @@ export function benchmarkSalary(input: {
     area = areaForLocation(input.location);
     if (area) notes.push(`Area "${area.name}" matched from location "${input.location}".`);
   }
-  if (!area) return { error: `Couldn't map location "${input.location ?? ""}" to one of the ${Object.keys(WAGES.areas).length} preloaded metro areas` };
+  if (!area && input.location) {
+    // Only a state is known. Lax: benchmark against the LOWEST Level 4 among its metros, so "below Level 4"
+    // holds wherever in the state the job is.
+    const inState = areasInState(input.location);
+    const withWage = inState?.areas.filter((a) => WAGES.areas[a.areaCode].wages[soc!]) ?? [];
+    if (inState && withWage.length) {
+      const lowest = withWage.reduce((lo, a) => (WAGES.areas[a.areaCode].wages[soc!].level4 < WAGES.areas[lo.areaCode].wages[soc!].level4 ? a : lo));
+      const highest = Math.max(...withWage.map((a) => WAGES.areas[a.areaCode].wages[soc!].level4));
+      area = lowest;
+      notes.push(
+        `Only the state (${inState.state}) is known, so this uses the lowest Level 4 among its ${withWage.length} preloaded metros (${lowest.name}); Level 4 there ranges up to $${highest.toLocaleString("en-US")}.`,
+      );
+    }
+  }
+  if (!area) return { error: `Couldn't map location "${input.location ?? ""}" to one of the ${Object.keys(WAGES.areas).length} preloaded metro areas or their states` };
 
   const levels = WAGES.areas[area.areaCode].wages[soc];
   if (!levels) return { error: `No OFLC wage for ${soc} in ${area.name}` };

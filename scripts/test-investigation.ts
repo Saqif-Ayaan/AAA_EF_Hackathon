@@ -182,6 +182,14 @@ async function main() {
     assert.equal(r.socCode, "15-1252");
     assert.ok(r.salary! < r.levels.level4);
   });
+  await test("wages: state only ('California') benchmarks against the lowest Level 4 among its metros", () => {
+    const r = benchmarkSalary({ jobTitle: "Senior Software Development Engineer", location: "California", salary: 217000 });
+    assert.ok(!("error" in r), JSON.stringify(r));
+    assert.match(r.areaName, /, CA$/);
+    assert.match(r.matchNotes.join(" "), /lowest Level 4/);
+    const sanJose = benchmarkSalary({ jobTitle: "Senior Software Development Engineer", location: "San Jose, CA" });
+    assert.ok(!("error" in sanJose) && r.levels.level4 <= sanJose.levels.level4);
+  });
   await test("wages: 'Seattle, Washington' maps to Seattle, not DC", () => {
     const r = benchmarkSalary({ jobTitle: "ML Engineer", location: "Seattle, Washington", salary: 1 });
     assert.ok(!("error" in r) && r.areaName.startsWith("Seattle"));

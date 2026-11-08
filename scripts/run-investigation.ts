@@ -90,7 +90,7 @@ async function main() {
           applicantId: applicant.id,
           criterion: sceptic.FROM_RAG[e.criterion],
           summary: e.description,
-          payload: { medium: e.medium, ...e.details },
+          payload: { medium: e.medium, location: ragInput!.location, jobTitle: ragInput!.role, ...e.details },
           createdAt: now,
         }) as unknown as Claim,
     );

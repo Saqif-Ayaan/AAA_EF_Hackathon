@@ -72,6 +72,9 @@ type ApifyOutcome = {
   candidates: Candidate[];
 };
 
+/** Searches running right now, by cache key. */
+const inFlight = new Map<string, Promise<ApifyOutcome>>();
+
 async function readCache(): Promise<Record<string, ApifyOutcome>> {
   try {
     return JSON.parse(await readFile(cacheFile(), "utf8"));
@@ -254,19 +257,29 @@ export const apifyLinkedIn = createTool({
     }
     if (!outcome) {
       try {
-        outcome = await runApifySearch(fullName, company, profileUrl, {
-          signal: abortSignal,
-          onProgress: (p) => {
-            console.error(`[apifyLinkedIn] ${p.progress}% ${p.message}`);
-            void writer?.write({ type: "progress", ...p });
-            void log?.("status", p.message, {
-              status: "reading",
-              currentAction: `Scraping LinkedIn (${p.elapsedSecs}s)`,
-              url: profileUrl,
-            });
-          },
-        });
-        await writeCacheEntry(cacheKey, outcome);
+        // Parallel calls for the same search (e.g. investigate mode, 4 hypotheses at once) share one billed Apify run.
+        let run = inFlight.get(cacheKey);
+        if (!run) {
+          run = runApifySearch(fullName, company, profileUrl, {
+            signal: abortSignal,
+            onProgress: (p) => {
+              console.error(`[apifyLinkedIn] ${p.progress}% ${p.message}`);
+              void writer?.write({ type: "progress", ...p });
+              void log?.("status", p.message, {
+                status: "reading",
+                currentAction: `Scraping LinkedIn (${p.elapsedSecs}s)`,
+                url: profileUrl,
+              });
+            },
+          })
+            .then(async (o) => {
+              await writeCacheEntry(cacheKey, o);
+              return o;
+            })
+            .finally(() => inFlight.delete(cacheKey));
+          inFlight.set(cacheKey, run);
+        }
+        outcome = await run;
       } catch (err) {
         failure = err instanceof Error ? err.message : String(err);
         console.error(`[apifyLinkedIn] ${failure}`);
