@@ -5,12 +5,10 @@ import { useCallback, useMemo, useState } from "react";
 import { SOURCE_AGENT_IDS, type FindingRecord } from "@/lib/schemas";
 import type { ReplayLoad, WarRoomApplicant, WarRoomClaim } from "@/lib/war-room";
 import { AgentCard } from "./agent-card";
-import { Backdrop } from "./backdrop";
 import { deriveAgents, type AgentView } from "./derive";
 import { DiscrepancyPanel } from "./discrepancy-panel";
 import { BuildCaseButton, DossierPanel, type BuildControl } from "./dossier-panel";
 import { EvidenceLedger } from "./evidence-ledger";
-import { fontVariables } from "./fonts";
 import { AGENT_STATUS_STYLE, formatElapsed } from "./meta";
 import { ScoreCard } from "./score-card";
 import styles from "./styles";
@@ -137,26 +135,26 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
   }, [events]);
 
   return (
-    <div className={`${styles.root} ${fontVariables}`}>
-      <Backdrop />
-
+    <div className={styles.root}>
       {/* ── Top bar ──────────────────────────────────────────────────────── */}
       <div className={`${styles.topbar} sticky top-0 z-30`}>
-        <div className="mx-auto flex max-w-[1880px] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-3 2xl:px-10">
-          <a href="#top" className={`${styles.display} text-2xl`}>
-            O-1A <span className="text-[color:var(--accent)]">War room</span>
-          </a>
-          <nav aria-label="Sections" className="hidden md:block">
-            <ul className="flex gap-1">
-              {NAV.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} className={`${styles.navLink} block px-3.5 py-1.5 text-lg font-semibold`}>
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-3">
+          <div className="flex items-center gap-6">
+            <Link href="/" className="text-sm font-semibold tracking-tight">
+              O-1A case builder
+            </Link>
+            <nav aria-label="Sections" className="hidden md:block">
+              <ul className="flex gap-1">
+                {NAV.map((l) => (
+                  <li key={l.href}>
+                    <a href={l.href} className={`${styles.navLink} block px-3 py-1 text-sm`}>
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
           <StatusChip
             mode={isReplay ? (replay?.ok ? "replay" : "missing") : online === null ? "connecting" : online ? "live" : "offline"}
             elapsed={elapsed}
@@ -166,61 +164,61 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
       </div>
 
       {/* ── Title ────────────────────────────────────────────────────────── */}
-      <header id="top" className="relative z-10 mx-auto max-w-[1880px] px-6 pt-12 pb-10 2xl:px-10">
-        <Label className="block text-[color:var(--accent)]">
+      <header id="top" className="mx-auto max-w-6xl px-6 pt-12 pb-8">
+        <Label>
           {phase}
           {isReplay && ` · replay${speed !== 1 ? ` ×${speed}` : ""}`}
         </Label>
-        <h1 className={`${styles.display} mt-3 text-[clamp(3.5rem,7vw,7.5rem)]`}>{applicant?.name ?? `Case ${caseId}`}</h1>
+        <h1 className={`${styles.display} mt-2 text-4xl`}>{applicant?.name ?? `Case ${caseId}`}</h1>
 
         {applicant ? (
-          <p className="mt-3 text-2xl text-[color:var(--muted)]">
+          <p className="mt-2 text-base text-[color:var(--muted)]">
             {applicant.currentRole}, {applicant.currentOrganization} · {applicant.field}
             {applicant.alternateNames.length > 0 && <> · also published as {applicant.alternateNames.join(", ")}</>}
           </p>
         ) : replay && !replay.ok ? (
-          <p role="alert" className="mt-3 text-xl text-[#ffc95c]">
+          <p role="alert" className="mt-2 text-sm text-[#b45309]">
             {replay.error}{" "}
             {replay.command && (
-              <code className={`${styles.mono} rounded bg-black/50 px-2 py-0.5 whitespace-nowrap`}>{replay.command}</code>
+              <code className={`${styles.mono} rounded bg-[color:var(--track)] px-1.5 py-0.5 whitespace-nowrap`}>{replay.command}</code>
             )}
           </p>
         ) : (
           snapshot &&
           (caseId === "demo" ? (
-            <p className="mt-3 text-xl text-[color:var(--muted)]">
+            <p className="mt-2 text-sm text-[color:var(--muted)]">
               No data yet. Start the mock run with{" "}
-              <code className={`${styles.mono} rounded bg-black/50 px-2 py-0.5`}>npm run mock</code> — this page picks it up
-              automatically.
+              <code className={`${styles.mono} rounded bg-[color:var(--track)] px-1.5 py-0.5`}>npm run mock</code> — this page picks it
+              up automatically.
             </p>
           ) : (
-            <p className="mt-3 text-xl text-[color:var(--muted)]">
+            <p className="mt-2 text-sm text-[color:var(--muted)]">
               No case with this ID yet. Submit the form at{" "}
               <a href="/apply" className="underline">
                 /apply
               </a>{" "}
-              or run <code className={`${styles.mono} rounded bg-black/50 px-2 py-0.5`}>npm run seed</code> — this page picks
-              it up automatically.
+              or run <code className={`${styles.mono} rounded bg-[color:var(--track)] px-1.5 py-0.5`}>npm run seed</code> — this page
+              picks it up automatically.
             </p>
           ))
         )}
 
-        <div className="mt-8 flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
-          <dl className="flex flex-wrap gap-x-12 gap-y-4">
+        <div className="mt-8 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
+          <dl className="flex flex-wrap gap-x-10 gap-y-3">
             <Stat label="Research" value={`${research}%`} />
             <Stat label="Claims checked" value={`${findings.length}/${claims.length}`} />
-            <Stat label="Open questions" value={String(openQuestions)} color={openQuestions ? "#ffc95c" : undefined} />
-            {score && <Stat label="Readiness" value={String(Math.round(score.approvalLikelihood))} color="#2ee68a" />}
+            <Stat label="Open questions" value={String(openQuestions)} color={openQuestions ? "#b45309" : undefined} />
+            {score && <Stat label="Approval likelihood" value={String(Math.round(score.approvalLikelihood))} />}
           </dl>
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2">
             {!isReplay && openQuestions > 0 && (
-              <Link href={`/case/${encodeURIComponent(caseId)}/followup`} className={`${styles.buttonGhost} px-7 py-3.5 text-xl`}>
-                Resolve questions ({openQuestions}) →
+              <Link href={`/case/${encodeURIComponent(caseId)}/followup`} className={`${styles.buttonGhost} px-4 py-2 text-sm`}>
+                Resolve questions ({openQuestions})
               </Link>
             )}
             {caseRecord ? (
-              <a href="#dossier" className={`${styles.button} px-7 py-3.5 text-xl`}>
-                View dossier ↓
+              <a href="#dossier" className={`${styles.button} px-4 py-2 text-sm`}>
+                View dossier
               </a>
             ) : build.disabledReason === null || build.building ? (
               <BuildCaseButton control={build} />
@@ -228,26 +226,26 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
           </div>
         </div>
 
-        <p className="mt-6 min-h-7 truncate text-lg text-[color:var(--muted)]">
+        <p className="mt-5 min-h-5 truncate text-sm text-[color:var(--dim)]">
           {pipelineEvent && (
             <span key={pipelineEvent.id} className={styles.enter}>
-              Latest: {pipelineEvent.message}
+              {pipelineEvent.message}
             </span>
           )}
         </p>
       </header>
 
-      <main className="relative z-10 mx-auto max-w-[1880px] px-6 pb-20 2xl:px-10">
-        <section id="agents" aria-labelledby="agents-title" className="scroll-mt-24">
+      <main className="mx-auto max-w-6xl px-6 pb-20">
+        <section id="agents" aria-labelledby="agents-title" className="scroll-mt-20">
           <SectionTitle id="agents-title" title="Source agents" />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {SOURCE_AGENT_IDS.map((id) => (
               <AgentCard key={id} id={id} view={views[id]} now={now} />
             ))}
           </div>
         </section>
 
-        <div className="mt-10 grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
+        <div className="mt-8 grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
           <EvidenceLedger
             claims={claims}
             findings={findings}
@@ -265,7 +263,7 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
           />
         </div>
 
-        <div className="mt-10 grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
+        <div className="mt-6 grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
           <DossierPanel
             caseRecord={caseRecord}
             caseBuilder={views.caseBuilder}
@@ -286,7 +284,7 @@ function Stat({ label, value, color }: { label: string; value: string; color?: s
       <dt>
         <Label>{label}</Label>
       </dt>
-      <dd className={`${styles.display} mt-1 text-6xl tabular-nums`} style={{ color }}>
+      <dd className="mt-0.5 text-2xl font-semibold tracking-tight tabular-nums" style={{ color }}>
         {value}
       </dd>
     </div>
@@ -304,28 +302,28 @@ function StatusChip({
   onRestart: () => void;
 }) {
   const time = elapsed === null ? "" : ` · ${formatElapsed(elapsed)}`;
-  if (mode === "connecting") return <span className="text-lg font-semibold text-[color:var(--dim)]">Connecting…</span>;
-  if (mode === "missing") return <span className="text-lg font-semibold text-[#ff8590]">No replay</span>;
+  if (mode === "connecting") return <span className="text-sm text-[color:var(--dim)]">Connecting…</span>;
+  if (mode === "missing") return <span className="text-sm text-[#b91c1c]">No replay</span>;
   if (mode === "offline") {
     return (
-      <span role="status" className="flex items-center gap-2 text-lg font-semibold text-[#ff8590]">
-        <span className="size-2.5 rounded-full bg-[#ff4d5e]" aria-hidden /> Offline
+      <span role="status" className="flex items-center gap-2 text-sm text-[#b91c1c]">
+        <span className="size-2 rounded-full bg-[#b91c1c]" aria-hidden /> Offline
       </span>
     );
   }
   if (mode === "replay") {
     return (
-      <span role="status" className="flex items-center gap-3 text-lg font-semibold">
-        <span className="tabular-nums text-[color:var(--accent)]">▶ Replay{time}</span>
-        <button type="button" onClick={onRestart} className={`${styles.buttonGhost} px-3 py-1 text-base`}>
+      <span role="status" className="flex items-center gap-3 text-sm">
+        <span className="tabular-nums text-[color:var(--muted)]">Replay{time}</span>
+        <button type="button" onClick={onRestart} className={`${styles.buttonGhost} px-2.5 py-1 text-xs`}>
           Restart
         </button>
       </span>
     );
   }
   return (
-    <span role="status" className="flex items-center gap-2 text-lg font-semibold tabular-nums">
-      <span className="size-2.5 rounded-full bg-[#2ee68a] motion-safe:animate-pulse" aria-hidden />
+    <span role="status" className="flex items-center gap-2 text-sm tabular-nums text-[color:var(--muted)]">
+      <span className="size-2 rounded-full bg-[#15803d] motion-safe:animate-pulse" aria-hidden />
       Live{time}
     </span>
   );

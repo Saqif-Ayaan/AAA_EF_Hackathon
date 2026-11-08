@@ -6,8 +6,8 @@ import type { FieldDef } from "./form-config";
 import type { CvState } from "./form-state";
 
 const inputBase =
-  "w-full rounded-md border bg-white px-3 py-2 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:outline-none focus:ring-2";
-const inputOk = "border-slate-300 focus:border-indigo-500 focus:ring-indigo-200";
+  "w-full rounded-md border bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2";
+const inputOk = "border-neutral-300 focus:border-neutral-900 focus:ring-neutral-200";
 const inputErr = "border-red-500 focus:border-red-500 focus:ring-red-200";
 
 export function isWide(def: FieldDef) {
@@ -32,7 +32,7 @@ export function Field({
   const text = typeof value === "string" ? value : "";
 
   const help = def.help && (
-    <p id={`${id}-help`} className="mt-1 text-xs text-slate-500">
+    <p id={`${id}-help`} className="mt-1 text-xs text-neutral-500">
       {def.help}
     </p>
   );
@@ -52,9 +52,9 @@ export function Field({
             checked={value === true}
             onChange={(e) => onChange(e.target.checked)}
             aria-describedby={describedBy}
-            className="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+            className="mt-0.5 h-4 w-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-400"
           />
-          <span className="text-sm font-medium text-slate-800">{def.label}</span>
+          <span className="text-sm font-medium text-neutral-800">{def.label}</span>
         </label>
         <div className="pl-7">
           {help}
@@ -114,7 +114,7 @@ export function Field({
 
   return (
     <div className={isWide(def) ? "sm:col-span-2" : undefined}>
-      <label htmlFor={id} className="mb-1 block text-sm font-medium text-slate-800">
+      <label htmlFor={id} className="mb-1 block text-sm font-medium text-neutral-800">
         {def.label}
         {def.required && <span className="text-red-600"> *</span>}
       </label>
@@ -164,7 +164,7 @@ export function CvUpload({ cv, onChange }: { cv: CvState | null; onChange: (cv: 
         </div>
         <details className="mt-2">
           <summary className="cursor-pointer text-emerald-800">Preview extracted text</summary>
-          <pre className="mt-2 max-h-48 overflow-auto whitespace-pre-wrap rounded bg-white p-2 text-xs text-slate-700">
+          <pre className="mt-2 max-h-48 overflow-auto whitespace-pre-wrap rounded bg-white p-2 text-xs text-neutral-700">
             {cv.text.slice(0, 2000)}
             {cv.text.length > 2000 ? "\n…" : ""}
           </pre>
@@ -175,7 +175,7 @@ export function CvUpload({ cv, onChange }: { cv: CvState | null; onChange: (cv: 
 
   return (
     <div>
-      <label htmlFor="cv-upload" className="mb-1 block text-sm font-medium text-slate-800">
+      <label htmlFor="cv-upload" className="mb-1 block text-sm font-medium text-neutral-800">
         CV (PDF, optional)
       </label>
       <input
@@ -187,9 +187,9 @@ export function CvUpload({ cv, onChange }: { cv: CvState | null; onChange: (cv: 
           void upload(e.target.files?.[0]);
           e.target.value = ""; // allow re-selecting the same file
         }}
-        className="block w-full text-sm text-slate-700 file:mr-3 file:rounded-md file:border-0 file:bg-indigo-50 file:px-3 file:py-2 file:text-sm file:font-medium file:text-indigo-700 hover:file:bg-indigo-100"
+        className="block w-full text-sm text-neutral-700 file:mr-3 file:rounded-md file:border-0 file:bg-neutral-100 file:px-3 file:py-2 file:text-sm file:font-medium file:text-neutral-900 hover:file:bg-neutral-200"
       />
-      <p className="mt-1 text-xs text-slate-500">
+      <p className="mt-1 text-xs text-neutral-500">
         {status === "uploading" ? "Reading your CV…" : "We extract the text so our agents can cross-check it."}
       </p>
       {error && <p className="mt-1 text-xs font-medium text-red-600">{error}</p>}

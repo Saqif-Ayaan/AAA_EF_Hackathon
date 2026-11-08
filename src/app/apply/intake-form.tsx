@@ -132,19 +132,19 @@ export function IntakeForm() {
   if (submitted) return <SubmittedPanel result={submitted} onReset={reset} />;
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <header className="border-b border-slate-200 bg-white">
+    <div className="min-h-screen bg-neutral-50 text-neutral-900">
+      <header className="border-b border-neutral-200 bg-white">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4">
           <div>
-            <h1 className="text-xl font-bold">O-1A application</h1>
-            <p className="text-sm text-slate-600">Tell us about your achievements. We&apos;ll verify them and build your case.</p>
+            <h1 className="text-xl font-semibold">O-1A application</h1>
+            <p className="text-sm text-neutral-600">Tell us about your achievements. We&apos;ll verify them and build your case.</p>
           </div>
           <div className="text-right">
             <button
               type="button"
               onClick={loadDemo}
               disabled={demoState.loading}
-              className="rounded-md border border-indigo-300 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-100 disabled:opacity-60"
+              className="rounded-md border border-neutral-300 bg-neutral-100 px-4 py-2 text-sm font-semibold text-neutral-900 hover:bg-neutral-200 disabled:opacity-60"
             >
               {demoState.loading ? "Loading…" : "Load demo applicant"}
             </button>
@@ -157,11 +157,11 @@ export function IntakeForm() {
         <StepNav form={form} currentIndex={stepIndex} onSelect={goTo} />
 
         <main className="min-w-0">
-          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          <div className="rounded-lg border border-neutral-200 bg-white p-5 sm:p-6">
+            <p className="text-xs font-semibold text-neutral-500">
               Step {stepIndex + 1} of {STEPS.length}
             </p>
-            <h2 className="mb-5 text-2xl font-bold">{step.title}</h2>
+            <h2 className="mb-5 text-2xl font-semibold">{step.title}</h2>
 
             {step.id === "about" && (
               <AboutStep form={form} errors={errors} onChange={setAbout} onCvChange={(cv) => setForm((f) => ({ ...f, cv }))} />
@@ -181,7 +181,7 @@ export function IntakeForm() {
 
             {step.id === "anything" && (
               <div>
-                <label htmlFor="additional-info" className="mb-2 block text-sm font-medium text-slate-800">
+                <label htmlFor="additional-info" className="mb-2 block text-sm font-medium text-neutral-800">
                   Is there anything significant about your work that might not appear on your CV?
                 </label>
                 <textarea
@@ -189,7 +189,7 @@ export function IntakeForm() {
                   rows={6}
                   value={form.additionalInfo}
                   onChange={(e) => setForm((f) => ({ ...f, additionalInfo: e.target.value }))}
-                  className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                  className="w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-200"
                 />
               </div>
             )}
@@ -211,12 +211,12 @@ export function IntakeForm() {
               </p>
             )}
 
-            <div className="mt-8 flex justify-between border-t border-slate-100 pt-5">
+            <div className="mt-8 flex justify-between border-t border-neutral-100 pt-5">
               <button
                 type="button"
                 onClick={back}
                 disabled={stepIndex === 0}
-                className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50 disabled:invisible"
+                className="rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-800 hover:bg-neutral-50 disabled:invisible"
               >
                 ← Back
               </button>
@@ -224,7 +224,7 @@ export function IntakeForm() {
                 <button
                   type="button"
                   onClick={next}
-                  className="rounded-md bg-indigo-600 px-5 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+                  className="rounded-md bg-neutral-900 px-5 py-2 text-sm font-semibold text-white hover:bg-neutral-700"
                 >
                   Next →
                 </button>
@@ -252,14 +252,14 @@ function StepNav({ form, currentIndex, onSelect }: { form: FormState; currentInd
                 onClick={() => onSelect(s.id)}
                 aria-current={current ? "step" : undefined}
                 className={`w-full rounded-md px-3 py-2 text-left text-sm ${
-                  current ? "bg-indigo-600 text-white" : "text-slate-700 hover:bg-slate-200"
+                  current ? "bg-neutral-900 text-white" : "text-neutral-700 hover:bg-neutral-200"
                 }`}
               >
                 <span className="font-medium">
                   {i + 1}. {s.title}
                 </span>
                 {status && (
-                  <span className={`hidden text-xs md:block ${current ? "text-indigo-100" : "text-slate-500"}`}>{status}</span>
+                  <span className={`hidden text-xs md:block ${current ? "text-neutral-300" : "text-neutral-500"}`}>{status}</span>
                 )}
               </button>
             </li>
@@ -285,8 +285,8 @@ function AboutStep({
     <div className="space-y-8">
       {ABOUT_SECTIONS.map((section) => (
         <fieldset key={section.title}>
-          <legend className="text-base font-semibold text-slate-900">{section.title}</legend>
-          {section.description && <p className="mt-1 text-sm text-slate-600">{section.description}</p>}
+          <legend className="text-base font-semibold text-neutral-900">{section.title}</legend>
+          {section.description && <p className="mt-1 text-sm text-neutral-600">{section.description}</p>}
           <div className="mt-3 grid gap-4 sm:grid-cols-2">
             {section.fields.map((def) => (
               <Field
@@ -302,7 +302,7 @@ function AboutStep({
         </fieldset>
       ))}
       <fieldset>
-        <legend className="mb-3 text-base font-semibold text-slate-900">CV</legend>
+        <legend className="mb-3 text-base font-semibold text-neutral-900">CV</legend>
         <CvUpload cv={form.cv} onChange={onCvChange} />
       </fieldset>
     </div>
@@ -332,13 +332,13 @@ function CriterionStep({
   return (
     <div className="space-y-5">
       <fieldset>
-        <legend className="text-base font-medium text-slate-900">{config.question}</legend>
+        <legend className="text-base font-medium text-neutral-900">{config.question}</legend>
         <div className="mt-3 flex gap-3">
           {(["yes", "no"] as const).map((option) => (
             <label
               key={option}
               className={`flex cursor-pointer items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium ${
-                applies === option ? "border-indigo-600 bg-indigo-50 text-indigo-800" : "border-slate-300 bg-white text-slate-700"
+                applies === option ? "border-neutral-900 bg-neutral-100 text-neutral-900" : "border-neutral-300 bg-white text-neutral-700"
               }`}
             >
               <input
@@ -346,7 +346,7 @@ function CriterionStep({
                 name={`applies-${criterion}`}
                 checked={applies === option}
                 onChange={() => onApplies(option)}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
+                className="h-4 w-4 text-neutral-900 focus:ring-neutral-400"
               />
               {option === "yes" ? "Yes, this applies to me" : "No"}
             </label>
@@ -361,9 +361,9 @@ function CriterionStep({
       {applies === "yes" && (
         <div className="space-y-4">
           {entries.map((entry, i) => (
-            <div key={entry.key} className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+            <div key={entry.key} className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
               <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-sm font-semibold capitalize text-slate-800">
+                <h3 className="text-sm font-semibold capitalize text-neutral-800">
                   {config.entryNoun} {i + 1}
                 </h3>
                 <button type="button" onClick={() => onRemove(entry.key)} className="text-sm text-red-700 underline">
@@ -387,7 +387,7 @@ function CriterionStep({
           <button
             type="button"
             onClick={onAdd}
-            className="rounded-md border border-dashed border-slate-400 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+            className="rounded-md border border-dashed border-neutral-400 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100"
           >
             + Add {entries.length === 0 ? "" : "another "}
             {config.entryNoun}

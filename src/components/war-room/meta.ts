@@ -10,11 +10,11 @@ import type {
 
 /** Each source gets a small identity dot. */
 export const SOURCE_AGENTS: Record<SourceAgentId, { name: string; via: string; color: string }> = {
-  devpost: { name: "Devpost", via: "Profile + project pages", color: "#1fd0e6" },
-  linkedin: { name: "LinkedIn", via: "Apify profile scraper", color: "#3d8bff" },
-  github: { name: "GitHub", via: "GitHub REST API", color: "#e6edf3" },
-  scholar: { name: "Scholar", via: "OpenAlex", color: "#b69cff" },
-  press: { name: "Press", via: "Exa web search", color: "#ff7ac6" },
+  devpost: { name: "Devpost", via: "Profile + project pages", color: "#0e8aa0" },
+  linkedin: { name: "LinkedIn", via: "Apify profile scraper", color: "#3b6fd4" },
+  github: { name: "GitHub", via: "GitHub REST API", color: "#525252" },
+  scholar: { name: "Scholar", via: "OpenAlex", color: "#7c5cc4" },
+  press: { name: "Press", via: "Exa web search", color: "#c4488f" },
 };
 
 export type PillStatus = AgentStatus | "idle";
@@ -26,8 +26,8 @@ export const AGENT_STATUS_STYLE: Record<PillStatus, { label: string; color: stri
   searching: { label: "Searching", color: "var(--accent)", active: true },
   reading: { label: "Reading", color: "var(--accent)", active: true },
   thinking: { label: "Thinking", color: "var(--accent)", active: true },
-  done: { label: "Done", color: "#2ee68a", active: false },
-  error: { label: "Error", color: "#ff4d5e", active: false },
+  done: { label: "Done", color: "#15803d", active: false },
+  error: { label: "Error", color: "#b91c1c", active: false },
 };
 
 export const CRITERION_LABEL: Record<Criterion, string> = {
@@ -45,12 +45,12 @@ export type LedgerStatus = FindingStatus | "pending" | "queued";
 
 /** Verdict colours stay semantic: green / amber / grey / red. */
 export const LEDGER_STYLE: Record<LedgerStatus, { label: string; color: string; text: string }> = {
-  corroborated: { label: "Corroborated", color: "#2ee68a", text: "#6af2ad" },
-  partial: { label: "Partial", color: "#ffb224", text: "#ffc95c" },
-  unverified: { label: "Unverified", color: "#8a9a93", text: "#c8d3ce" },
-  contradicted: { label: "Contradicted", color: "#ff4d5e", text: "#ff8590" },
+  corroborated: { label: "Corroborated", color: "#15803d", text: "#166534" },
+  partial: { label: "Partial", color: "#b45309", text: "#92400e" },
+  unverified: { label: "Unverified", color: "#737373", text: "#525252" },
+  contradicted: { label: "Contradicted", color: "#b91c1c", text: "#991b1b" },
   pending: { label: "Checking", color: "var(--accent)", text: "var(--accent)" },
-  queued: { label: "Queued", color: "#3d4a45", text: "#a3b3ac" },
+  queued: { label: "Queued", color: "#a3a3a3", text: "#737373" },
 };
 
 export const DISCREPANCY_LABEL: Record<DiscrepancyType, string> = {
@@ -62,11 +62,11 @@ export const DISCREPANCY_LABEL: Record<DiscrepancyType, string> = {
 };
 
 export const RESOLUTION_STYLE: Record<Resolution, { label: string; color: string }> = {
-  open: { label: "Open", color: "#ffb224" },
+  open: { label: "Open", color: "#b45309" },
   amended: { label: "Amended", color: "var(--accent)" },
-  substantiated: { label: "Substantiated", color: "#2ee68a" },
-  reframed: { label: "Reframed", color: "#b69cff" },
-  escalated: { label: "Escalated", color: "#ff4d5e" },
+  substantiated: { label: "Substantiated", color: "#15803d" },
+  reframed: { label: "Reframed", color: "#7c5cc4" },
+  escalated: { label: "Escalated", color: "#b91c1c" },
 };
 
 /** `color` at `pct`% opacity. Works for hex values and CSS variables alike. */

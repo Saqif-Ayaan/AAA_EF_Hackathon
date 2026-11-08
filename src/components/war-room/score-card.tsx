@@ -1,7 +1,7 @@
 import type { CaseRecord, Score } from "@/lib/schemas";
 import type { AgentView } from "./derive";
 import { STRENGTH_STYLE } from "./dossier-panel";
-import { CRITERION_LABEL, alpha } from "./meta";
+import { CRITERION_LABEL } from "./meta";
 import { StatusPill } from "./status-pill";
 import styles from "./styles";
 import { Label, SectionTitle } from "./ui";
@@ -9,15 +9,15 @@ import { Label, SectionTitle } from "./ui";
 const MAX_FLAGS = 4;
 
 function readinessBand(v: number) {
-  if (v >= 70) return { label: "Strong case", color: "#2ee68a" };
-  if (v >= 45) return { label: "Borderline", color: "#ffb224" };
-  return { label: "Weak case", color: "#ff4d5e" };
+  if (v >= 70) return { label: "Strong case", color: "#15803d" };
+  if (v >= 45) return { label: "Borderline", color: "#b45309" };
+  return { label: "Weak case", color: "#b91c1c" };
 }
 
 function rfeBand(v: number) {
-  if (v < 34) return { label: "Low", color: "#2ee68a" };
-  if (v < 60) return { label: "Elevated", color: "#ffb224" };
-  return { label: "High", color: "#ff4d5e" };
+  if (v < 34) return { label: "Low", color: "#15803d" };
+  if (v < 60) return { label: "Elevated", color: "#b45309" };
+  return { label: "High", color: "#b91c1c" };
 }
 
 /**
@@ -53,11 +53,11 @@ export function ScoreCard({
   const flags = riskFlags(caseRecord?.caseJson);
 
   return (
-    <section id="score" aria-labelledby="score-title" className={`${styles.panel} min-w-0 scroll-mt-24 p-6 lg:p-8`}>
+    <section id="score" aria-labelledby="score-title" className={`${styles.panel} min-w-0 scroll-mt-20 p-6`}>
       <SectionTitle id="score-title" title="Score" right={<StatusPill status={scorer.status} />} />
 
       {!score ? (
-        <p className="rounded-lg border border-dashed border-[color:var(--line)] p-8 text-center text-xl text-[color:var(--dim)]">
+        <p className="rounded-lg border border-dashed border-[color:var(--line)] p-8 text-center text-sm text-[color:var(--dim)]">
           {scorer.status === "thinking"
             ? (scorer.currentAction ?? "Scoring…")
             : caseRecord
@@ -68,19 +68,11 @@ export function ScoreCard({
         </p>
       ) : (
         <div key={score.id} className={fresh ? styles.enter : undefined}>
-          <Label>Readiness</Label>
-          <div className="flex flex-wrap items-baseline gap-x-4">
-            <span className={`${styles.display} text-[8rem] leading-none tabular-nums`}>
-              {Math.round(score.approvalLikelihood)}
-            </span>
-            <span className="text-2xl text-[color:var(--muted)]">/ 100</span>
-            <span
-              className="rounded-full px-3 py-0.5 text-lg font-semibold"
-              style={{
-                color: readinessBand(score.approvalLikelihood).color,
-                backgroundColor: alpha(readinessBand(score.approvalLikelihood).color, 12),
-              }}
-            >
+          <Label>Approval likelihood</Label>
+          <div className="mt-1 flex flex-wrap items-baseline gap-x-3">
+            <span className={`${styles.display} text-6xl tabular-nums`}>{Math.round(score.approvalLikelihood)}</span>
+            <span className="text-lg text-[color:var(--dim)]">/ 100</span>
+            <span className="text-sm font-medium" style={{ color: readinessBand(score.approvalLikelihood).color }}>
               {readinessBand(score.approvalLikelihood).label}
             </span>
           </div>
@@ -88,22 +80,19 @@ export function ScoreCard({
           <div className="mt-6 border-t border-[color:var(--line)] pt-5">
             <div className="flex items-baseline justify-between gap-3">
               <Label>RFE risk</Label>
-              <span className="text-2xl font-semibold tabular-nums" style={{ color: rfeBand(score.rfeRisk).color }}>
+              <span className="text-sm font-medium tabular-nums" style={{ color: rfeBand(score.rfeRisk).color }}>
                 {Math.round(score.rfeRisk)}/100 · {rfeBand(score.rfeRisk).label}
               </span>
             </div>
-            <div className={`${styles.bar} mt-2 h-2.5`} aria-hidden>
-              <div
-                className={styles.barFill}
-                style={{ width: `${score.rfeRisk}%`, backgroundColor: rfeBand(score.rfeRisk).color }}
-              />
+            <div className={`${styles.bar} mt-2 h-1`} aria-hidden>
+              <div className={styles.barFill} style={{ width: `${score.rfeRisk}%`, backgroundColor: rfeBand(score.rfeRisk).color }} />
             </div>
             {flags.length > 0 && (
-              <ul className="mt-4 space-y-2">
+              <ul className="mt-4 space-y-1.5">
                 {flags.map((f) => (
-                  <li key={f} className="flex gap-2.5 text-lg leading-snug">
-                    <span className="text-[#ffb224]" aria-hidden>
-                      •
+                  <li key={f} className="flex gap-2 text-sm leading-snug text-[color:var(--muted)]">
+                    <span className="text-[color:var(--dim)]" aria-hidden>
+                      –
                     </span>
                     {f}
                   </li>
@@ -114,7 +103,7 @@ export function ScoreCard({
 
           <div className="mt-6 border-t border-[color:var(--line)] pt-5">
             <Label>Reasoning</Label>
-            <p className="mt-2 text-lg leading-relaxed text-[color:var(--muted)]">{score.reasoning}</p>
+            <p className="mt-2 text-sm leading-relaxed text-[color:var(--muted)]">{score.reasoning}</p>
           </div>
         </div>
       )}

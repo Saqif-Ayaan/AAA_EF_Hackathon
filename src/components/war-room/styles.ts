@@ -12,14 +12,11 @@ const styles = {
   buttonGhost: "wr-buttonGhost",
   display: "wr-display",
   enter: "wr-enter",
-  floor: "wr-floor",
-  floorPlane: "wr-floorPlane",
   label: "wr-label",
   mono: "wr-mono",
   navLink: "wr-navLink",
   panel: "wr-panel",
   root: "wr-root",
-  scene: "wr-scene",
   topbar: "wr-topbar",
 } as const;
 

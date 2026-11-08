@@ -40,7 +40,7 @@ export function ReviewStep({
               <span className="text-amber-900">
                 {s.title}: {Object.values(stepErrors[s.id] ?? {})[0]}
               </span>
-              <button type="button" onClick={() => onEdit(s.id)} className="font-medium text-indigo-700 underline">
+              <button type="button" onClick={() => onEdit(s.id)} className="font-medium text-neutral-900 underline">
                 Fix
               </button>
             </li>
@@ -73,7 +73,7 @@ export function ReviewStep({
 
       <Section title={`Your achievements — ${claims.length} claim${claims.length === 1 ? "" : "s"} to verify`}>
         {claims.length === 0 ? (
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-neutral-600">
             You haven&apos;t added any achievements yet. An O-1A case needs evidence for at least 3 of the 8 criteria.
           </p>
         ) : (
@@ -91,7 +91,7 @@ export function ReviewStep({
       </Section>
 
       <Section title="Anything else" onEdit={() => onEdit("anything")}>
-        <p className="whitespace-pre-wrap text-sm text-slate-700">{applicant.additionalInfo || "Nothing added"}</p>
+        <p className="whitespace-pre-wrap text-sm text-neutral-700">{applicant.additionalInfo || "Nothing added"}</p>
       </Section>
 
       {submitStatus.state === "error" && (
@@ -113,7 +113,7 @@ export function ReviewStep({
         type="button"
         onClick={onSubmit}
         disabled={submitStatus.state === "submitting"}
-        className="w-full rounded-md bg-indigo-600 px-4 py-3 text-base font-semibold text-white shadow hover:bg-indigo-700 disabled:cursor-wait disabled:opacity-60"
+        className="w-full rounded-md bg-neutral-900 px-4 py-3 text-base font-semibold text-white hover:bg-neutral-700 disabled:cursor-wait disabled:opacity-60"
       >
         {submitStatus.state === "submitting" ? "Submitting…" : "Submit application"}
       </button>
@@ -123,11 +123,11 @@ export function ReviewStep({
 
 function Section({ title, onEdit, children }: { title: string; onEdit?: () => void; children: React.ReactNode }) {
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-4">
+    <section className="rounded-lg border border-neutral-200 bg-white p-4">
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="font-semibold text-slate-900">{title}</h3>
+        <h3 className="font-semibold text-neutral-900">{title}</h3>
         {onEdit && (
-          <button type="button" onClick={onEdit} className="text-sm font-medium text-indigo-700 underline">
+          <button type="button" onClick={onEdit} className="text-sm font-medium text-neutral-900 underline">
             Edit
           </button>
         )}
@@ -140,8 +140,8 @@ function Section({ title, onEdit, children }: { title: string; onEdit?: () => vo
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <>
-      <dt className="text-slate-500">{label}</dt>
-      <dd className="whitespace-pre-wrap text-slate-900">{value}</dd>
+      <dt className="text-neutral-500">{label}</dt>
+      <dd className="whitespace-pre-wrap text-neutral-900">{value}</dd>
     </>
   );
 }
@@ -150,14 +150,14 @@ function CriterionClaims({ criterion, summaries, onEdit }: { criterion: Criterio
   return (
     <li>
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-slate-800">{CRITERION_LABELS[criterion]}</span>
-        <button type="button" onClick={onEdit} className="text-xs font-medium text-indigo-700 underline">
+        <span className="text-sm font-semibold text-neutral-800">{CRITERION_LABELS[criterion]}</span>
+        <button type="button" onClick={onEdit} className="text-xs font-medium text-neutral-900 underline">
           Edit
         </button>
       </div>
       <ul className="mt-1 space-y-1">
         {summaries.map((s, i) => (
-          <li key={i} className="rounded bg-slate-50 px-3 py-2 text-sm text-slate-700">
+          <li key={i} className="rounded bg-neutral-50 px-3 py-2 text-sm text-neutral-700">
             {s}
           </li>
         ))}
@@ -170,7 +170,7 @@ export function SubmittedPanel({ result, onReset }: { result: SubmitApplicationR
   return (
     <div className="mx-auto max-w-2xl space-y-6 px-4 py-12">
       <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-6">
-        <h1 className="text-2xl font-bold text-emerald-900">Application received</h1>
+        <h1 className="text-2xl font-semibold text-emerald-900">Application received</h1>
         <p className="mt-2 text-emerald-900">
           We saved your application and created <strong>{result.claims.length}</strong> claim
           {result.claims.length === 1 ? "" : "s"} for our agents to verify.
@@ -180,9 +180,9 @@ export function SubmittedPanel({ result, onReset }: { result: SubmitApplicationR
 
       <ul className="space-y-2">
         {result.claims.map((c) => (
-          <li key={c.id} className="rounded-md border border-slate-200 bg-white p-3 text-sm">
-            <span className="font-semibold text-slate-800">{CRITERION_LABELS[c.criterion as Criterion] ?? c.criterion}</span>
-            <p className="text-slate-700">{c.summary}</p>
+          <li key={c.id} className="rounded-md border border-neutral-200 bg-white p-3 text-sm">
+            <span className="font-semibold text-neutral-800">{CRITERION_LABELS[c.criterion as Criterion] ?? c.criterion}</span>
+            <p className="text-neutral-700">{c.summary}</p>
           </li>
         ))}
       </ul>
@@ -190,11 +190,11 @@ export function SubmittedPanel({ result, onReset }: { result: SubmitApplicationR
       <div className="flex flex-wrap gap-3">
         <Link
           href={`/case/${result.applicantId}`}
-          className="rounded-md bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700"
+          className="rounded-md bg-neutral-900 px-4 py-2 font-semibold text-white hover:bg-neutral-700"
         >
           Open war room →
         </Link>
-        <button type="button" onClick={onReset} className="rounded-md border border-slate-300 bg-white px-4 py-2 font-medium text-slate-800 hover:bg-slate-50">
+        <button type="button" onClick={onReset} className="rounded-md border border-neutral-300 bg-white px-4 py-2 font-medium text-neutral-800 hover:bg-neutral-50">
           Start a new application
         </button>
       </div>

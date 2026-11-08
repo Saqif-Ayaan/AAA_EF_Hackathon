@@ -19,37 +19,36 @@ export default async function Home() {
     .limit(10);
 
   return (
-    <main className="mx-auto max-w-2xl px-4 py-16 text-slate-900">
-      <h1 className="text-4xl font-bold">O-1A case builder</h1>
-      <p className="mt-3 text-lg text-slate-600">
-        Tell us about your achievements. AI agents verify them against public sources, raise follow-up questions, and
+    <main className="mx-auto max-w-2xl px-6 py-24">
+      <h1 className="text-3xl font-semibold tracking-tight">O-1A case builder</h1>
+      <p className="mt-3 max-w-xl text-base leading-relaxed text-neutral-600">
+        Tell us about your achievements. Agents verify them against public sources, raise follow-up questions, and
         assemble the strongest evidence-backed O-1A case.
       </p>
 
       <Link
         href="/apply"
-        className="mt-8 inline-block rounded-md bg-indigo-600 px-6 py-3 text-lg font-semibold text-white shadow hover:bg-indigo-700"
+        className="mt-8 inline-block rounded-lg bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-neutral-700"
       >
-        Start an application →
+        Start an application
       </Link>
-      <p className="mt-2 text-sm text-slate-500">
-        On the form, <strong>Load demo applicant</strong> fills in the demo profile; submitting opens the live dashboard.
-      </p>
 
       {cases.length > 0 && (
-        <section className="mt-14">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Existing cases</h2>
-          <ul className="mt-3 divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white">
+        <section className="mt-20">
+          <h2 className="text-sm font-medium text-neutral-500">Cases</h2>
+          <ul className="mt-2 divide-y divide-neutral-200 border-y border-neutral-200">
             {cases.map((c) => (
               <li key={c.id}>
-                <Link href={`/case/${c.id}`} className="flex items-baseline justify-between gap-4 px-4 py-3 hover:bg-slate-50">
+                <Link href={`/case/${c.id}`} className="flex items-baseline justify-between gap-4 py-3 transition-colors hover:text-neutral-500">
                   <span>
-                    <span className="font-semibold">{c.name}</span>
-                    <span className="ml-2 text-sm text-slate-500">
+                    <span className="font-medium">{c.name}</span>
+                    <span className="ml-3 text-sm text-neutral-500">
                       {c.currentRole}, {c.currentOrganization}
                     </span>
                   </span>
-                  <span className="shrink-0 text-sm text-slate-400">{c.createdAt.slice(0, 16).replace("T", " ")}</span>
+                  <span className="shrink-0 text-xs tabular-nums text-neutral-400">
+                    {c.createdAt.slice(0, 16).replace("T", " ")}
+                  </span>
                 </Link>
               </li>
             ))}

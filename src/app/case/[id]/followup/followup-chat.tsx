@@ -9,7 +9,7 @@ import { CRITERION_LABELS, RESOLUTION_LABELS } from "@/lib/labels";
 import type { Resolution } from "@/lib/schemas";
 
 const RESOLUTION_STYLES: Record<Resolution, string> = {
-  open: "bg-slate-100 text-slate-700",
+  open: "bg-neutral-100 text-neutral-700",
   amended: "bg-sky-100 text-sky-800",
   substantiated: "bg-emerald-100 text-emerald-800",
   reframed: "bg-violet-100 text-violet-800",
@@ -90,14 +90,14 @@ export function FollowupChat({ applicantId, applicantName }: { applicantId: stri
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900">
-      <header className="border-b border-slate-200 bg-white">
+    <div className="flex min-h-screen flex-col bg-neutral-50 text-neutral-900">
+      <header className="border-b border-neutral-200 bg-white">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <Link href={`/case/${applicantId}`} className="text-sm font-medium text-indigo-700 underline">
+          <Link href={`/case/${applicantId}`} className="text-sm font-medium text-neutral-900 underline">
             ← Back to the case
           </Link>
-          <h1 className="mt-1 text-2xl font-bold">Follow-up questions</h1>
-          <p className="text-sm text-slate-600">
+          <h1 className="mt-1 text-2xl font-semibold">Follow-up questions</h1>
+          <p className="text-sm text-neutral-600">
             {applicantName}
             {total > 0 && ` · ${answeredCount} of ${total} answered`}
           </p>
@@ -105,7 +105,7 @@ export function FollowupChat({ applicantId, applicantName }: { applicantId: stri
       </header>
 
       <main className="mx-auto w-full max-w-3xl flex-1 space-y-4 px-4 py-6">
-        <p className="rounded-md bg-indigo-50 px-3 py-2 text-xs text-indigo-900">
+        <p className="rounded-md bg-neutral-100 px-3 py-2 text-xs text-neutral-900">
           You&apos;re chatting with an AI assistant, not a person. Your answers are saved to your case and reviewed by
           the legal team.
         </p>
@@ -119,7 +119,7 @@ export function FollowupChat({ applicantId, applicantName }: { applicantId: stri
           </div>
         )}
 
-        {items === null && !loadError && <p className="text-slate-500">Loading your questions…</p>}
+        {items === null && !loadError && <p className="text-neutral-500">Loading your questions…</p>}
 
         {items !== null && (
           <>
@@ -140,13 +140,13 @@ export function FollowupChat({ applicantId, applicantName }: { applicantId: stri
               return (
                 <div key={d.id} className="space-y-3">
                   <AgentBubble>
-                    <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <p className="mb-1 text-xs font-semibold text-neutral-500">
                       Question {i + 1} · {CRITERION_LABELS[d.claim.criterion]}
                     </p>
-                    <p className="mb-2 text-sm text-slate-500">About: {d.claim.summary}</p>
+                    <p className="mb-2 text-sm text-neutral-500">About: {d.claim.summary}</p>
                     <p className="text-lg">{d.question}</p>
                     {d.resolution === "open" && d.requestedDocument && (
-                      <p className="mt-2 text-sm text-slate-600">Helpful to include: {d.requestedDocument}</p>
+                      <p className="mt-2 text-sm text-neutral-600">Helpful to include: {d.requestedDocument}</p>
                     )}
                   </AgentBubble>
 
@@ -157,7 +157,7 @@ export function FollowupChat({ applicantId, applicantName }: { applicantId: stri
                       <span className={`rounded-full px-3 py-1 text-sm font-semibold ${RESOLUTION_STYLES[d.resolution]}`}>
                         {RESOLUTION_LABELS[d.resolution]}
                       </span>
-                      {reasons[d.id] && <p className="flex-1 text-sm text-slate-600">{reasons[d.id]}</p>}
+                      {reasons[d.id] && <p className="flex-1 text-sm text-neutral-600">{reasons[d.id]}</p>}
                     </div>
                   )}
                 </div>
@@ -166,14 +166,14 @@ export function FollowupChat({ applicantId, applicantName }: { applicantId: stri
 
             {sending && (
               <AgentBubble>
-                <span className="animate-pulse text-slate-500">Reviewing your answer…</span>
+                <span className="animate-pulse text-neutral-500">Reviewing your answer…</span>
               </AgentBubble>
             )}
 
             {items.length > 0 && !current && (
               <AgentBubble>
                 <p className="text-lg">That&apos;s everything — thank you. Your answers have been added to your case.</p>
-                <Link href={`/case/${applicantId}`} className="mt-2 inline-block font-semibold text-indigo-700 underline">
+                <Link href={`/case/${applicantId}`} className="mt-2 inline-block font-semibold text-neutral-900 underline">
                   Back to the case →
                 </Link>
               </AgentBubble>
@@ -184,7 +184,7 @@ export function FollowupChat({ applicantId, applicantName }: { applicantId: stri
       </main>
 
       {current && (
-        <footer className="sticky bottom-0 border-t border-slate-200 bg-white">
+        <footer className="sticky bottom-0 border-t border-neutral-200 bg-white">
           <form
             className="mx-auto max-w-3xl space-y-2 px-4 py-3"
             onSubmit={(e) => {
@@ -214,12 +214,12 @@ export function FollowupChat({ applicantId, applicantName }: { applicantId: stri
                   }
                 }}
                 placeholder="Type your answer… (Enter to send, Shift+Enter for a new line)"
-                className="flex-1 rounded-md border border-slate-300 bg-white px-3 py-2 text-base shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 disabled:bg-slate-100"
+                className="flex-1 rounded-md border border-neutral-300 bg-white px-3 py-2 text-base focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-200 disabled:bg-neutral-100"
               />
               <button
                 type="submit"
                 disabled={sending}
-                className="rounded-md bg-indigo-600 px-5 py-3 font-semibold text-white hover:bg-indigo-700 disabled:cursor-wait disabled:opacity-60"
+                className="rounded-md bg-neutral-900 px-5 py-3 font-semibold text-white hover:bg-neutral-700 disabled:cursor-wait disabled:opacity-60"
               >
                 {sending ? "Sending…" : "Send"}
               </button>
@@ -247,10 +247,10 @@ async function fetchDiscrepancies(
 function AgentBubble({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex gap-3">
-      <div aria-hidden className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-bold text-white">
+      <div aria-hidden className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-sm font-semibold text-white">
         AI
       </div>
-      <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-slate-200 bg-white px-4 py-3 shadow-sm">{children}</div>
+      <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-neutral-200 bg-white px-4 py-3">{children}</div>
     </div>
   );
 }
@@ -258,7 +258,7 @@ function AgentBubble({ children }: { children: React.ReactNode }) {
 function ApplicantBubble({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex justify-end">
-      <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tr-sm bg-indigo-600 px-4 py-3 text-white shadow-sm">
+      <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tr-sm bg-neutral-900 px-4 py-3 text-white">
         {children}
       </div>
     </div>
