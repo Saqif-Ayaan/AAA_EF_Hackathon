@@ -51,3 +51,6 @@ next-env.d.ts
 
 # cached tool results (Apify LinkedIn scrapes)
 .cache/
+
+# real demo applicant data (a real person's details — never commit; this repo is public)
+/demo/*.local.json
