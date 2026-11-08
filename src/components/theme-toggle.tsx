@@ -30,7 +30,7 @@ export function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-      className="fixed right-4 bottom-4 z-50 rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+      className="fixed right-4 bottom-4 z-50 print:hidden rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-600 transition-colors hover:text-neutral-900"
     >
       {dark ? "Light" : "Dark"}
     </button>

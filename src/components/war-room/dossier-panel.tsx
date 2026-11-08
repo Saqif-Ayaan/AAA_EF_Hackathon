@@ -48,6 +48,7 @@ export function DossierPanel({
   caseBuilder,
   build,
   bundleHref,
+  documentHref,
   now,
 }: {
   caseRecord: CaseRecord | null;
@@ -55,6 +56,8 @@ export function DossierPanel({
   build: BuildControl;
   /** Download link for the scorer handoff (CaseBundle), or null in replay mode. */
   bundleHref: string | null;
+  /** Link to the printable, lawyer-ready dossier page, or null in replay mode. */
+  documentHref: string | null;
   now: number;
 }) {
   const c = caseRecord?.caseJson ?? null;
@@ -69,6 +72,11 @@ export function DossierPanel({
         right={
           <div className="flex items-center gap-3">
             <StatusPill status={caseBuilder.status} />
+            {c && documentHref && (
+              <a href={documentHref} target="_blank" rel="noopener noreferrer" className={`${styles.button} px-3 py-1.5 text-sm`}>
+                Open lawyer-ready dossier
+              </a>
+            )}
             {c && bundleHref && (
               <a href={bundleHref} download className={`${styles.buttonGhost} px-3 py-1.5 text-sm`}>
                 Download bundle

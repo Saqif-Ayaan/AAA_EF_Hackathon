@@ -269,6 +269,7 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
             caseBuilder={views.caseBuilder}
             build={build}
             bundleHref={isReplay ? null : `/api/cases/${encodeURIComponent(caseId)}/bundle?download=1`}
+            documentHref={isReplay ? null : `/case/${encodeURIComponent(caseId)}/dossier`}
             now={now}
           />
           <ScoreCard score={score} caseRecord={caseRecord} scorer={views.scorer} now={now} />

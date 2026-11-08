@@ -80,6 +80,13 @@ export type CaseInput = {
   discrepancies: Discrepancy[];
 };
 
+/** Drops the pipeline's internal bookkeeping ("Note (medium impact, not asked): ...") from finding text shown to a lawyer. */
+const tidy = (s: string) =>
+  s
+    .replace(/\s*Note \((?:high|medium|low) impact, not asked\):[\s\S]*$/, "")
+    .replace(/\s*\(Marked unverified:[^)]*\)/g, "")
+    .trim();
+
 const lowerFirst = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
 const plural = (n: number, word: string, many = `${word}s`) => `${n} ${n === 1 ? word : many}`;
 
@@ -150,7 +157,7 @@ export function buildTemplateCase({ applicant, claims, findings, discrepancies }
     const weaknesses = [
       ...usable
         .filter(isPartial)
-        .map((r) => `“${r.claim.summary}” is only partially verified${r.finding?.reasoning ? ` — ${lowerFirst(r.finding.reasoning)}` : "."}`),
+        .map((r) => `“${r.claim.summary}” is only partially verified${r.finding?.reasoning ? ` — ${lowerFirst(tidy(r.finding.reasoning))}` : "."}`),
       ...rows
         .filter((r) => !usable.includes(r))
         .map((r) => `“${r.claim.summary}” is left out — ${r.finding?.status ?? "not yet verified"}.`),
