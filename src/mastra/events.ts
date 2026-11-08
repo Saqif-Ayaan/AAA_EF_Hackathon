@@ -44,7 +44,7 @@ export function eventLogger(applicantId: string, agentId: AgentId) {
     });
 }
 
-const truncate = (s: string, n = 140) => (s.length > n ? `${s.slice(0, n - 1)}…` : s);
+const truncate = (s: string, max = 140) => (s.length > max ? `${s.slice(0, max - 1)}…` : s);
 const READING_TOOLS = new Set(["exaContents", "devpostFetch", "apifyLinkedIn"]);
 
 type In = Record<string, unknown>;
@@ -85,43 +85,51 @@ export function describeToolCall(toolName: string, input: In): { action: string;
   }
 }
 
-/** A one-line "found" result for the agent card's mini-log. */
+const n = (count: number, one: string, many = `${one}s`) => `${count} ${count === 1 ? one : many}`;
+
+/** A plain-English sentence about what a tool call returned, for the agent card's list of finds. */
 export function summarizeToolResult(toolName: string, output: Out): string {
   switch (toolName) {
     case "exaSearch": {
       const results = arr(output.results);
-      return results.length ? `${results.length} results — top: ${str(first(results).title)}` : "No results";
+      return results.length
+        ? `Found ${n(results.length, "web result")}. Top hit: "${str(first(results).title)}".`
+        : "No web results for that search.";
     }
-    case "exaContents":
-      return `Read ${arr(output.pages).length} page(s)${arr(output.failed).length ? `, ${arr(output.failed).length} failed` : ""}`;
+    case "exaContents": {
+      const failed = arr(output.failed).length;
+      return `Opened ${n(arr(output.pages).length, "page")}${failed ? `; ${n(failed, "page")} couldn't be opened` : ""}.`;
+    }
     case "apifyLinkedIn": {
-      if (output.source === "apify" && output.matched) return `Profile found (${str(output.matchedBy)} match)`;
-      if (output.source === "apify") return `No exact profile match among ${arr(output.candidates).length} results`;
-      return `LinkedIn scrape unavailable — ${arr(output.exaResults).length} web results instead`;
+      if (output.source === "apify" && output.matched) return `Found the LinkedIn profile (matched by ${str(output.matchedBy)}).`;
+      if (output.source === "apify") return `Couldn't match a LinkedIn profile among ${n(arr(output.candidates).length, "search result")}.`;
+      return `LinkedIn couldn't be read directly, so it used ${n(arr(output.exaResults).length, "web search result")} instead.`;
     }
     case "githubUser":
-      return `${str(output.login)}: ${num(output.publicRepos)} repos, ${num(output.totalStarsOnOwnedRepos)}★ on owned repos, ${num(output.followers)} followers`;
+      return `GitHub user ${str(output.login)} has ${n(num(output.publicRepos), "public repo")}, ${num(output.totalStarsOnOwnedRepos)} stars across the repos they own, and ${n(num(output.followers), "follower")}.`;
     case "githubRepo": {
       const user = output.user as Out | null;
-      const share = user ? ` — ${str(user.login)}: ${user.isOwner ? "owner, " : ""}${num(user.commits)} commits (${num(user.sharePct)}%)` : "";
-      return `${str(output.fullName)}: ${num(output.stars)}★${share}`;
+      const share = user
+        ? ` ${str(user.login)} ${user.isOwner ? "owns it and " : ""}made ${n(num(user.commits), "commit")} (${num(user.sharePct)}% of the total).`
+        : "";
+      return `The repo ${str(output.fullName)} has ${num(output.stars)} stars.${share}`;
     }
     case "openAlexAuthor": {
       const top = first(output.candidates);
       return arr(output.candidates).length
-        ? `${num(output.totalMatches)} match(es) — top: ${str(top.displayName)} (${num(top.worksCount)} works, ${num(top.citedByCount)} citations)`
-        : "No authors found";
+        ? `OpenAlex has ${n(num(output.totalMatches), "author")} with that name. Closest match: ${str(top.displayName)} (${n(num(top.worksCount), "paper")}, ${n(num(top.citedByCount), "citation")}).`
+        : "OpenAlex has no author with that name.";
     }
     case "openAlexWorks":
-      return `${num(output.totalWorks)} works; ${num(output.citationsInList)} citations across the ${arr(output.works).length} listed`;
+      return `This author has ${n(num(output.totalWorks), "paper")} on OpenAlex; the ${arr(output.works).length} listed have ${n(num(output.citationsInList), "citation")} between them.`;
     case "devpostFetch": {
       const hackathon = output.hackathon as Out | null;
-      if (hackathon?.participants) return `${str(hackathon.name)}: ${num(hackathon.participants)} participants`;
+      if (hackathon?.participants) return `${str(hackathon.name)} had ${n(num(hackathon.participants), "participant")}.`;
       const winners = arr(output.projects).filter((p) => (p as Out).winner).length;
-      return `${str(output.pageType)} page — ${arr(output.projects).length} project(s), ${winners} winner(s)${output.via === "exa" ? " (via Exa)" : ""}`;
+      return `Read a Devpost ${str(output.pageType)} page: ${n(arr(output.projects).length, "project")}, ${n(winners, "winner")}${output.via === "exa" ? " (found via web search)" : ""}.`;
     }
     default:
-      return "Done";
+      return "Done.";
   }
 }
 
@@ -149,7 +157,7 @@ export function toolEventHooks(applicantId: string, agentId: AgentId, start = 10
     afterToolCall: async ({ toolName, output, error }) => {
       const found = error
         ? `Failed: ${truncate(error instanceof Error ? error.message : String(error), 100)}`
-        : truncate(summarizeToolResult(toolName, (output ?? {}) as Out));
+        : truncate(summarizeToolResult(toolName, (output ?? {}) as Out), 260);
       await log("tool_result", `${toolName}: ${found}`, { found, progress, url: urls.get(toolName) ?? null });
     },
   };

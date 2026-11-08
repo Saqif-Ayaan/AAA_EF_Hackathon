@@ -37,6 +37,7 @@ import {
   toFindings,
   toSourceFindings,
 } from "../agents/output-schemas";
+import { CRITERION_LABELS } from "../../lib/labels";
 import { eventLogger, toolEventHooks } from "../events";
 
 const SOURCE_MAX_STEPS = 14;
@@ -177,8 +178,9 @@ function sourceStep<const Id extends string>(agentId: SourceAgentId, id: Id) {
 
         for (const f of sourceFindings) {
           const claim = claims.find((c) => c.id === f.claimId)!;
-          const found = truncate(f.foundValue ?? "Nothing found");
-          await log("finding", `${claim.criterion}: ${found}`, {
+          // found = the headline (full, never cut off); message = the agent's plain-English explanation.
+          const found = `${CRITERION_LABELS[claim.criterion]}: ${f.foundValue ?? "nothing found for this claim"}`;
+          await log("finding", f.note || found, {
             found,
             url: f.sources[0]?.url ?? null,
             progress: hooks.progress(),

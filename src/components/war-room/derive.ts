@@ -12,7 +12,7 @@
 import { AGENT_IDS, type AgentEvent, type AgentId } from "@/lib/schemas";
 import type { PillStatus } from "./meta";
 
-export type Find = { id: number; text: string; url: string | null; at: number };
+export type Find = { id: number; text: string; /** The agent's plain-English explanation (finding events only). */ detail: string | null; url: string | null; at: number };
 
 export type AgentView = {
   status: PillStatus;
@@ -77,7 +77,7 @@ export function deriveAgents(events: AgentEvent[]): Record<AgentId, AgentView> {
     } else if (e.url !== null) {
       v.url = e.url;
     }
-    if (e.found) v.finds.push({ id: e.id, text: e.found, url: e.url, at });
+    if (e.found) v.finds.push({ id: e.id, text: e.found, detail: e.type === "finding" && e.message !== e.found ? e.message : null, url: e.url, at });
   }
   return views;
 }

@@ -80,7 +80,8 @@ export function AgentCard({ id, view, now }: { id: SourceAgentId; view: AgentVie
         <ol ref={logRef} className="min-h-0 flex-1 space-y-2.5 overflow-y-auto pr-1">
           {view.finds.map((f) => (
             <li key={f.id} className={now - f.at < FRESH_MS ? styles.enter : undefined}>
-              <p className="text-lg leading-snug">{f.text}</p>
+              <p className={`text-lg leading-snug ${f.detail ? "font-semibold" : ""}`}>{f.text}</p>
+              {f.detail && <p className="mt-1 text-base leading-snug text-[color:var(--muted)]">{f.detail}</p>}
               {f.url && (
                 <a
                   href={f.url}
