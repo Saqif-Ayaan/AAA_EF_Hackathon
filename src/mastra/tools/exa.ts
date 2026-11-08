@@ -16,6 +16,32 @@ const exa = exaClient;
 
 const SEARCH_TEXT_CHARS = 1_000;
 
+export type WebResult = { url: string; title: string; excerpt: string; publishedDate: string | null; author: string | null };
+
+/** Exa search with a short, query-relevant excerpt per result. Shared by exaSearch and the LinkedIn fallback. */
+export async function searchWeb(
+  query: string,
+  opts: { numResults?: number; includeDomains?: string[]; signal?: AbortSignal } = {},
+): Promise<WebResult[]> {
+  const res = await exa().search(
+    query,
+    {
+      numResults: opts.numResults ?? 5,
+      ...(opts.includeDomains?.length ? { includeDomains: opts.includeDomains } : {}),
+      contents: { text: { maxCharacters: SEARCH_TEXT_CHARS }, highlights: true },
+    },
+    { signal: opts.signal },
+  );
+  return res.results.map((r) => ({
+    url: r.url,
+    title: r.title ?? "",
+    // Highlights are the query-relevant sentences; fall back to the start of the page.
+    excerpt: r.highlights?.length ? r.highlights.join(" … ") : (r.text ?? ""),
+    publishedDate: r.publishedDate ?? null,
+    author: r.author || null,
+  }));
+}
+
 export const exaSearch = createTool({
   id: "exaSearch",
   description:
@@ -41,28 +67,10 @@ export const exaSearch = createTool({
       }),
     ),
   }),
-  execute: async ({ query, numResults, includeDomains }, { abortSignal }) => {
-    const res = await exa().search(
-      query,
-      {
-        numResults,
-        ...(includeDomains?.length ? { includeDomains } : {}),
-        contents: { text: { maxCharacters: SEARCH_TEXT_CHARS }, highlights: true },
-      },
-      { signal: abortSignal },
-    );
-    return {
-      query,
-      results: res.results.map((r) => ({
-        url: r.url,
-        title: r.title ?? "",
-        // Highlights are the query-relevant sentences; fall back to the start of the page.
-        excerpt: r.highlights?.length ? r.highlights.join(" … ") : (r.text ?? ""),
-        publishedDate: r.publishedDate ?? null,
-        author: r.author || null,
-      })),
-    };
-  },
+  execute: async ({ query, numResults, includeDomains }, { abortSignal }) => ({
+    query,
+    results: await searchWeb(query, { numResults, includeDomains, signal: abortSignal }),
+  }),
 });
 
 export const exaContents = createTool({

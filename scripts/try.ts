@@ -15,7 +15,7 @@ import type { ToolName } from "../src/mastra/tools";
 const MAIN_FIELD: Record<ToolName, string> = {
   exaSearch: "query",
   exaContents: "urls",
-  apifyLinkedIn: "profileUrl",
+  apifyLinkedIn: "fullName",
   githubUser: "username",
   githubRepo: "repo",
   openAlexAuthor: "name",
@@ -27,7 +27,7 @@ const MAIN_FIELD: Record<ToolName, string> = {
 const EXAMPLES: Record<ToolName, string> = {
   exaSearch: `npm run try exaSearch "Andrej Karpathy" numResults=3 includeDomains=devpost.com,github.com`,
   exaContents: `npm run try exaContents https://karpathy.ai`,
-  apifyLinkedIn: `npm run try apifyLinkedIn https://www.linkedin.com/in/<handle> forceRefresh=true`,
+  apifyLinkedIn: `npm run try apifyLinkedIn "Jane Doe" company="Acme Inc" profileUrl=https://www.linkedin.com/in/<handle>`,
   githubUser: `npm run try githubUser torvalds`,
   githubRepo: `npm run try githubRepo karpathy/nanoGPT username=karpathy`,
   openAlexAuthor: `npm run try openAlexAuthor "Andrej Karpathy" limit=3`,

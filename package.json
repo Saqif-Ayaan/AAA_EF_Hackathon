@@ -9,6 +9,8 @@
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
     "try": "tsx scripts/try.ts",
+    "seed": "tsx scripts/seed-applicant.ts",
+    "pipeline": "tsx scripts/run-pipeline.ts",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio"
   },
