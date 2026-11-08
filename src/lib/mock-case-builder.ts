@@ -135,9 +135,7 @@ export function buildMockCase({ applicant, claims, findings, discrepancies }: Ca
         })),
     );
 
-    const points = usable
-      .map((r) => `${r.claim.summary}${r.finding?.foundValue ? ` (verified: ${r.finding.foundValue})` : ""}`)
-      .join("; ");
+    const points = usable.map((r) => r.claim.summary).join("; ");
 
     const weaknesses = [
       ...rows
@@ -149,7 +147,7 @@ export function buildMockCase({ applicant, claims, findings, discrepancies }: Ca
     argued.push({
       criterion,
       strength,
-      argument: `${LEAD[criterion]} ${points}. Each point is backed by an independently sourced exhibit.`,
+      argument: `${LEAD[criterion]} ${points}.`,
       exhibits,
       weaknesses,
     });
@@ -177,14 +175,10 @@ export function buildMockCase({ applicant, claims, findings, discrepancies }: Ca
   const open = discrepancies.filter((d) => d.resolution === "open").length;
 
   const summary = [
-    `${applicant.name} works in ${lowerFirst(applicant.field)} as ${applicant.currentRole} at ${applicant.currentOrganization}.`,
     chosen.length
-      ? `This case argues ${chosen.length} of the 8 O-1A criteria — ${chosen.map((c) => LABEL[c.criterion]).join(", ")} — using only evidence corroborated online, with ${plural(exhibitCount, "cited exhibit")}.`
-      : "No criterion is supported by corroborated evidence yet.",
-    chosen.length ? `The strongest criterion is ${LABEL[chosen[0].criterion].toLowerCase()}.` : "",
-    open
-      ? `${plural(open, "follow-up question")} ${open === 1 ? "is" : "are"} still open; those claims stay out of the argument until resolved.`
-      : "All follow-up questions are resolved.",
+      ? `${applicant.name} meets ${chosen.length} of the 8 O-1A criteria on evidence corroborated online (${plural(exhibitCount, "exhibit")}), led by ${LABEL[chosen[0].criterion].toLowerCase()}.`
+      : `No criterion is supported by corroborated evidence yet for ${applicant.name}.`,
+    open ? `${plural(open, "open question")} ${open === 1 ? "stays" : "stay"} out of the case until resolved.` : "",
   ]
     .filter(Boolean)
     .join(" ");

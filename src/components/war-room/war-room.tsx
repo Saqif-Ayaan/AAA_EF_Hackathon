@@ -1,22 +1,19 @@
 "use client";
 
-import { useCallback, useMemo, useState, type CSSProperties } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { SOURCE_AGENT_IDS, type FindingRecord } from "@/lib/schemas";
 import type { ReplayLoad, WarRoomApplicant, WarRoomClaim } from "@/lib/war-room";
 import { AgentCard } from "./agent-card";
-import { Backdrop, Viewfinder } from "./backdrop";
+import { Backdrop } from "./backdrop";
 import { deriveAgents, type AgentView } from "./derive";
 import { DiscrepancyPanel } from "./discrepancy-panel";
 import { BuildCaseButton, DossierPanel, type BuildControl } from "./dossier-panel";
 import { EvidenceLedger } from "./evidence-ledger";
 import { fontVariables } from "./fonts";
-import { Corners, Micro, Timecode } from "./hud";
-import { AGENT_STATUS_STYLE } from "./meta";
-import { PALETTES, setPalette, usePalette } from "./palette";
+import { AGENT_STATUS_STYLE, formatElapsed } from "./meta";
 import { ScoreCard } from "./score-card";
-import { SectionTitle } from "./section-title";
 import styles from "./styles";
-import { Ticker } from "./ticker";
+import { Label, SectionTitle } from "./ui";
 import { useLiveFeed, useReplayFeed } from "./use-case-feed";
 
 /** How long after a click the button stays in "Building…" before events confirm it. */
@@ -70,20 +67,18 @@ function useBuildControl({
       : claims.length === 0
         ? "No claims yet"
         : findings.length < claims.length
-          ? "Available once every claim is reconciled"
+          ? "Available once every claim is checked"
           : null;
 
   return { onBuild: () => void onBuild(), building, disabledReason, error: state.error };
 }
 
-function splitName(name: string) {
-  const parts = name.trim().split(/\s+/);
-  return parts.length < 2
-    ? { first: "", last: parts[0] ?? "" }
-    : { first: parts.slice(0, -1).join(" "), last: parts[parts.length - 1] };
-}
-
-const pad2 = (n: number) => String(Math.round(n)).padStart(2, "0");
+const NAV = [
+  { href: "#agents", label: "Agents" },
+  { href: "#ledger", label: "Ledger" },
+  { href: "#discrepancies", label: "Questions" },
+  { href: "#dossier", label: "Dossier" },
+];
 
 export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?: ReplayLoad; speed?: number }) {
   const isReplay = replay !== undefined;
@@ -92,7 +87,6 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
   const { events, snapshot, online, now } = isReplay ? playback : live;
 
   const views = useMemo(() => deriveAgents(events), [events]);
-  const palette = usePalette();
 
   const applicant = snapshot?.applicant ?? null;
   const claims = snapshot?.claims ?? [];
@@ -104,10 +98,9 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
   const sourceViews = SOURCE_AGENT_IDS.map((id) => views[id]);
   const research = Math.round(sourceViews.reduce((sum, v) => sum + v.progress, 0) / sourceViews.length);
   const researchStarted = sourceViews.some((v) => v.startedAt !== null);
-  const activeAgents = sourceViews.filter((v) => AGENT_STATUS_STYLE[v.status].active).length;
-  const pagesRead = sourceViews.reduce((sum, v) => sum + v.pagesRead, 0);
   const caseStart = events.length ? Date.parse(events[0].createdAt) : null;
   const caseEnd = views.pipeline.endedAt;
+  const elapsed = caseStart === null ? null : (caseEnd ?? now) - caseStart;
   const openQuestions = discrepancies.filter((d) => d.resolution === "open").length;
 
   const build = useBuildControl({
@@ -122,16 +115,16 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
   });
 
   const phase = !applicant
-    ? { label: "Awaiting signal", color: "var(--dim)" }
+    ? "Waiting for a case"
     : score
-      ? { label: "Case scored", color: "#2ee68a" }
+      ? "Case scored"
       : caseRecord
-        ? { label: "Dossier built", color: "var(--accent)" }
+        ? "Dossier built"
         : caseEnd !== null
-          ? { label: "Vetting complete", color: "#2ee68a" }
+          ? "Vetting complete"
           : researchStarted
-            ? { label: "Vetting in progress", color: "var(--accent)" }
-            : { label: "Standing by", color: "var(--muted)" };
+            ? "Vetting in progress"
+            : "Ready";
 
   // Latest orchestration-level event (pipeline, reconciler, questioner, case builder, scorer, handoffs).
   const pipelineEvent = useMemo(() => {
@@ -142,191 +135,96 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
     return null;
   }, [events]);
 
-  const name = applicant ? splitName(applicant.name) : null;
-
   return (
-    <div
-      className={`${styles.root} ${fontVariables}`}
-      style={{ "--accent": palette.accent, "--accent-2": palette.accent2 } as CSSProperties}
-    >
+    <div className={`${styles.root} ${fontVariables}`}>
       <Backdrop />
-      <Viewfinder caseId={caseId} palette={isReplay ? `${palette.label} · playback` : palette.label} />
 
-      {/* ── Pill nav ─────────────────────────────────────────────────────── */}
-      <div className="sticky top-3 z-30 flex justify-center px-4 pt-3">
-        <nav
-          aria-label="War room"
-          className={`${styles.pill} flex max-w-full flex-wrap items-center justify-center gap-x-2 gap-y-2 rounded-[28px] p-1.5 sm:rounded-full`}
-        >
-          <a
-            href="#top"
-            className={`${styles.display} flex items-center gap-2 rounded-full bg-[color:var(--accent)] px-4 py-2 text-xl text-[#050807]`}
-          >
-            <span aria-hidden>◆</span> O-1A
+      {/* ── Top bar ──────────────────────────────────────────────────────── */}
+      <div className={`${styles.topbar} sticky top-0 z-30`}>
+        <div className="mx-auto flex max-w-[1880px] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-3 2xl:px-10">
+          <a href="#top" className={`${styles.display} text-2xl`}>
+            O-1A <span className="text-[color:var(--accent)]">War room</span>
           </a>
-          <span className={`${styles.micro} hidden pr-2 2xl:inline`}>War room</span>
-          <ul className="flex flex-wrap items-center justify-center">
-            {[
-              { href: "#agents", label: "Agents" },
-              { href: "#ledger", label: "Ledger" },
-              { href: "#discrepancies", label: "Questions", count: discrepancies.length },
-              { href: "#dossier", label: "Dossier", dot: caseRecord !== null },
-            ].map((l) => (
-              <li key={l.href}>
-                <a
-                  href={l.href}
-                  className={`${styles.navLink} flex items-center gap-2 px-3.5 py-2 text-base font-semibold sm:text-lg`}
-                >
-                  {l.label}
-                  {l.count ? (
-                    <span className={`${styles.mono} rounded-full bg-[#ffb224] px-1.5 text-xs font-bold text-[#050807]`}>
-                      {l.count}
-                    </span>
-                  ) : null}
-                  {l.dot ? <span className="size-2 rounded-full bg-[color:var(--accent)]" aria-label="ready" /> : null}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <span className="hidden h-6 w-px bg-[color:var(--line)] sm:block" aria-hidden />
-          <PaletteSwitcher current={palette.id} />
-          <span className="hidden h-6 w-px bg-[color:var(--line)] sm:block" aria-hidden />
-          <CameraChip
-            mode={isReplay ? (replay?.ok ? "replay" : "missing") : online === false ? "lost" : "live"}
-            caseStart={caseStart}
-            caseEnd={caseEnd}
+          <nav aria-label="Sections" className="hidden md:block">
+            <ul className="flex gap-1">
+              {NAV.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} className={`${styles.navLink} block px-3.5 py-1.5 text-lg font-semibold`}>
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <StatusChip
+            mode={isReplay ? (replay?.ok ? "replay" : "missing") : online === null ? "connecting" : online ? "live" : "offline"}
+            elapsed={elapsed}
             onRestart={playback.restart}
-            ended={playback.ended}
           />
-        </nav>
+        </div>
       </div>
 
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <header
-        id="top"
-        className="relative z-10 mx-auto grid max-w-[1880px] gap-8 px-6 pt-12 pb-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,27rem)] lg:items-end lg:pt-16 2xl:px-10"
-      >
-        <div className="min-w-0">
-          <Micro className="mb-4 block">
-            Case {caseId} <span className="opacity-60">{"//"}</span> Subject 01 <span className="opacity-60">{"//"}</span>{" "}
-            <span style={{ color: phase.color }}>{phase.label}</span>
-            {isReplay && (
-              <>
-                {" "}
-                <span className="opacity-60">{"//"}</span>{" "}
-                <span className="text-[color:var(--accent)]">Replay{speed !== 1 ? ` ×${speed}` : ""}</span>
-              </>
-            )}
-          </Micro>
-          <h1 className={`${styles.display} text-[clamp(4rem,10vw,11rem)] break-words`}>
-            {name ? (
-              <>
-                {name.first && <span className="text-[color:var(--text)]">{name.first} </span>}
-                <span className={styles.checker}>{name.last}</span>
-              </>
-            ) : (
-              <>
-                Awaiting <span className={styles.checker}>signal</span>
-              </>
-            )}
-          </h1>
-          {applicant ? (
-            <p className="mt-4 max-w-4xl text-xl text-[color:var(--muted)] sm:text-2xl">
-              {applicant.currentRole}, {applicant.currentOrganization} · {applicant.field}
-              {applicant.alternateNames.length > 0 && (
-                <span
-                  className={`${styles.mono} ml-3 text-base tracking-[0.14em] whitespace-nowrap text-[color:var(--accent)] uppercase`}
-                >
-                  AKA {applicant.alternateNames.join(" / ")}
-                </span>
-              )}
-            </p>
-          ) : replay && !replay.ok ? (
-            <p role="alert" className={`${styles.mono} mt-4 max-w-4xl text-xl text-[#ffc95c]`}>
-              {replay.error}
-              {replay.command && (
-                <code className="ml-3 inline-block bg-black/50 px-2 py-0.5 whitespace-nowrap text-[color:var(--accent)]">
-                  {replay.command}
-                </code>
-              )}
-            </p>
-          ) : (
-            snapshot && (
-              <p className="mt-4 max-w-3xl text-xl text-[color:var(--muted)] sm:text-2xl">
-                No data yet for this case. Start a run (
-                <code className={`${styles.mono} bg-black/50 px-2 py-0.5 text-[color:var(--accent)]`}>npm run mock</code>
-                ) and this page picks it up automatically.
-              </p>
-            )
-          )}
+      {/* ── Title ────────────────────────────────────────────────────────── */}
+      <header id="top" className="relative z-10 mx-auto max-w-[1880px] px-6 pt-12 pb-10 2xl:px-10">
+        <Label className="block text-[color:var(--accent)]">
+          {phase}
+          {isReplay && ` · replay${speed !== 1 ? ` ×${speed}` : ""}`}
+        </Label>
+        <h1 className={`${styles.display} mt-3 text-[clamp(3.5rem,7vw,7.5rem)]`}>{applicant?.name ?? `Case ${caseId}`}</h1>
 
-          <p className={`${styles.mono} mt-5 flex min-h-7 items-center gap-3 text-base text-[color:var(--text)] sm:text-lg`}>
-            <span className="text-[color:var(--accent)]" aria-hidden>
-              ▸
-            </span>
-            {pipelineEvent ? (
-              <span key={pipelineEvent.id} className={`${styles.enter} min-w-0 truncate`}>
-                {pipelineEvent.message}
-              </span>
-            ) : (
-              <span className="text-[color:var(--dim)]">Pipeline idle</span>
+        {applicant ? (
+          <p className="mt-3 text-2xl text-[color:var(--muted)]">
+            {applicant.currentRole}, {applicant.currentOrganization} · {applicant.field}
+            {applicant.alternateNames.length > 0 && <> · also published as {applicant.alternateNames.join(", ")}</>}
+          </p>
+        ) : replay && !replay.ok ? (
+          <p role="alert" className="mt-3 text-xl text-[#ffc95c]">
+            {replay.error}{" "}
+            {replay.command && (
+              <code className={`${styles.mono} rounded bg-black/50 px-2 py-0.5 whitespace-nowrap`}>{replay.command}</code>
             )}
           </p>
+        ) : (
+          snapshot && (
+            <p className="mt-3 text-xl text-[color:var(--muted)]">
+              No data yet. Start a run with{" "}
+              <code className={`${styles.mono} rounded bg-black/50 px-2 py-0.5`}>npm run mock</code> — this page picks it up
+              automatically.
+            </p>
+          )
+        )}
 
-          <div className="mt-7 flex flex-wrap gap-4">
-            {caseRecord ? (
-              <a href="#dossier" className={`${styles.cta} ${styles.display} px-8 py-4 text-2xl`}>
-                View dossier <span aria-hidden>↓</span>
-              </a>
-            ) : build.disabledReason === null || build.building ? (
-              <BuildCaseButton control={build} />
-            ) : discrepancies.length > 0 ? (
-              <a href="#discrepancies" className={`${styles.cta} ${styles.display} px-8 py-4 text-2xl`}>
-                Review {discrepancies.length} {discrepancies.length === 1 ? "question" : "questions"}{" "}
-                <span aria-hidden>↓</span>
-              </a>
-            ) : (
-              <a href="#agents" className={`${styles.cta} ${styles.display} px-8 py-4 text-2xl`}>
-                Watch the agents <span aria-hidden>↓</span>
-              </a>
-            )}
-            <a href="#ledger" className={`${styles.ctaGhost} ${styles.display} px-8 py-4 text-2xl`}>
-              Evidence ledger
+        <div className="mt-8 flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
+          <dl className="flex flex-wrap gap-x-12 gap-y-4">
+            <Stat label="Research" value={`${research}%`} />
+            <Stat label="Claims checked" value={`${findings.length}/${claims.length}`} />
+            <Stat label="Open questions" value={String(openQuestions)} color={openQuestions ? "#ffc95c" : undefined} />
+            {score && <Stat label="Readiness" value={String(Math.round(score.approvalLikelihood))} color="#2ee68a" />}
+          </dl>
+          {caseRecord ? (
+            <a href="#dossier" className={`${styles.button} px-7 py-3.5 text-xl`}>
+              View dossier ↓
             </a>
-          </div>
+          ) : build.disabledReason === null || build.building ? (
+            <BuildCaseButton control={build} />
+          ) : null}
         </div>
 
-        <aside aria-label="Case readout" className={`${styles.panel} relative grid grid-cols-2`}>
-          <Readout label="Research" value={`${research}%`} accent={researchStarted && caseEnd === null} />
-          <Readout label="Claims checked" value={`${pad2(findings.length)}/${pad2(claims.length)}`} />
-          {score ? (
-            <Readout label="Readiness" value={pad2(score.approvalLikelihood)} color="#2ee68a" />
-          ) : (
-            <Readout label="Pages read" value={pad2(pagesRead)} />
+        <p className="mt-6 min-h-7 truncate text-lg text-[color:var(--muted)]">
+          {pipelineEvent && (
+            <span key={pipelineEvent.id} className={styles.enter}>
+              Latest: {pipelineEvent.message}
+            </span>
           )}
-          <Readout
-            label="Anomalies"
-            value={pad2(discrepancies.length)}
-            color={discrepancies.length ? "#ffc95c" : undefined}
-          />
-          <Corners size={22} />
-        </aside>
+        </p>
       </header>
 
-      <Ticker events={events} />
-
       <main className="relative z-10 mx-auto max-w-[1880px] px-6 pb-20 2xl:px-10">
-        <section id="agents" aria-labelledby="agents-title" className="scroll-mt-24 pt-10">
-          <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-            <SectionTitle id="agents-title" index="01" kicker="Parallel source sweep" plain="Source" checker="agents" />
-            <Micro>
-              {SOURCE_AGENT_IDS.length} agents <span className="opacity-60">{"//"}</span>{" "}
-              <span className={activeAgents ? "text-[color:var(--accent)]" : ""}>{activeAgents} active</span>
-            </Micro>
-          </div>
+        <section id="agents" aria-labelledby="agents-title" className="scroll-mt-24">
+          <SectionTitle id="agents-title" title="Source agents" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {SOURCE_AGENT_IDS.map((id) => (
-              <AgentCard key={id} id={id} view={views[id]} now={now} caseStart={caseStart} />
+              <AgentCard key={id} id={id} view={views[id]} now={now} />
             ))}
           </div>
         </section>
@@ -343,13 +241,7 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
         </div>
 
         <div className="mt-10 grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
-          <DossierPanel
-            caseRecord={caseRecord}
-            caseBuilder={views.caseBuilder}
-            build={build}
-            openQuestions={openQuestions}
-            now={now}
-          />
+          <DossierPanel caseRecord={caseRecord} caseBuilder={views.caseBuilder} build={build} now={now} />
           <ScoreCard score={score} caseRecord={caseRecord} scorer={views.scorer} now={now} />
         </div>
       </main>
@@ -357,92 +249,53 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
   );
 }
 
-/** REC timecode while live; PLAYBACK + restart in replay mode. */
-function CameraChip({
+function Stat({ label, value, color }: { label: string; value: string; color?: string }) {
+  return (
+    <div>
+      <dt>
+        <Label>{label}</Label>
+      </dt>
+      <dd className={`${styles.display} mt-1 text-6xl tabular-nums`} style={{ color }}>
+        {value}
+      </dd>
+    </div>
+  );
+}
+
+/** Live / offline / replay indicator with elapsed time; replay adds a restart button. */
+function StatusChip({
   mode,
-  caseStart,
-  caseEnd,
+  elapsed,
   onRestart,
-  ended,
 }: {
-  mode: "live" | "lost" | "replay" | "missing";
-  caseStart: number | null;
-  caseEnd: number | null;
+  mode: "connecting" | "live" | "offline" | "replay" | "missing";
+  elapsed: number | null;
   onRestart: () => void;
-  ended: boolean;
 }) {
-  const shell = `${styles.mono} flex items-center gap-2.5 rounded-full border border-[color:var(--line)] bg-black/40 px-4 py-2 text-base`;
-  if (mode === "lost" || mode === "missing") {
+  const time = elapsed === null ? "" : ` · ${formatElapsed(elapsed)}`;
+  if (mode === "connecting") return <span className="text-lg font-semibold text-[color:var(--dim)]">Connecting…</span>;
+  if (mode === "missing") return <span className="text-lg font-semibold text-[#ff8590]">No replay</span>;
+  if (mode === "offline") {
     return (
-      <div className={shell} role="status">
-        <span className="font-semibold tracking-[0.14em] text-[#ff4d5e] uppercase">
-          {mode === "lost" ? "Signal lost" : "No replay"}
-        </span>
-      </div>
+      <span role="status" className="flex items-center gap-2 text-lg font-semibold text-[#ff8590]">
+        <span className="size-2.5 rounded-full bg-[#ff4d5e]" aria-hidden /> Offline
+      </span>
     );
   }
   if (mode === "replay") {
     return (
-      <div className={`${shell} !py-1.5 !pr-1.5`} role="status" aria-label={ended ? "Replay finished" : "Replaying"}>
-        <span className="font-semibold tracking-[0.14em] text-[color:var(--accent)] uppercase">
-          {ended ? "■ End" : "▶ Replay"}
-        </span>
-        <span className="text-[color:var(--text)]">
-          <Timecode start={caseStart} end={caseEnd} />
-        </span>
-        <button
-          type="button"
-          onClick={onRestart}
-          className="rounded-full border border-[color:var(--line)] px-3 py-1 text-sm tracking-[0.14em] uppercase hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
-        >
+      <span role="status" className="flex items-center gap-3 text-lg font-semibold">
+        <span className="tabular-nums text-[color:var(--accent)]">▶ Replay{time}</span>
+        <button type="button" onClick={onRestart} className={`${styles.buttonGhost} px-3 py-1 text-base`}>
           Restart
         </button>
-      </div>
+      </span>
     );
   }
   return (
-    <div className={shell} role="status" aria-label="Recording, live">
-      <span className={styles.rec} aria-hidden />
-      <span className="font-semibold tracking-[0.14em] text-[#ff6b7a] uppercase">Rec</span>
-      <span className="text-[color:var(--text)]">
-        <Timecode start={caseStart} end={caseEnd} />
-      </span>
-    </div>
-  );
-}
-
-function Readout({ label, value, color, accent }: { label: string; value: string; color?: string; accent?: boolean }) {
-  return (
-    <div className="border-[color:var(--line)] p-5 [&:nth-child(-n+2)]:border-b [&:nth-child(odd)]:border-r">
-      <Micro>{label}</Micro>
-      <p
-        className={`${styles.display} mt-2 text-[clamp(3rem,4.2vw,4.5rem)] tabular-nums`}
-        style={{ color: color ?? (accent ? "var(--accent)" : undefined) }}
-      >
-        {value}
-      </p>
-    </div>
-  );
-}
-
-function PaletteSwitcher({ current }: { current: string }) {
-  return (
-    <fieldset className="flex items-center gap-2.5 px-2">
-      <legend className="sr-only">Accent colour</legend>
-      {PALETTES.map((p) => (
-        <label key={p.id} className="cursor-pointer" title={p.label}>
-          <input
-            type="radio"
-            name="war-room-palette"
-            value={p.id}
-            checked={current === p.id}
-            onChange={() => setPalette(p.id)}
-            className={`${styles.swatchInput} sr-only`}
-          />
-          <span className={styles.swatch} style={{ backgroundColor: p.accent, color: p.accent }} />
-          <span className="sr-only">{p.label}</span>
-        </label>
-      ))}
-    </fieldset>
+    <span role="status" className="flex items-center gap-2 text-lg font-semibold tabular-nums">
+      <span className="size-2.5 rounded-full bg-[#2ee68a] motion-safe:animate-pulse" aria-hidden />
+      Live{time}
+    </span>
   );
 }
