@@ -188,7 +188,6 @@ export function SubmittedPanel({ result, onReset }: { result: SubmitApplicationR
       </ul>
 
       <div className="flex flex-wrap gap-3">
-        {/* TODO(after ui merge): redirect straight to the war room instead of showing this panel. */}
         <Link
           href={`/case/${result.applicantId}`}
           className="rounded-md bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700"

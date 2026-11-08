@@ -93,7 +93,10 @@ export function FollowupChat({ applicantId, applicantName }: { applicantId: stri
     <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900">
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-3xl px-4 py-4">
-          <h1 className="text-2xl font-bold">Follow-up questions</h1>
+          <Link href={`/case/${applicantId}`} className="text-sm font-medium text-indigo-700 underline">
+            ← Back to the case
+          </Link>
+          <h1 className="mt-1 text-2xl font-bold">Follow-up questions</h1>
           <p className="text-sm text-slate-600">
             {applicantName}
             {total > 0 && ` · ${answeredCount} of ${total} answered`}

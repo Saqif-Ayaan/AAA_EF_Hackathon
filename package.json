@@ -16,7 +16,8 @@
     "pipeline": "tsx scripts/run-pipeline.ts",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "seed:followup": "tsx scripts/seed-followup.ts"
+    "seed:followup": "tsx scripts/seed-followup.ts",
+    "score": "tsx scripts/score.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.99",

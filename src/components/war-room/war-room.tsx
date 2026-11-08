@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
 import { SOURCE_AGENT_IDS, type FindingRecord } from "@/lib/schemas";
 import type { ReplayLoad, WarRoomApplicant, WarRoomClaim } from "@/lib/war-room";
@@ -185,13 +186,23 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
             )}
           </p>
         ) : (
-          snapshot && (
+          snapshot &&
+          (caseId === "demo" ? (
             <p className="mt-3 text-xl text-[color:var(--muted)]">
-              No data yet. Start a run with{" "}
+              No data yet. Start the mock run with{" "}
               <code className={`${styles.mono} rounded bg-black/50 px-2 py-0.5`}>npm run mock</code> — this page picks it up
               automatically.
             </p>
-          )
+          ) : (
+            <p className="mt-3 text-xl text-[color:var(--muted)]">
+              No case with this ID yet. Submit the form at{" "}
+              <a href="/apply" className="underline">
+                /apply
+              </a>{" "}
+              or run <code className={`${styles.mono} rounded bg-black/50 px-2 py-0.5`}>npm run seed</code> — this page picks
+              it up automatically.
+            </p>
+          ))
         )}
 
         <div className="mt-8 flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
@@ -201,13 +212,20 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
             <Stat label="Open questions" value={String(openQuestions)} color={openQuestions ? "#ffc95c" : undefined} />
             {score && <Stat label="Readiness" value={String(Math.round(score.approvalLikelihood))} color="#2ee68a" />}
           </dl>
-          {caseRecord ? (
-            <a href="#dossier" className={`${styles.button} px-7 py-3.5 text-xl`}>
-              View dossier ↓
-            </a>
-          ) : build.disabledReason === null || build.building ? (
-            <BuildCaseButton control={build} />
-          ) : null}
+          <div className="flex flex-wrap items-center gap-3">
+            {!isReplay && openQuestions > 0 && (
+              <Link href={`/case/${encodeURIComponent(caseId)}/followup`} className={`${styles.buttonGhost} px-7 py-3.5 text-xl`}>
+                Resolve questions ({openQuestions}) →
+              </Link>
+            )}
+            {caseRecord ? (
+              <a href="#dossier" className={`${styles.button} px-7 py-3.5 text-xl`}>
+                View dossier ↓
+              </a>
+            ) : build.disabledReason === null || build.building ? (
+              <BuildCaseButton control={build} />
+            ) : null}
+          </div>
         </div>
 
         <p className="mt-6 min-h-7 truncate text-lg text-[color:var(--muted)]">
@@ -237,11 +255,24 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
             reconciler={views.reconciler}
             now={now}
           />
-          <DiscrepancyPanel discrepancies={discrepancies} claims={claims} questioner={views.questioner} now={now} />
+          <DiscrepancyPanel
+            discrepancies={discrepancies}
+            claims={claims}
+            questioner={views.questioner}
+            resolver={views.resolver}
+            followupHref={isReplay ? null : `/case/${encodeURIComponent(caseId)}/followup`}
+            now={now}
+          />
         </div>
 
         <div className="mt-10 grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
-          <DossierPanel caseRecord={caseRecord} caseBuilder={views.caseBuilder} build={build} now={now} />
+          <DossierPanel
+            caseRecord={caseRecord}
+            caseBuilder={views.caseBuilder}
+            build={build}
+            bundleHref={isReplay ? null : `/api/cases/${encodeURIComponent(caseId)}/bundle?download=1`}
+            now={now}
+          />
           <ScoreCard score={score} caseRecord={caseRecord} scorer={views.scorer} now={now} />
         </div>
       </main>

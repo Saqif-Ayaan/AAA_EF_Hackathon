@@ -61,7 +61,9 @@ export function ScoreCard({
           {scorer.status === "thinking"
             ? (scorer.currentAction ?? "Scoring…")
             : caseRecord
-              ? "Waiting for the scoring agent…"
+              ? scorer.status === "error"
+                ? "Awaiting score — the last scoring attempt failed (see the server log)"
+                : "Awaiting score"
               : "Appears after the case is built."}
         </p>
       ) : (

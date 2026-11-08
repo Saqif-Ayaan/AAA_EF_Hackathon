@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Discrepancy } from "@/lib/schemas";
 import type { WarRoomClaim } from "@/lib/war-room";
 import type { AgentView } from "./derive";
@@ -12,11 +13,17 @@ export function DiscrepancyPanel({
   discrepancies,
   claims,
   questioner,
+  resolver,
+  followupHref,
   now,
 }: {
   discrepancies: Discrepancy[];
   claims: WarRoomClaim[];
   questioner: AgentView;
+  /** Classifies the applicant's answers on the follow-up page. */
+  resolver: AgentView;
+  /** Link to /case/[id]/followup, or null in replay mode. */
+  followupHref: string | null;
   now: number;
 }) {
   const claimById = new Map(claims.map((c) => [c.id, c]));
@@ -36,6 +43,12 @@ export function DiscrepancyPanel({
           <div className="flex items-center gap-3">
             <Label>Questioner</Label>
             <StatusPill status={questioner.status} />
+            {resolver.eventCount > 0 && (
+              <>
+                <Label>Resolver</Label>
+                <StatusPill status={resolver.status} />
+              </>
+            )}
           </div>
         }
       />
@@ -77,6 +90,12 @@ export function DiscrepancyPanel({
             );
           })}
         </ol>
+      )}
+
+      {followupHref && open > 0 && (
+        <Link href={followupHref} className={`${styles.button} mt-5 self-start px-6 py-3 text-lg`}>
+          Resolve {open === 1 ? "question" : `${open} questions`} →
+        </Link>
       )}
     </section>
   );

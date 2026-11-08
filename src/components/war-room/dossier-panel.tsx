@@ -47,11 +47,14 @@ export function DossierPanel({
   caseRecord,
   caseBuilder,
   build,
+  bundleHref,
   now,
 }: {
   caseRecord: CaseRecord | null;
   caseBuilder: AgentView;
   build: BuildControl;
+  /** Download link for the scorer handoff (CaseBundle), or null in replay mode. */
+  bundleHref: string | null;
   now: number;
 }) {
   const c = caseRecord?.caseJson ?? null;
@@ -66,6 +69,11 @@ export function DossierPanel({
         right={
           <div className="flex items-center gap-3">
             <StatusPill status={caseBuilder.status} />
+            {c && bundleHref && (
+              <a href={bundleHref} download className={`${styles.buttonGhost} px-5 py-3 text-lg`}>
+                Download case bundle
+              </a>
+            )}
             {c && <BuildCaseButton control={build} label="Rebuild" variant="ghost" />}
           </div>
         }

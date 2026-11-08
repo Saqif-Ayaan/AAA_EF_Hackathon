@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import type { SubmitApplicationResponse } from "@/app/api/applications/route";
 import type { DemoApplicantResponse } from "@/app/api/demo-applicant/route";
@@ -19,6 +20,7 @@ import {
 import { ReviewStep, SubmittedPanel, type SubmitStatus } from "./review-step";
 
 export function IntakeForm() {
+  const router = useRouter();
   const [form, setForm] = useState<FormState>(emptyFormState);
   const [stepIndex, setStepIndex] = useState(0);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -119,8 +121,9 @@ export function IntakeForm() {
         setSubmitStatus({ state: "error", message: data.error ?? `Submission failed (${res.status})`, details: data.issues });
         return;
       }
-      setSubmitted(data as SubmitApplicationResponse);
-      window.scrollTo({ top: 0 });
+      const result = data as SubmitApplicationResponse;
+      setSubmitted(result); // shown briefly while the war room loads
+      router.push(`/case/${result.applicantId}`); // vetting has started in the background
     } catch {
       setSubmitStatus({ state: "error", message: "Couldn't reach the server. Is `npm run dev` running?" });
     }

@@ -1,12 +1,9 @@
 /**
- * War-room contracts that live outside src/lib/schemas.ts (which only main edits):
+ * War-room types that live outside src/lib/schemas.ts (which only main edits):
  *
- * 1. Response shape of GET /api/cases/[id]/events — the one endpoint the
- *    dashboard polls (every 500ms). `[id]` is the applicant id.
- *    - `events` are incremental: only events with id > `?after=N`.
- *    - Everything else is a full snapshot on every poll (it's small).
- *    - `firstEventId` lets the client notice a reset (e.g. the mock re-ran):
- *      if it changes, the client drops its events and refetches from 0.
+ * 1. CaseSnapshot — what the dashboard renders. Live mode builds it from the
+ *    real APIs (GET /api/cases/[id], /events, /findings, /discrepancies);
+ *    replay mode builds it from a recorded file.
  *
  * 2. The replay file format (replays/<id>.json) used by /case/[id]?replay=1.
  *    Built only from the shared schemas, so a replay is real recorded data.
@@ -19,7 +16,6 @@ import {
   DiscrepancySchema,
   FindingRecordSchema,
   ScoreSchema,
-  type AgentEvent,
   type CaseRecord,
   type Discrepancy,
   type FindingRecord,
@@ -44,19 +40,16 @@ export const WarRoomClaimSchema = z.object({
 });
 export type WarRoomClaim = z.infer<typeof WarRoomClaimSchema>;
 
-export type CaseEventsResponse = {
+/** What the war room shows for one case, assembled from the case APIs (or a replay file). */
+export type CaseSnapshot = {
   applicant: WarRoomApplicant | null;
-  firstEventId: number | null;
-  events: AgentEvent[];
-  /** True when more events are waiting than one response returns; poll again right away. */
-  hasMore: boolean;
   claims: WarRoomClaim[];
   /** Latest finding per claim. */
   findings: FindingRecord[];
   discrepancies: Discrepancy[];
   /** Latest built case (dossier) for this applicant, if any. */
   case: CaseRecord | null;
-  /** Latest score for that case, if the scorer has posted one. */
+  /** Latest score for that case, if the scorer has produced one. */
   score: Score | null;
 };
 

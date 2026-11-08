@@ -21,6 +21,7 @@ import { randomUUID } from "node:crypto";
 import { parseArgs } from "node:util";
 import { eq, inArray, sql } from "drizzle-orm";
 import { db } from "../src/db";
+import { logEvent } from "../src/lib/event-log";
 import {
   applicants,
   cases,
@@ -34,7 +35,6 @@ import {
   ApplicantInputSchema,
   CRITERION_ENTRY_SCHEMAS,
   FindingSchema,
-  NewAgentEventSchema,
   QuestionerOutputSchema,
   type AgentId,
   type AgentStatus,
@@ -54,7 +54,7 @@ const { values: args } = parseArgs({
   options: {
     id: { type: "string", default: "demo" },
     speed: { type: "string", default: "1" },
-    port: { type: "string", default: "3001" },
+    port: { type: "string", default: process.env.PORT ?? "3000" },
   },
 });
 const APPLICANT_ID = args.id;
@@ -619,7 +619,7 @@ async function seed() {
 async function run(step: Step) {
   if (step.kind === "event") {
     const { agentId, type, message, status, currentAction, progress, url, found } = step;
-    const row = NewAgentEventSchema.parse({
+    await logEvent({
       applicantId: APPLICANT_ID,
       agentId,
       type,
@@ -630,7 +630,6 @@ async function run(step: Step) {
       url,
       found,
     });
-    await db.insert(events).values(row);
     const color = COLORS[agentId] ?? "\x1b[90m";
     const detail = found ? `✓ ${found}` : (currentAction ?? message);
     console.log(

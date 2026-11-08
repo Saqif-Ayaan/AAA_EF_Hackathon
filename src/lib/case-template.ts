@@ -1,23 +1,20 @@
 /**
- * STUB case builder + scorer, used by POST /api/cases/[id]/build until the
- * real Mastra `caseBuilder` (Opus) and the teammate's scoring agent are wired
- * in. Deterministic and template-based — no LLM — but it follows the spec's
- * rules: only corroborated (or applicant-substantiated) evidence is argued,
- * the strongest 3–5 criteria are picked, everything else is listed with a
- * reason, and nothing is invented beyond what the findings say.
+ * Template case builder used by "Build case" (POST /api/cases/[id]/build) until
+ * the real Mastra caseBuilder agent (Opus) exists. Deterministic, no LLM, but it
+ * follows the spec rules: only corroborated or applicant-substantiated evidence
+ * is argued, the strongest 3–5 criteria are picked, everything else is listed
+ * with a reason, and nothing is invented beyond what the findings say.
  *
- * Output is validated against CaseSchema / ScoreInputSchema, so the UI is
- * built against the real handoff contract.
+ * Output is validated against CaseSchema (the handoff contract). Scoring is NOT
+ * done here — that is the scoring agent in src/scorer/index.ts.
  */
 import {
   CRITERIA,
   CaseSchema,
-  ScoreInputSchema,
   type Case,
   type Criterion,
   type Discrepancy,
   type FindingRecord,
-  type ScoreInput,
 } from "./schemas";
 import type { WarRoomApplicant, WarRoomClaim } from "./war-room";
 
@@ -85,7 +82,7 @@ export type CaseInput = {
 const lowerFirst = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
 const plural = (n: number, word: string, many = `${word}s`) => `${n} ${n === 1 ? word : many}`;
 
-export function buildMockCase({ applicant, claims, findings, discrepancies }: CaseInput): {
+export function buildTemplateCase({ applicant, claims, findings, discrepancies }: CaseInput): {
   caseJson: Case;
   markdown: string;
 } {
@@ -219,46 +216,4 @@ export function caseMarkdown(name: string, c: Case): string {
     `${s.totalClaims} claims · ${s.corroborated} corroborated · ${s.substantiated} substantiated · ${s.unverified} unverified · ${s.contradicted} contradicted`,
   );
   return lines.join("\n");
-}
-
-const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, Math.round(n)));
-
-/** STUB scorer — stands in for the teammate's scoring agent (which will POST /api/cases/[id]/score). */
-export function scoreMockCase(c: Case, discrepancies: Discrepancy[]): ScoreInput {
-  const by = (s: "strong" | "moderate" | "weak") => c.criteriaArgued.filter((a) => a.strength === s);
-  const [strong, moderate, weak] = [by("strong"), by("moderate"), by("weak")];
-  const argued = c.criteriaArgued.length;
-  const open = discrepancies.filter((d) => d.resolution === "open").length;
-  const contradicted = c.evidenceStats.contradicted;
-
-  const approvalLikelihood = clamp(
-    30 + 14 * strong.length + 8 * moderate.length + 3 * weak.length - 5 * contradicted - 2 * open + (argued >= 3 ? 8 : -20),
-    3,
-    97,
-  );
-  const rfeRisk = clamp(
-    18 + 6 * open + 7 * contradicted + 6 * weak.length + 4 * moderate.length + (argued < 4 ? 12 : 0),
-    3,
-    97,
-  );
-
-  const names = (xs: Case["criteriaArgued"]) => xs.map((x) => LABEL[x.criterion].toLowerCase()).join(", ");
-  const reasoning = [
-    `${plural(argued, "criterion", "criteria")} argued (${strong.length} strong, ${moderate.length} moderate${weak.length ? `, ${weak.length} weak` : ""}), so the three-criterion minimum is ${argued >= 3 ? "met" : "not met"}.`,
-    strong.length ? `The case rests on ${names(strong)}.` : "",
-    open || contradicted || moderate.length
-      ? `RFE risk comes from ${[
-          open ? plural(open, "open follow-up question") : "",
-          contradicted ? plural(contradicted, "contradicted claim") : "",
-          moderate.length ? `thin evidence for ${names(moderate)}` : "",
-        ]
-          .filter(Boolean)
-          .join(", ")}.`
-      : "No open issues add RFE risk.",
-    open ? "Resolving the open questions should lower the risk." : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  return ScoreInputSchema.parse({ approvalLikelihood, rfeRisk, reasoning });
 }

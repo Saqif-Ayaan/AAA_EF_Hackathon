@@ -3,9 +3,14 @@
 /**
  * The war room's two data sources, both returning the same Feed shape:
  *
- * - useLiveFeed: polls GET /api/cases/[id]/events every 500ms. Events are
- *   incremental (?after=lastId); if the server's first event id changes, the
- *   run was reset (e.g. the mock re-ran) and everything is refetched from 0.
+ * - useLiveFeed: polls the real case APIs every 500ms —
+ *     GET /api/cases/[id]                 applicant, latest case, latest score
+ *     GET /api/cases/[id]/events?after=N  new events only (incremental)
+ *     GET /api/cases/[id]/findings        claims + findings (latest per claim is shown)
+ *     GET /api/cases/[id]/discrepancies   questions and their resolutions
+ *   If the events' firstEventId changes, the run was reset (e.g. the mock
+ *   re-ran) and everything is refetched from 0. A 404 means the case doesn't
+ *   exist (yet): the page keeps waiting.
  *
  * - useReplayFeed: plays a recorded replays/<id>.json on a timer. Every
  *   timestamp is shifted so the recording starts "now" (so elapsed timers,
@@ -14,13 +19,14 @@
  *   someone clicked "Build case").
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { CaseSummaryResponse } from "@/app/api/cases/[id]/route";
+import type { CaseDiscrepanciesResponse } from "@/app/api/cases/[id]/discrepancies/route";
+import type { CaseEventsResponse } from "@/app/api/cases/[id]/events/route";
+import type { CaseFindingsResponse } from "@/app/api/cases/[id]/findings/route";
 import type { AgentEvent, CaseRecord, Discrepancy, FindingRecord, Score } from "@/lib/schemas";
-import type { CaseEventsResponse, ReplayFile } from "@/lib/war-room";
+import type { CaseSnapshot, ReplayFile } from "@/lib/war-room";
 
-export type Snapshot = Pick<
-  CaseEventsResponse,
-  "applicant" | "claims" | "findings" | "discrepancies" | "case" | "score"
->;
+export type Snapshot = CaseSnapshot;
 
 export type Feed = {
   events: AgentEvent[];
@@ -33,6 +39,14 @@ export type Feed = {
 
 const POLL_MS = 500;
 
+const EMPTY: Snapshot = { applicant: null, claims: [], findings: [], discrepancies: [], case: null, score: null };
+
+async function getJson<T>(url: string, signal: AbortSignal): Promise<T> {
+  const res = await fetch(url, { cache: "no-store", signal });
+  if (!res.ok) throw new Error(`${url} → HTTP ${res.status}`);
+  return (await res.json()) as T;
+}
+
 export function useLiveFeed(caseId: string, enabled: boolean): Feed {
   const [events, setEvents] = useState<AgentEvent[]>([]);
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
@@ -41,6 +55,7 @@ export function useLiveFeed(caseId: string, enabled: boolean): Feed {
 
   useEffect(() => {
     if (!enabled) return;
+    const base = `/api/cases/${encodeURIComponent(caseId)}`;
     let after = 0;
     let knownFirstId: number | null = null;
     let timer: ReturnType<typeof setTimeout> | undefined;
@@ -53,33 +68,48 @@ export function useLiveFeed(caseId: string, enabled: boolean): Feed {
     async function tick() {
       const requestedAfter = after;
       try {
-        const res = await fetch(`/api/cases/${encodeURIComponent(caseId)}/events?after=${requestedAfter}`, {
-          cache: "no-store",
-          signal: ctrl.signal,
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = (await res.json()) as CaseEventsResponse;
+        const summaryRes = await fetch(base, { cache: "no-store", signal: ctrl.signal });
+        if (summaryRes.status === 404) {
+          // No such case (yet) — e.g. /case/demo before `npm run mock`. Keep waiting.
+          after = 0;
+          knownFirstId = null;
+          setEvents([]);
+          setSnapshot(EMPTY);
+          setOnline(true);
+          setNow(Date.now());
+          return schedule(POLL_MS * 2);
+        }
+        if (!summaryRes.ok) throw new Error(`${base} → HTTP ${summaryRes.status}`);
+        const summary = (await summaryRes.json()) as CaseSummaryResponse;
 
-        if (requestedAfter > 0 && data.firstEventId !== knownFirstId) {
+        const [ev, fd, dd] = await Promise.all([
+          getJson<CaseEventsResponse>(`${base}/events?after=${requestedAfter}`, ctrl.signal),
+          getJson<CaseFindingsResponse>(`${base}/findings`, ctrl.signal),
+          getJson<CaseDiscrepanciesResponse>(`${base}/discrepancies`, ctrl.signal),
+        ]);
+
+        if (requestedAfter > 0 && ev.firstEventId !== knownFirstId) {
           after = 0; // reset detected
           return schedule(0);
         }
-        knownFirstId = data.firstEventId;
-        if (requestedAfter === 0) setEvents(data.events);
-        else if (data.events.length) setEvents((prev) => prev.concat(data.events));
-        if (data.events.length) after = data.events[data.events.length - 1].id;
+        knownFirstId = ev.firstEventId;
+        if (requestedAfter === 0) setEvents(ev.events);
+        else if (ev.events.length) setEvents((prev) => prev.concat(ev.events));
+        if (ev.events.length) after = ev.events[ev.events.length - 1].id;
 
+        // A claim can be re-verified (e.g. after follow-up); the ledger shows the newest finding.
+        const latest = new Map(fd.findings.map((f) => [f.claimId, f]));
         setSnapshot({
-          applicant: data.applicant,
-          claims: data.claims,
-          findings: data.findings,
-          discrepancies: data.discrepancies,
-          case: data.case,
-          score: data.score,
+          applicant: summary.applicant,
+          claims: fd.claims.map(({ id, criterion, summary: text }) => ({ id, criterion, summary: text })),
+          findings: [...latest.values()],
+          discrepancies: dd.discrepancies,
+          case: summary.case,
+          score: summary.score,
         });
         setOnline(true);
         setNow(Date.now());
-        schedule(data.hasMore ? 0 : POLL_MS);
+        schedule(ev.hasMore ? 0 : POLL_MS);
       } catch (err) {
         if (ctrl.signal.aborted) return;
         console.warn("[war-room] poll failed", err);
