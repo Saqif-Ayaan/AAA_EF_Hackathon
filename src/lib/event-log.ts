@@ -1,10 +1,13 @@
 /**
- * Writes one event to the `events` table — the live feed the war room polls.
- * Every agent (and the pipeline itself) should log through this.
+ * THE one way events get into the `events` table — the live feed the war room
+ * polls. Every writer goes through here: the pipeline's logEvent tool, the
+ * resolver, Build case, the scorer handoff and the mock generator.
+ *
+ * (Relative imports on purpose: this also runs under tsx scripts and `mastra dev`.)
  */
-import { db } from "@/db";
-import { events } from "@/db/schema";
-import { NewAgentEventSchema, type NewAgentEvent } from "@/lib/schemas";
+import { db } from "../db";
+import { events } from "../db/schema";
+import { NewAgentEventSchema, type NewAgentEvent } from "./schemas";
 
 export async function logEvent(event: NewAgentEvent) {
   const valid = NewAgentEventSchema.parse(event);

@@ -49,5 +49,8 @@ next-env.d.ts
 *.db-shm
 .mastra/
 
+# cached tool results (Apify LinkedIn scrapes)
+.cache/
+
 # real demo applicant data (a real person's details — never commit; this repo is public)
 /demo/*.local.json

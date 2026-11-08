@@ -1,0 +1,115 @@
+{
+  "_notes": [
+    "Template for `npm run seed`. Same shape as the intake form's submission (ApplicationSubmissionSchema in src/lib/schemas.ts) and as demo/applicant.local.json.",
+    "Replace every <placeholder>. For a criterion that doesn't apply, use an empty list: \"press\": []. Optional fields can be deleted.",
+    "Profile links are where the source agents start looking, so use real URLs.",
+    "This repo is PUBLIC: once this holds a real person's details, don't commit it. Keep real data in demo/applicant.local.json (gitignored) and run `npm run seed demo/applicant.local.json`.",
+    "Keys starting with _ are ignored."
+  ],
+  "applicant": {
+    "name": "<Full professional name>",
+    "alternateNames": ["<Former or alternate name, e.g. maiden name — or delete this entry>"],
+    "email": "you@example.com",
+    "phone": "<optional>",
+    "consentToCall": false,
+    "field": "<Field of expertise, e.g. Applied machine learning>",
+    "currentRole": "<Current role, e.g. Co-founder & CTO>",
+    "currentOrganization": "<Current company or organisation>",
+    "usWorkPlan": "<What you plan to do in the US>",
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/<handle>",
+      "github": "https://github.com/<username>",
+      "scholar": "https://scholar.google.com/citations?user=<id>",
+      "orcid": "https://orcid.org/<0000-0000-0000-0000>",
+      "devpost": "https://devpost.com/<username>",
+      "website": "https://<your-site>"
+    },
+    "cvText": "<optional: paste the CV text here>",
+    "additionalInfo": "<optional: anything significant that might not appear on the CV>"
+  },
+  "criteria": {
+    "awards": [
+      {
+        "awardName": "<e.g. Grand Prize>",
+        "issuingOrganization": "<e.g. HackMIT>",
+        "year": 2025,
+        "whatWasAwarded": "<what it was for>",
+        "selectionProcess": "<how winners were chosen>",
+        "recipientsOrEntrants": "<e.g. 1 winner out of ~30 teams>",
+        "url": "<announcement or certificate URL>"
+      }
+    ],
+    "membership": [
+      {
+        "associationName": "<e.g. Thiel Fellowship>",
+        "membershipLevel": "<e.g. Fellow>",
+        "admissionCriteria": "<how members are selected>",
+        "evaluatedBy": "<who evaluated the application>",
+        "url": "<membership page URL>"
+      }
+    ],
+    "press": [
+      {
+        "outlet": "<e.g. TechCrunch>",
+        "articleTitle": "<article title>",
+        "publicationDate": "<e.g. 2025-03-14>",
+        "url": "<article URL>",
+        "language": "English",
+        "focus": "me"
+      }
+    ],
+    "judging": [
+      {
+        "eventOrJournal": "<e.g. TreeHacks 2025 or a journal name>",
+        "dates": "<e.g. Feb 2025>",
+        "sessionsCompleted": 1,
+        "whatWasAssessed": "<e.g. 40 hackathon projects>",
+        "proofUrl": "<URL listing you as a judge>",
+        "hasEmailsOrLetters": false
+      }
+    ],
+    "contributions": [
+      {
+        "whatYouCreated": "<e.g. an open-source library>",
+        "individualContribution": "<your part in it>",
+        "impactEvidence": "<users, adoption, revenue, stars>",
+        "organizationsUsingIt": "<who uses it>",
+        "relatedPatentsOrPublications": "<optional>",
+        "independentSourceUrls": ["https://github.com/<owner>/<repo>"]
+      }
+    ],
+    "scholarly": [
+      {
+        "titles": ["<paper title>"],
+        "venues": ["<journal or conference>"],
+        "doiLinks": ["https://doi.org/<doi>"],
+        "publicationCount": 1,
+        "claimedCitationCount": 10,
+        "citationSource": "google_scholar",
+        "asOfDate": "<e.g. 2026-11-01>"
+      }
+    ],
+    "critical_role": [
+      {
+        "organization": "<organisation>",
+        "position": "<position>",
+        "startDate": "<e.g. 2023-01>",
+        "endDate": "present",
+        "responsibilities": "<what you were responsible for>",
+        "measurableContributions": "<measurable results you drove>",
+        "organizationReputationEvidence": "<funding, press, rankings>"
+      }
+    ],
+    "remuneration": [
+      {
+        "annualCompensation": 150000,
+        "currency": "USD",
+        "year": 2025,
+        "jobTitle": "<job title>",
+        "location": "<city, country>",
+        "breakdown": { "base": 130000, "bonus": 20000 },
+        "benchmarkSource": "<optional: e.g. levels.fyi>"
+      }
+    ]
+  }
+}
