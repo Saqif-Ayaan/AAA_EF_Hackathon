@@ -7,7 +7,10 @@ import { devpostFetch } from "./devpost";
 import { exaContents, exaSearch } from "./exa";
 import { githubRepo, githubUser } from "./github";
 import { logEvent } from "./log-event";
-import { openAlexAuthor, openAlexWorks } from "./openalex";
+import { openAlexAuthor, openAlexWork, openAlexWorks } from "./openalex";
+import { npmDownloads, pypiDownloads } from "./packages";
+import { patentCitations } from "./patents";
+import { wageBenchmark } from "./wages";
 
 export const tools = {
   exaSearch,
@@ -19,6 +22,12 @@ export const tools = {
   openAlexWorks,
   devpostFetch,
   logEvent,
+  // PART 3 investigate mode
+  openAlexWork,
+  patentCitations,
+  npmDownloads,
+  pypiDownloads,
+  wageBenchmark,
 };
 
 export type ToolName = keyof typeof tools;
@@ -31,6 +40,11 @@ export {
   githubRepo,
   githubUser,
   logEvent,
+  npmDownloads,
   openAlexAuthor,
+  openAlexWork,
   openAlexWorks,
+  patentCitations,
+  pypiDownloads,
+  wageBenchmark,
 };

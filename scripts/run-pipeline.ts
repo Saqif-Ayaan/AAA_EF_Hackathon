@@ -6,7 +6,8 @@
  *
  * Seed an applicant first with `npm run seed`.
  */
-import type { AgentEvent, Claim, Discrepancy, FindingRecord } from "../src/lib/schemas";
+import type { FinalDecision } from "../src/lib/decision";
+import type { AgentEvent, Claim, Discrepancy, FindingRecord, HypothesisRecord } from "../src/lib/schemas";
 
 const ICONS: Record<string, string> = {
   status: "●",
@@ -86,7 +87,12 @@ async function main() {
     return;
   }
 
-  const { findings, discrepancies } = result.result as { findings: FindingRecord[]; discrepancies: Discrepancy[] };
+  const { findings, discrepancies, hypotheses, decision } = result.result as {
+    findings: FindingRecord[];
+    discrepancies: Discrepancy[];
+    hypotheses: HypothesisRecord[];
+    decision: FinalDecision;
+  };
   const claimById = new Map(claimRows.map((c) => [c.id, c]));
   const label = (claimId: string) => {
     const c = claimById.get(claimId);
@@ -102,6 +108,18 @@ async function main() {
     for (const s of f.sources) console.log(`  source:   ${s.url}${s.title ? `  (${s.title})` : ""}`);
   }
 
+  if (hypotheses.length) {
+    console.log(`\n${"═".repeat(80)}\nFAILURE MODES (${hypotheses.length}, from the sceptic, investigated)\n${"═".repeat(80)}`);
+    for (const h of hypotheses) {
+      const moved = h.queueStatusBefore === h.queueStatusAfter ? h.queueStatusAfter : `${h.queueStatusBefore} → ${h.queueStatusAfter}`;
+      console.log(`\n[${h.result.toUpperCase()}] ${label(h.claimId)}\n  ${h.failureMode} (${h.hypothesis.precedent.caseId}; queue: ${moved})`);
+      for (const m of h.reliedOn.map((i) => h.measurements[i])) {
+        console.log(`  ★ ${m.agentId}: ${m.metric} = ${m.value}${m.benchmark ? ` vs ${m.benchmark.description} = ${m.benchmark.value}` : ""}`);
+      }
+      console.log(`  why: ${h.reasoning}`);
+    }
+  }
+
   console.log(`\n${"═".repeat(80)}\nQUESTIONS (${discrepancies.length}, most impactful first)\n${"═".repeat(80)}`);
   for (const [i, d] of discrepancies.entries()) {
     console.log(`\nQ${i + 1} [${d.type}] ${label(d.claimId)}`);
@@ -109,6 +127,11 @@ async function main() {
     console.log(`  Q: ${d.question}`);
     if (d.requestedDocument) console.log(`  Requested document: ${d.requestedDocument}`);
   }
+
+  console.log(
+    `\n${"═".repeat(80)}\nFINAL DECISION: ${decision.routing === "to_lawyer" ? "TO LAWYER" : "NEEDS MORE EVIDENCE"} (${decision.criteriaCounted}/${decision.criteriaNeeded} criteria)\n${"═".repeat(80)}\n${decision.summary}`,
+  );
+  for (const c of decision.criteria) console.log(`  ${c.status.toUpperCase().padEnd(8)} ${c.criterion}: ${c.reasons.join(" ")}`);
 
   const counts = findings.reduce<Record<string, number>>((acc, f) => ({ ...acc, [f.status]: (acc[f.status] ?? 0) + 1 }), {});
   console.log(

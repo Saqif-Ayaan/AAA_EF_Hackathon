@@ -1,20 +1,37 @@
 /** Display metadata for the war room: names, colours, labels. No logic beyond formatting. */
 import type {
+  AgentMode,
   AgentStatus,
   Criterion,
   DiscrepancyType,
   FindingStatus,
+  HypothesisResult,
+  InvestigatorId,
   Resolution,
-  SourceAgentId,
 } from "@/lib/schemas";
 
-/** Each source gets a small identity dot. */
-export const SOURCE_AGENTS: Record<SourceAgentId, { name: string; via: string; color: string }> = {
+/** Each source gets a small identity dot. `patents` and `wages` only work in investigate mode (PART 3). */
+export const SOURCE_AGENTS: Record<InvestigatorId, { name: string; via: string; color: string }> = {
   devpost: { name: "Devpost", via: "Profile + project pages", color: "#1fd0e6" },
   linkedin: { name: "LinkedIn", via: "Apify profile scraper", color: "#3d8bff" },
-  github: { name: "GitHub", via: "GitHub REST API", color: "#e6edf3" },
+  github: { name: "GitHub", via: "GitHub REST API + npm / PyPI downloads", color: "#e6edf3" },
   scholar: { name: "Scholar", via: "OpenAlex", color: "#b69cff" },
   press: { name: "Press", via: "Exa web search", color: "#ff7ac6" },
+  patents: { name: "Patents", via: "Google Patents forward citations", color: "#ffd166" },
+  wages: { name: "Wages", via: "DOL OFLC prevailing wages (code only)", color: "#7ee0a0" },
+};
+
+/** The phase label on an agent card. */
+export const MODE_LABEL: Record<AgentMode, string> = {
+  verify: "Verifying claims",
+  investigate: "Investigating",
+};
+
+/** Status chip for a sceptic failure mode after investigation. */
+export const HYPOTHESIS_STYLE: Record<HypothesisResult, { label: string; color: string; text: string }> = {
+  confirmed: { label: "Confirmed", color: "#ff4d5e", text: "#ff8590" },
+  cleared: { label: "Cleared", color: "#2ee68a", text: "#6af2ad" },
+  still_unknown: { label: "Open", color: "#ffb224", text: "#ffc95c" },
 };
 
 export type PillStatus = AgentStatus | "idle";
@@ -59,6 +76,7 @@ export const DISCREPANCY_LABEL: Record<DiscrepancyType, string> = {
   evidence: "Contradicting evidence",
   insufficient_proof: "Needs documents",
   criterion_fit: "Criterion fit",
+  failure_mode: "Failure mode",
 };
 
 export const RESOLUTION_STYLE: Record<Resolution, { label: string; color: string }> = {

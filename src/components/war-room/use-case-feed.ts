@@ -23,7 +23,8 @@ import type { CaseSummaryResponse } from "@/app/api/cases/[id]/route";
 import type { CaseDiscrepanciesResponse } from "@/app/api/cases/[id]/discrepancies/route";
 import type { CaseEventsResponse } from "@/app/api/cases/[id]/events/route";
 import type { CaseFindingsResponse } from "@/app/api/cases/[id]/findings/route";
-import type { AgentEvent, CaseRecord, Discrepancy, FindingRecord, Score } from "@/lib/schemas";
+import type { CaseHypothesesResponse } from "@/app/api/cases/[id]/hypotheses/route";
+import type { AgentEvent, CaseRecord, Discrepancy, FindingRecord, HypothesisRecord, Score } from "@/lib/schemas";
 import type { CaseSnapshot, ReplayFile } from "@/lib/war-room";
 
 export type Snapshot = CaseSnapshot;
@@ -39,7 +40,7 @@ export type Feed = {
 
 const POLL_MS = 500;
 
-const EMPTY: Snapshot = { applicant: null, claims: [], findings: [], discrepancies: [], case: null, score: null };
+const EMPTY: Snapshot = { applicant: null, claims: [], findings: [], discrepancies: [], hypotheses: [], case: null, score: null };
 
 async function getJson<T>(url: string, signal: AbortSignal): Promise<T> {
   const res = await fetch(url, { cache: "no-store", signal });
@@ -82,10 +83,11 @@ export function useLiveFeed(caseId: string, enabled: boolean): Feed {
         if (!summaryRes.ok) throw new Error(`${base} → HTTP ${summaryRes.status}`);
         const summary = (await summaryRes.json()) as CaseSummaryResponse;
 
-        const [ev, fd, dd] = await Promise.all([
+        const [ev, fd, dd, hd] = await Promise.all([
           getJson<CaseEventsResponse>(`${base}/events?after=${requestedAfter}`, ctrl.signal),
           getJson<CaseFindingsResponse>(`${base}/findings`, ctrl.signal),
           getJson<CaseDiscrepanciesResponse>(`${base}/discrepancies`, ctrl.signal),
+          getJson<CaseHypothesesResponse>(`${base}/hypotheses`, ctrl.signal),
         ]);
 
         if (requestedAfter > 0 && ev.firstEventId !== knownFirstId) {
@@ -104,6 +106,7 @@ export function useLiveFeed(caseId: string, enabled: boolean): Feed {
           claims: fd.claims.map(({ id, criterion, summary: text }) => ({ id, criterion, summary: text })),
           findings: [...latest.values()],
           discrepancies: dd.discrepancies,
+          hypotheses: hd.hypotheses as HypothesisRecord[],
           case: summary.case,
           score: summary.score,
         });
@@ -139,13 +142,14 @@ type Timeline = {
   events: AgentEvent[];
   findings: FindingRecord[];
   discrepancies: Discrepancy[];
+  hypotheses: HypothesisRecord[];
   cases: CaseRecord[];
   scores: Score[];
   end: number;
 };
 
 function retime(file: ReplayFile, speed: number, wallStart: number): Timeline {
-  const all = [...file.events, ...file.findings, ...file.discrepancies, ...file.cases, ...file.scores];
+  const all = [...file.events, ...file.findings, ...file.discrepancies, ...file.hypotheses, ...file.cases, ...file.scores];
   const stamps = [...new Set(all.map((x) => Date.parse(x.createdAt)))].sort((a, b) => a - b);
   const offset = new Map<number, number>();
   let acc = 0;
@@ -160,6 +164,7 @@ function retime(file: ReplayFile, speed: number, wallStart: number): Timeline {
     events: file.events.map(shift),
     findings: file.findings.map(shift),
     discrepancies: file.discrepancies.map(shift),
+    hypotheses: file.hypotheses.map(shift),
     cases: file.cases.map(shift),
     scores: file.scores.map(shift),
     end: wallStart + LEAD_IN_MS + acc / speed,
@@ -210,6 +215,7 @@ export function useReplayFeed(file: ReplayFile | null, speed: number): ReplayFee
       claims: file.claims,
       findings: [...latest.values()],
       discrepancies: timeline.discrepancies.filter(shown),
+      hypotheses: timeline.hypotheses.filter(shown),
       case: caseRecord,
       score,
     };

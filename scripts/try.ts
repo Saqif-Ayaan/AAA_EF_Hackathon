@@ -22,6 +22,11 @@ const MAIN_FIELD: Record<ToolName, string> = {
   openAlexWorks: "authorId",
   devpostFetch: "url",
   logEvent: "applicantId",
+  openAlexWork: "doiOrId",
+  patentCitations: "patentNumber",
+  npmDownloads: "pkg",
+  pypiDownloads: "pkg",
+  wageBenchmark: "jobTitle",
 };
 
 const EXAMPLES: Record<ToolName, string> = {
@@ -34,6 +39,11 @@ const EXAMPLES: Record<ToolName, string> = {
   openAlexWorks: `npm run try openAlexWorks A5009290031 limit=5`,
   devpostFetch: `npm run try devpostFetch https://devpost.com/software/dockerc`,
   logEvent: `npm run try logEvent <applicantId> agentId=github type=status status=searching message="Checking repos"`,
+  openAlexWork: `npm run try openAlexWork 10.1145/3313831.3376727`,
+  patentCitations: `npm run try patentCitations "US 9,000,000"`,
+  npmDownloads: `npm run try npmDownloads zod`,
+  pypiDownloads: `npm run try pypiDownloads requests`,
+  wageBenchmark: `npm run try wageBenchmark "Senior Software Engineer" location="Palo Alto, CA" salary=217000`,
 };
 
 /** The schema type under optional()/default()/nullable() wrappers. */

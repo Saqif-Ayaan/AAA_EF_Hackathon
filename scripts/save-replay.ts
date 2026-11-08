@@ -12,7 +12,7 @@ import path from "node:path";
 import { parseArgs } from "node:util";
 import { asc, eq, inArray, sql } from "drizzle-orm";
 import { db } from "../src/db";
-import { applicants, cases, claims, discrepancies, events, findings, scores } from "../src/db/schema";
+import { applicants, cases, claims, discrepancies, events, findings, hypotheses, scores } from "../src/db/schema";
 import { ReplayFileSchema, SAFE_CASE_ID } from "../src/lib/war-room";
 
 const { values: args } = parseArgs({
@@ -44,7 +44,7 @@ async function main() {
     .orderBy(sql`rowid`);
   const claimIds = claimRows.map((c) => c.id);
 
-  const [eventRows, findingRows, discrepancyRows, caseRows] = await Promise.all([
+  const [eventRows, findingRows, discrepancyRows, caseRows, hypothesisRows] = await Promise.all([
     db.select().from(events).where(eq(events.applicantId, id)).orderBy(asc(events.id)),
     claimIds.length
       ? db.select().from(findings).where(inArray(findings.claimId, claimIds)).orderBy(asc(findings.createdAt), sql`rowid`)
@@ -57,6 +57,7 @@ async function main() {
           .orderBy(asc(discrepancies.createdAt), sql`rowid`)
       : Promise.resolve([]),
     db.select().from(cases).where(eq(cases.applicantId, id)).orderBy(asc(cases.createdAt), sql`rowid`),
+    db.select().from(hypotheses).where(eq(hypotheses.applicantId, id)).orderBy(asc(hypotheses.createdAt), sql`rowid`),
   ]);
   const scoreRows = caseRows.length
     ? await db
@@ -75,6 +76,7 @@ async function main() {
     events: eventRows,
     findings: findingRows,
     discrepancies: discrepancyRows,
+    hypotheses: hypothesisRows,
     cases: caseRows,
     scores: scoreRows,
   });

@@ -6,10 +6,16 @@
  */
 import { and, asc, desc, eq, getTableColumns, gt, min, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { applicants, cases, claims, discrepancies, events, findings, scores } from "@/db/schema";
+import { applicants, cases, claims, discrepancies, events, findings, hypotheses, scores } from "@/db/schema";
 import type { Criterion } from "@/lib/schemas";
 
 export type ApplicantRow = typeof applicants.$inferSelect;
+export type HypothesisRow = typeof hypotheses.$inferSelect;
+
+/** PART 3: every investigated sceptic hypothesis for the case, oldest first. */
+export async function listHypotheses(applicantId: string): Promise<HypothesisRow[]> {
+  return db.select().from(hypotheses).where(eq(hypotheses.applicantId, applicantId)).orderBy(asc(hypotheses.createdAt), sql`rowid`);
+}
 export type ClaimRow = typeof claims.$inferSelect;
 export type FindingRow = typeof findings.$inferSelect;
 export type DiscrepancyRow = typeof discrepancies.$inferSelect;

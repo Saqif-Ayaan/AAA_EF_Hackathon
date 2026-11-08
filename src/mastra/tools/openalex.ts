@@ -5,6 +5,7 @@
  */
 import { createTool } from "@mastra/core/tools";
 import { z } from "zod";
+import { cached } from "./cache";
 import { fetchJson } from "./http";
 
 const API = "https://api.openalex.org";
@@ -190,5 +191,89 @@ export const openAlexWorks = createTool({
       citationsInList: works.reduce((sum, w) => sum + w.citedByCount, 0),
       works,
     };
+  },
+});
+
+type OaWorkDetail = OaWork & {
+  fwci?: number | null;
+  citation_normalized_percentile?: { value: number; is_in_top_1_percent: boolean; is_in_top_10_percent: boolean } | null;
+  cited_by_percentile_year?: { min: number; max: number } | null;
+  primary_topic?: { display_name: string; subfield?: { display_name: string }; field?: { display_name: string } } | null;
+  counts_by_year?: { year: number; cited_by_count: number }[];
+};
+
+/** "10.1145/x", "doi:10.1145/x", "https://doi.org/10.1145/x" → "doi:10.1145/x"; "W123" / openalex URL → "W123". */
+function workKey(input: string): string {
+  const s = input.trim();
+  const doi = s.match(/(10\.\d{4,9}\/[^\s"<>]+)/i)?.[1];
+  if (doi) return `doi:${doi.replace(/[.,;)]+$/, "")}`;
+  const w = s.match(/(?:openalex\.org\/)?(W\d+)$/i)?.[1];
+  if (w) return w.toUpperCase();
+  throw new Error(`Expected a DOI or an OpenAlex work ID (W123...), got "${input}"`);
+}
+
+/**
+ * PART 3: one paper's citation count plus OpenAlex's field-normalised impact.
+ * The normalised percentile (citations vs. papers of the same field, type and
+ * year) is the benchmark the resolver should use instead of the raw count.
+ */
+export const openAlexWork = createTool({
+  id: "openAlexWork",
+  description:
+    "Look up ONE paper on OpenAlex by DOI (or OpenAlex work ID). Returns citation count, authors, venue, year, and " +
+    "field-normalised impact: fwci (field-weighted citation impact; 1.0 = world average for its field/year) and " +
+    "citationPercentile (0-100, vs. papers of the same field, type and year). Use the percentile as the benchmark.",
+  inputSchema: z.object({
+    doiOrId: z.string().trim().min(1).describe('A DOI ("10.1145/...", "doi:10.1145/...", a doi.org URL) or an OpenAlex work ID ("W123...")'),
+  }),
+  outputSchema: z.object({
+    id: z.string(),
+    url: z.string(),
+    doi: z.string().nullable(),
+    title: z.string(),
+    year: z.number().nullable(),
+    venue: z.string().nullable(),
+    type: z.string().nullable(),
+    citedByCount: z.number(),
+    fwci: z.number().nullable(),
+    citationPercentile: z.number().nullable(),
+    inTop10Percent: z.boolean().nullable(),
+    inTop1Percent: z.boolean().nullable(),
+    field: z.string().nullable(),
+    subfield: z.string().nullable(),
+    citationsByYear: z.array(z.object({ year: z.number(), citations: z.number() })),
+    authors: z.array(z.string()),
+  }),
+  execute: async ({ doiOrId }, { abortSignal }) => {
+    const key = workKey(doiOrId);
+    return cached("openAlexWork", key, async () => {
+      const w = await oa<OaWorkDetail>(
+        `/works/${key}`,
+        {
+          select:
+            "id,doi,title,publication_year,cited_by_count,type,primary_location,authorships,fwci,citation_normalized_percentile,primary_topic,counts_by_year",
+        },
+        abortSignal,
+      );
+      const pct = w.citation_normalized_percentile;
+      return {
+        id: shortId(w.id),
+        url: w.id,
+        doi: w.doi,
+        title: w.title ?? "(untitled)",
+        year: w.publication_year,
+        venue: w.primary_location?.source?.display_name ?? null,
+        type: w.type,
+        citedByCount: w.cited_by_count,
+        fwci: typeof w.fwci === "number" ? Math.round(w.fwci * 100) / 100 : null,
+        citationPercentile: pct ? Math.round(pct.value * 1000) / 10 : null,
+        inTop10Percent: pct?.is_in_top_10_percent ?? null,
+        inTop1Percent: pct?.is_in_top_1_percent ?? null,
+        field: w.primary_topic?.field?.display_name ?? null,
+        subfield: w.primary_topic?.subfield?.display_name ?? null,
+        citationsByYear: (w.counts_by_year ?? []).map((c) => ({ year: c.year, citations: c.cited_by_count })),
+        authors: w.authorships.slice(0, 12).map((a) => a.raw_author_name ?? a.author.display_name),
+      };
+    });
   },
 });

@@ -15,10 +15,12 @@ import {
   CriterionSchema,
   DiscrepancySchema,
   FindingRecordSchema,
+  HypothesisRecordSchema,
   ScoreSchema,
   type CaseRecord,
   type Discrepancy,
   type FindingRecord,
+  type HypothesisRecord,
   type Score,
 } from "./schemas";
 
@@ -47,6 +49,8 @@ export type CaseSnapshot = {
   /** Latest finding per claim. */
   findings: FindingRecord[];
   discrepancies: Discrepancy[];
+  /** PART 3: investigated sceptic failure modes. */
+  hypotheses: HypothesisRecord[];
   /** Latest built case (dossier) for this applicant, if any. */
   case: CaseRecord | null;
   /** Latest score for that case, if the scorer has produced one. */
@@ -64,6 +68,8 @@ export const ReplayFileSchema = z.object({
   /** Every finding ever written (not just the latest), so the ledger evolves as it did live. */
   findings: z.array(FindingRecordSchema),
   discrepancies: z.array(DiscrepancySchema),
+  /** PART 3 (absent in older recordings). */
+  hypotheses: z.array(HypothesisRecordSchema).default([]),
   cases: z.array(CaseRecordSchema),
   scores: z.array(ScoreSchema),
 });

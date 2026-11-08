@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
-import { SOURCE_AGENT_IDS, type FindingRecord } from "@/lib/schemas";
+import { decide } from "@/lib/decision";
+import { INVESTIGATOR_IDS, SOURCE_AGENT_IDS, type FindingRecord } from "@/lib/schemas";
 import type { ReplayLoad, WarRoomApplicant, WarRoomClaim } from "@/lib/war-room";
 import { AgentCard } from "./agent-card";
 import { Backdrop } from "./backdrop";
@@ -93,6 +94,7 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
   const claims = snapshot?.claims ?? [];
   const findings = snapshot?.findings ?? [];
   const discrepancies = snapshot?.discrepancies ?? [];
+  const hypotheses = snapshot?.hypotheses ?? [];
   const caseRecord = snapshot?.case ?? null;
   const score = snapshot?.score ?? null;
 
@@ -103,6 +105,12 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
   const caseEnd = views.pipeline.endedAt;
   const elapsed = caseStart === null ? null : (caseEnd ?? now) - caseStart;
   const openQuestions = discrepancies.filter((d) => d.resolution === "open").length;
+  // Final routing decision (src/lib/decision.ts), once the pipeline has finished.
+  const decision = useMemo(
+    () => (views.pipeline.endedAt !== null && claims.length ? decide({ claims, findings, hypotheses }) : null),
+    [views.pipeline.endedAt, claims, findings, hypotheses],
+  );
+  const investigating = INVESTIGATOR_IDS.some((id) => views[id].mode === "investigate" && AGENT_STATUS_STYLE[views[id].status].active);
 
   const build = useBuildControl({
     caseId,
@@ -123,15 +131,17 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
         ? "Dossier built"
         : caseEnd !== null
           ? "Vetting complete"
-          : researchStarted
-            ? "Vetting in progress"
-            : "Ready";
+          : investigating
+            ? "Investigating failure modes"
+            : researchStarted
+              ? "Vetting in progress"
+              : "Ready";
 
   // Latest orchestration-level event (pipeline, reconciler, questioner, case builder, scorer, handoffs).
   const pipelineEvent = useMemo(() => {
     for (let i = events.length - 1; i >= 0; i--) {
       const e = events[i];
-      if (e.type === "handoff" || !(SOURCE_AGENT_IDS as readonly string[]).includes(e.agentId)) return e;
+      if (e.type === "handoff" || !(INVESTIGATOR_IDS as readonly string[]).includes(e.agentId)) return e;
     }
     return null;
   }, [events]);
@@ -210,6 +220,13 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
             <Stat label="Research" value={`${research}%`} />
             <Stat label="Claims checked" value={`${findings.length}/${claims.length}`} />
             <Stat label="Open questions" value={String(openQuestions)} color={openQuestions ? "#ffc95c" : undefined} />
+            {decision && (
+              <Stat
+                label={`Decision · ${decision.criteriaCounted}/${decision.criteriaNeeded} criteria`}
+                value={decision.routing === "to_lawyer" ? "To lawyer" : "Needs evidence"}
+                color={decision.routing === "to_lawyer" ? "#2ee68a" : "#ffc95c"}
+              />
+            )}
             {score && <Stat label="Readiness" value={String(Math.round(score.approvalLikelihood))} color="#2ee68a" />}
           </dl>
           <div className="flex flex-wrap items-center gap-3">
@@ -228,6 +245,12 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
           </div>
         </div>
 
+        {decision && (
+          <p className="mt-6 text-xl leading-snug">
+            {decision.summary}
+            {decision.rescued > 0 && ` ${decision.rescued} flagged failure mode(s) were rescued by the investigation.`}
+          </p>
+        )}
         <p className="mt-6 min-h-7 truncate text-lg text-[color:var(--muted)]">
           {pipelineEvent && (
             <span key={pipelineEvent.id} className={styles.enter}>
@@ -239,9 +262,9 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
 
       <main className="relative z-10 mx-auto max-w-[1880px] px-6 pb-20 2xl:px-10">
         <section id="agents" aria-labelledby="agents-title" className="scroll-mt-24">
-          <SectionTitle id="agents-title" title="Source agents" />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {SOURCE_AGENT_IDS.map((id) => (
+          <SectionTitle id="agents-title" title="Source agents" sub="Verify the claims, then investigate the sceptic's failure modes" />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {INVESTIGATOR_IDS.map((id) => (
               <AgentCard key={id} id={id} view={views[id]} now={now} />
             ))}
           </div>
@@ -251,8 +274,10 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
           <EvidenceLedger
             claims={claims}
             findings={findings}
+            hypotheses={hypotheses}
             researchStarted={researchStarted}
             reconciler={views.reconciler}
+            hypothesisResolver={views.hypothesisResolver}
             now={now}
           />
           <DiscrepancyPanel

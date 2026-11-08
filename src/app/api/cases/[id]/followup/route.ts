@@ -3,8 +3,10 @@
  * [id] = applicant ID. Runs the resolver agent on the applicant's reply (a real,
  * billed Claude call) and updates the discrepancy, claim and finding.
  */
+import { after } from "next/server";
 import { z } from "zod";
 import { FollowupError, resolveDiscrepancy, type FollowupResult } from "@/lib/followup";
+import { recheckHypothesis } from "@/lib/recheck";
 
 export type FollowupResponse = FollowupResult;
 
@@ -22,6 +24,13 @@ export async function POST(request: Request, ctx: RouteContext<"/api/cases/[id]/
 
   try {
     const result: FollowupResponse = await resolveDiscrepancy({ applicantId: id, ...parsed.data });
+    // PART 3: a sceptic question's answer re-checks its hypothesis (re-investigating if new links were given).
+    if (result.recheck) {
+      const { hypothesisId } = result.recheck;
+      after(() =>
+        recheckHypothesis({ applicantId: id, hypothesisId, reply: parsed.data.reply, resolution: result.resolution, newSources: result.newSources }),
+      );
+    }
     return Response.json(result);
   } catch (error) {
     if (error instanceof FollowupError) {

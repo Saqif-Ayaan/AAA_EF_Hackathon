@@ -10,14 +10,19 @@
 import { index, integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import {
   AGENT_IDS,
+  AGENT_MODES,
   AGENT_STATUSES,
   CRITERIA,
   DISCREPANCY_TYPES,
   EVENT_TYPES,
   FINDING_STATUSES,
+  HYPOTHESIS_RESULTS,
+  QUEUE_STATUSES,
   RESOLUTIONS,
   type Case,
   type ClaimPayload,
+  type Hypothesis,
+  type Measurement,
   type ProfileLinks,
   type Source,
 } from "../lib/schemas";
@@ -104,9 +109,44 @@ export const discrepancies = sqliteTable(
     resolution: text({ enum: RESOLUTIONS }).notNull().default("open"),
     applicantResponse: text(),
     resolvedAt: text(),
+    hypothesisId: text(), // PART 3: set for sceptic questions (type "failure_mode")
     createdAt: createdAt(),
   },
   (t) => [index("discrepancies_claim_idx").on(t.claimId)],
+);
+
+/** PART 3: one row per sceptic hypothesis, with what the investigation measured and the resolver's verdict. */
+export const hypotheses = sqliteTable(
+  "hypotheses",
+  {
+    id: id(),
+    applicantId: text()
+      .notNull()
+      .references(() => applicants.id, { onDelete: "cascade" }),
+    hypothesisId: text().notNull(),
+    claimId: text()
+      .notNull()
+      .references(() => claims.id, { onDelete: "cascade" }),
+    criterion: text({ enum: CRITERIA }).notNull(),
+    failureMode: text().notNull(),
+    hypothesis: text({ mode: "json" }).$type<Hypothesis>().notNull(),
+    queueStatusBefore: text({ enum: ["applies", "unknown"] }).notNull(),
+    origin: text({ enum: ["sceptic", "drafted"] }).notNull(),
+    result: text({ enum: HYPOTHESIS_RESULTS }).notNull(),
+    queueStatusAfter: text({ enum: QUEUE_STATUSES }).notNull(),
+    measurements: text({ mode: "json" })
+      .$type<Measurement[]>()
+      .notNull()
+      .$defaultFn(() => []),
+    reliedOn: text({ mode: "json" })
+      .$type<number[]>()
+      .notNull()
+      .$defaultFn(() => []),
+    reasoning: text().notNull(),
+    sharpenedQuestion: text(),
+    createdAt: createdAt(),
+  },
+  (t) => [index("hypotheses_applicant_idx").on(t.applicantId)],
 );
 
 export const cases = sqliteTable(
@@ -154,6 +194,8 @@ export const events = sqliteTable(
     progress: integer(), // 0–100
     url: text(),
     found: text(),
+    mode: text({ enum: AGENT_MODES }), // PART 3: verify | investigate
+    hypothesisId: text(),
     createdAt: createdAt(),
   },
   (t) => [index("events_applicant_idx").on(t.applicantId, t.id)],
