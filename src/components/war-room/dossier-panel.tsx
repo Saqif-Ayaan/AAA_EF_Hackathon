@@ -74,7 +74,7 @@ export function DossierPanel({
             <StatusPill status={caseBuilder.status} />
             {c && documentHref && (
               <a href={documentHref} target="_blank" rel="noopener noreferrer" className={`${styles.button} px-3 py-1.5 text-sm`}>
-                Open lawyer-ready dossier
+                Lawyer PDF (scored dossier)
               </a>
             )}
             {c && bundleHref && (

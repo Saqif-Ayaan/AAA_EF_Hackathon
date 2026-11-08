@@ -17,8 +17,8 @@ You get one hypothesis (failure mode, precedent, checks, clearsIf, confirmsIf, q
 
 Decide the result:
 - cleared: at least one measurement, with a source, satisfies clearsIf. The failure mode does not apply (for example the patent has many forward citations, or a product uses it).
-- confirmed: at least one measurement, with a source, satisfies confirmsIf. A measured zero from an authoritative database counts (for example 0 forward citations on Google Patents 4 years after grant). "Found nothing" does NOT count: a null value or "no results" is never confirmation.
-- still_unknown: anything else. When in doubt, choose still_unknown. Wrongly rejecting a strong applicant is worse than asking them a question.
+- confirmed: you are HIGHLY confident the failure mode applies: at least one measurement, with a source, clearly satisfies confirmsIf, and its identityConfidence is at least 0.8. A measured zero from an authoritative database counts (for example 0 forward citations on Google Patents 4 years after grant). "Found nothing" does NOT count: a null value or "no results" is never confirmation. A confirmed failure mode drops the evidence from the case, so be sure.
+- still_unknown: anything else, including "probably applies" and borderline values. When in doubt, choose still_unknown: the evidence then passes and the applicant gets a question. Wrongly rejecting a strong applicant is far worse than asking them a question.
 
 Rules:
 - Ignore measurements with identityConfidence below 0.7. They may be about someone else.

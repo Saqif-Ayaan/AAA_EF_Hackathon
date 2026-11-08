@@ -298,7 +298,10 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
             caseBuilder={views.caseBuilder}
             build={build}
             bundleHref={isReplay ? null : `/api/cases/${encodeURIComponent(caseId)}/bundle?download=1`}
-            documentHref={isReplay ? null : `/case/${encodeURIComponent(caseId)}/dossier`}
+            // The lawyer's PDF is the last step: offered once the case has been through the scorer.
+            documentHref={
+              isReplay || (!score && AGENT_STATUS_STYLE[views.scorer.status].active) ? null : `/case/${encodeURIComponent(caseId)}/dossier`
+            }
             now={now}
           />
           <ScoreCard score={score} caseRecord={caseRecord} scorer={views.scorer} now={now} />

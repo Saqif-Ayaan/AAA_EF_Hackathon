@@ -19,7 +19,9 @@ import type { Claim, Hypothesis, Measurement } from "../src/lib/schemas";
 
 let passed = 0;
 function test(name: string, fn: () => void | Promise<void>) {
-  return Promise.resolve(fn()).then(
+  return Promise.resolve()
+    .then(fn)
+    .then(
     () => {
       passed++;
       console.log(`✓ ${name}`);
@@ -94,6 +96,13 @@ async function main() {
     assert.equal(queueStatusAfter("unknown", finding.result), "unknown");
     assert.match(finding.sharpenedQuestion!, /licensed privately/);
   });
+  await test("lax: a sceptic `applies` the investigation can't confirm becomes `unknown`, not a rejection", () => {
+    assert.equal(queueStatusAfter("applies", "still_unknown"), "unknown");
+  });
+  await test("lax: confirming needs ≥0.8 identity confidence (0.75 stays open)", () => {
+    const { finding } = toHypothesisFinding({ result: "confirmed", reliedOn: [1], reasoning: "x", sharpenedQuestion: null }, hyp(), [m({ identityConfidence: 0.75 })]);
+    assert.equal(finding.result, "still_unknown");
+  });
 
   // ── Merged questions (spec §6) ──
   await test("merged list: sceptic questions on needed criteria first, one per claim, cap 4", () => {
@@ -123,14 +132,22 @@ async function main() {
     { id: "s", criterion: "remuneration" as const, summary: "$210K" },
     { id: "r", criterion: "critical_role" as const, summary: "Founding engineer" },
   ];
-  const dh = (claimId: string, criterion: Hypothesis["criterion"], before: "applies" | "unknown", result: "cleared" | "confirmed" | "still_unknown") => ({
+  const dh = (
+    claimId: string,
+    criterion: Hypothesis["criterion"],
+    before: "applies" | "unknown",
+    result: "cleared" | "confirmed" | "still_unknown",
+    identityConfidence = 0.95,
+  ) => ({
     hypothesisId: `h_${claimId}`, claimId, criterion, failureMode: "fm", result, queueStatusBefore: before,
     queueStatusAfter: queueStatusAfter(before, result), hypothesis: { precedent: { caseId: "X" } },
+    measurements: [{ value: 0, identityConfidence, sources: [{}] }], reliedOn: result === "still_unknown" ? [] : [0],
   });
-  await test("decision: contradicted and confirmed evidence stop counting; a rescue counts", () => {
+  const f = (claimId: string, status: "contradicted" | "corroborated" | "unverified", identityConfidence = 0.9) => ({ claimId, status, identityConfidence });
+  await test("decision: only high-confidence contradictions and confirmations drop evidence; a rescue counts", () => {
     const d = decide({
       claims: dClaims,
-      findings: [{ claimId: "m", status: "contradicted" }, { claimId: "a", status: "corroborated" }],
+      findings: [f("m", "contradicted"), f("a", "corroborated")],
       hypotheses: [dh("s", "remuneration", "applies", "confirmed"), dh("c", "contributions", "applies", "cleared"), dh("r", "critical_role", "unknown", "still_unknown")],
     });
     const by = Object.fromEntries(d.criteria.map((c) => [c.criterion, c.status]));
@@ -138,9 +155,21 @@ async function main() {
     assert.equal(d.criteriaCounted, 3);
     assert.equal(d.routing, "to_lawyer");
     assert.equal(d.rescued, 1);
+    assert.equal(d.dropped, 2);
+  });
+  await test("decision (lax): low-confidence contradictions, unconfirmed `applies` and weak confirmations all pass", () => {
+    const d = decide({
+      claims: dClaims,
+      findings: [f("m", "contradicted", 0.5)],
+      hypotheses: [dh("s", "remuneration", "applies", "confirmed", 0.6), dh("c", "contributions", "applies", "still_unknown")],
+    });
+    assert.equal(d.dropped, 0);
+    assert.equal(d.criteriaCounted, 5);
+    assert.equal(d.passedWithCaution, 3); // weak contradiction, weakly confirmed salary, unconfirmed `applies`
+    assert.ok(d.criteria.find((c) => c.criterion === "membership")!.counted);
   });
   await test("decision: fewer than 3 criteria → needs_more_evidence", () => {
-    const d = decide({ claims: dClaims.slice(0, 3), findings: [{ claimId: "m", status: "contradicted" }], hypotheses: [] });
+    const d = decide({ claims: dClaims.slice(0, 3), findings: [f("m", "contradicted")], hypotheses: [] });
     assert.equal(d.criteriaCounted, 2);
     assert.equal(d.routing, "needs_more_evidence");
   });

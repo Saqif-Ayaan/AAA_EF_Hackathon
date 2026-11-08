@@ -6,13 +6,16 @@
 export async function scoreCase(bundle: CaseBundle): Promise<ScoreInput | null>
 ```
 
-Right now it's a placeholder that returns `null`, so the dashboard shows **"Awaiting score"**. Replace the body with your scoring agent. Nothing else in the app needs to change.
+It ships with a **default scorer built on the sceptic RAG + the investigation**: it computes the final routing decision (`decide()` in [`src/lib/decision.ts`](src/lib/decision.ts)) and turns it into `approvalLikelihood`, `rfeRisk` and a plain-English `reasoning`. It's deterministic, makes no API calls, and keeps its weights in one `WEIGHTS` table. Tune it or replace the body with your own agent; nothing else in the app needs to change.
+
+**The lax rule** (keep it if you replace the scorer): evidence is dropped only on high-confidence proof that it is invalid (a contradicted finding with `identityConfidence ≥ 0.8`, or a failure mode the investigation *confirmed* with a sourced measurement at `≥ 0.8`). Everything doubtful but unconfirmed still counts; it only raises the RFE risk.
 
 ## When it runs
 
-1. Vetting finishes (5 source agents → reconciler → questioner) and the applicant answers the follow-up questions.
+1. Vetting finishes (5 source agents verify → reconciler → sceptic RAG over past AAO denials → 7 investigators measure its failure modes → hypothesis resolver → one merged list of questions) and the applicant answers the follow-up questions.
 2. Someone clicks **Build case** on the dashboard (`/case/<applicantId>`). The app writes the dossier, saves the case, builds the `CaseBundle` and calls `scoreCase(bundle)`.
 3. Whatever you return is validated, saved to the `scores` table and shown on the dashboard's score card.
+4. **Last step:** the lawyer's PDF (`/case/<applicantId>/dossier`, "Save as PDF") opens with the score, the routing decision and the precedent check.
 
 You can also run it by hand at any time (handy while developing): `npm run score <applicantId>`.
 
@@ -26,6 +29,7 @@ Defined in [`src/lib/schemas.ts`](src/lib/schemas.ts) as `CaseBundleSchema` — 
 | `claims[]` | One per achievement from the intake form: `criterion` (one of the 8 O-1A criteria: `awards`, `membership`, `press`, `judging`, `contributions`, `scholarly`, `critical_role`, `remuneration`), a one-line `summary`, and the raw form entry in `payload`. |
 | `findings[]` | The latest verification verdict per claim: `status` = `corroborated` · `partial` · `unverified` · `contradicted`, plus `foundValue`, `identityConfidence` (0–1), `sources` (URLs with excerpts) and `reasoning`. Notes from follow-up answers are appended to `reasoning`. |
 | `discrepancies[]` | Questions raised during vetting: `type`, `description`, `question`, and how each was settled — `resolution` = `open` · `amended` · `substantiated` · `reframed` · `escalated`, with the applicant's `applicantResponse`. |
+| `hypotheses[]` | Failure modes the sceptic found from past AAO denials, each investigated: `failureMode`, `precedent` (AAO case id + verbatim quote, inside `hypothesis`), `measurements[]` (value, benchmark, sources, `identityConfidence`), `result` = `cleared` · `confirmed` · `still_unknown`, and `queueStatusBefore` / `queueStatusAfter`. Empty if the sceptic didn't run. |
 | `case` | The built case: `caseJson` (`summary`, `criteriaArgued[]` with `strength` strong/moderate/weak, `exhibits` and `weaknesses`; `criteriaNotArgued[]`; `unresolvedIssues[]`; `suggestedLetterWriters[]`; `evidenceStats`) and the dossier as `markdown`. |
 
 To see a real one: click **Download case bundle** on the dashboard, or open `GET /api/cases/<applicantId>/bundle`.

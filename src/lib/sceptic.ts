@@ -24,6 +24,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { z } from "zod";
+import { HIGH_CONFIDENCE } from "./decision";
 import { projectRoot } from "./project-root";
 import {
   HypothesisSchema,
@@ -136,7 +137,11 @@ export function toScepticApplicant(applicant: Applicant, claims: Claim[], findin
     employer: applicant.currentOrganization,
     location,
     evidence: claims
-      .filter((c) => findingOf.get(c.id)?.status !== "contradicted")
+      // Lax: only claims contradicted with high confidence are left out; the rest get judged.
+      .filter((c) => {
+        const f = findingOf.get(c.id);
+        return !(f?.status === "contradicted" && f.identityConfidence >= HIGH_CONFIDENCE);
+      })
       .map((c) => {
         const f = findingOf.get(c.id);
         return {

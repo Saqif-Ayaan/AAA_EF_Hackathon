@@ -4,8 +4,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PrintButton } from "@/components/print-button";
 import { CaseBundleError, loadCaseBundle } from "@/lib/case-bundle";
+import { getLatestCaseAndScore } from "@/lib/case-data";
+import { decide } from "@/lib/decision";
 import { CRITERION_LABELS, RESOLUTION_LABELS } from "@/lib/labels";
-import type { CaseBundle, FindingStatus } from "@/lib/schemas";
+import type { CaseBundle, FindingStatus, HypothesisResult } from "@/lib/schemas";
 
 export const metadata: Metadata = { title: "O-1A case dossier" };
 
@@ -31,6 +33,14 @@ const STATUS: Record<FindingStatus, string> = {
   unverified: "Unverified",
   contradicted: "Contradicted",
 };
+
+const RESULT: Record<HypothesisResult, string> = {
+  confirmed: "Confirmed: applies",
+  cleared: "Cleared: does not apply",
+  still_unknown: "Open: could not be settled",
+};
+const ROUTING = { to_lawyer: "Ready for attorney review", needs_more_evidence: "Needs more evidence before filing" } as const;
+const POSITION = { clear: "Counts", open: "Counts, with open points", flagged: "Does not count" } as const;
 
 const fmtDate = (iso: string) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 const host = (url: string) => {
@@ -76,8 +86,13 @@ export default async function DossierPage(props: PageProps<"/case/[id]/dossier">
     throw err;
   }
 
-  const { applicant, claims, findings, discrepancies, case: caseRow } = bundle;
+  const { applicant, claims, findings, discrepancies, hypotheses, case: caseRow } = bundle;
   const c = caseRow.caseJson;
+  // The dossier is the last step: it reports the scorer's result and the routing decision.
+  const { score } = await getLatestCaseAndScore(id);
+  const decision = decide({ claims, findings, hypotheses });
+  let sectionNo = 0;
+  const n = () => ++sectionNo;
   const findingOf = new Map(findings.map((f) => [f.claimId, f]));
   const claimOf = new Map(claims.map((x) => [x.id, x]));
 
@@ -86,7 +101,6 @@ export default async function DossierPage(props: PageProps<"/case/[id]/dossier">
   for (const a of c.criteriaArgued) for (const e of a.exhibits) if (!exhibitNo.has(e.url)) exhibitNo.set(e.url, exhibitNo.size + 1);
   const answered = discrepancies.filter((d) => d.resolution !== "open" && d.applicantResponse);
   const links = Object.values(applicant.links).filter((url): url is string => Boolean(url));
-  const issuesNo = answered.length > 0 ? 6 : 5;
 
   return (
     <div style={LIGHT} className="min-h-screen bg-white text-neutral-900">
@@ -131,7 +145,7 @@ export default async function DossierPage(props: PageProps<"/case/[id]/dossier">
           </dl>
         </header>
 
-        <Section n={1} title="Case summary">
+        <Section n={n()} title="Case summary">
           <p>{c.summary}</p>
           <p className="mt-3 text-sm text-neutral-600">
             Of {c.evidenceStats.totalClaims} claims checked against public sources: {c.evidenceStats.corroborated} corroborated,{" "}
@@ -140,7 +154,52 @@ export default async function DossierPage(props: PageProps<"/case/[id]/dossier">
           </p>
         </Section>
 
-        <Section n={2} title="Criteria at a glance">
+        <Section n={n()} title="Readiness and routing">
+          <dl className="grid grid-cols-[11rem_1fr] gap-x-6 gap-y-1.5 text-sm">
+            <dt className="text-neutral-500">Routing</dt>
+            <dd className="font-medium">
+              {ROUTING[decision.routing]} · {decision.criteriaCounted} of {decision.criteriaNeeded} required criteria count
+            </dd>
+            {score ? (
+              <>
+                <dt className="text-neutral-500">Approval likelihood</dt>
+                <dd>{Math.round(score.approvalLikelihood)} / 100</dd>
+                <dt className="text-neutral-500">Risk of an RFE</dt>
+                <dd>{Math.round(score.rfeRisk)} / 100</dd>
+              </>
+            ) : (
+              <>
+                <dt className="text-neutral-500">Score</dt>
+                <dd className="text-neutral-600">Not scored yet</dd>
+              </>
+            )}
+          </dl>
+          {score && <p className="mt-4 text-sm text-neutral-700">{score.reasoning}</p>}
+          <table className="mt-5 w-full border-collapse text-sm">
+            <thead>
+              <tr className="border-b border-neutral-300 text-left text-neutral-500">
+                <th className="py-2 pr-4 font-medium">Criterion</th>
+                <th className="py-2 pr-4 font-medium">After vetting</th>
+                <th className="py-2 font-medium">Why</th>
+              </tr>
+            </thead>
+            <tbody>
+              {decision.criteria.map((d) => (
+                <tr key={d.criterion} className="break-inside-avoid border-b border-neutral-200 align-top">
+                  <td className="py-2 pr-4 font-medium">{CRITERION_LABELS[d.criterion]}</td>
+                  <td className="py-2 pr-4 whitespace-nowrap">{POSITION[d.status]}</td>
+                  <td className="py-2 text-neutral-600">{d.reasons.join(" ")}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="mt-3 text-xs text-neutral-500">
+            Evidence is set aside only on high-confidence proof that it is invalid. Anything doubtful but unconfirmed still counts and is
+            listed as an open point.
+          </p>
+        </Section>
+
+        <Section n={n()} title="Criteria at a glance">
           <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="border-b border-neutral-300 text-left text-neutral-500">
@@ -170,7 +229,7 @@ export default async function DossierPage(props: PageProps<"/case/[id]/dossier">
           </table>
         </Section>
 
-        <Section n={3} title="Argument by criterion">
+        <Section n={n()} title="Argument by criterion">
           <div className="space-y-9">
             {c.criteriaArgued.map((a) => (
               <div key={a.criterion} className="break-inside-avoid">
@@ -207,7 +266,7 @@ export default async function DossierPage(props: PageProps<"/case/[id]/dossier">
           </div>
         </Section>
 
-        <Section n={4} title="Claim-by-claim verification">
+        <Section n={n()} title="Claim-by-claim verification">
           <p className="mb-4 text-sm text-neutral-600">
             Every claim from the intake form and what independent sources showed, including claims that were not argued.
           </p>
@@ -230,8 +289,49 @@ export default async function DossierPage(props: PageProps<"/case/[id]/dossier">
           </ul>
         </Section>
 
+        {hypotheses.length > 0 && (
+          <Section n={n()} title="Precedent check: past AAO denials">
+            <p className="mb-4 text-sm text-neutral-600">
+              Weaknesses the AAO has found in similar evidence in published O-1A decisions, and what independent sources showed for
+              this applicant.
+            </p>
+            <ul className="space-y-6">
+              {hypotheses.map((h) => {
+                const claim = claimOf.get(h.claimId);
+                const relied = h.reliedOn.map((i) => h.measurements[i]).filter(Boolean);
+                return (
+                  <li key={h.id} className="break-inside-avoid text-sm">
+                    <p className="text-neutral-500">
+                      {CRITERION_LABELS[h.criterion]} · {RESULT[h.result]}
+                      {h.queueStatusBefore === "applies" && h.result === "cleared" && " (cleared by investigation)"}
+                    </p>
+                    <p className="mt-0.5 font-medium">{h.failureMode}</p>
+                    {claim && <p className="mt-0.5 text-neutral-600">Evidence: {claim.summary}</p>}
+                    <p className="mt-1 border-l-2 border-neutral-300 pl-3 text-neutral-700">
+                      “{h.hypothesis.precedent.quote}” <span className="text-neutral-500">({h.hypothesis.precedent.caseId})</span>
+                    </p>
+                    {relied.length > 0 && (
+                      <ul className="mt-1.5 list-disc space-y-0.5 pl-5 text-neutral-700">
+                        {relied.map((m, i) => (
+                          <li key={`${m.checkId}:${i}`}>
+                            {m.metric.replace(/_/g, " ")}: {typeof m.value === "number" ? m.value.toLocaleString("en-US") : m.value}
+                            {m.benchmark &&
+                              ` (benchmark: ${m.benchmark.description}, ${typeof m.benchmark.value === "number" ? m.benchmark.value.toLocaleString("en-US") : m.benchmark.value})`}
+                            {m.sources[0] && <span className="break-all text-neutral-500"> · {m.sources[0].url}</span>}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <p className="mt-1 text-neutral-700">{h.reasoning.split("\n\n")[0]}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </Section>
+        )}
+
         {answered.length > 0 && (
-          <Section n={5} title="Applicant clarifications">
+          <Section n={n()} title="Applicant clarifications">
             <ul className="space-y-5">
               {answered.map((d) => {
                 const claim = claimOf.get(d.claimId);
@@ -250,7 +350,7 @@ export default async function DossierPage(props: PageProps<"/case/[id]/dossier">
           </Section>
         )}
 
-        <Section n={issuesNo} title="Open issues and next steps">
+        <Section n={n()} title="Open issues and next steps">
           {c.unresolvedIssues.length > 0 ? (
             <ul className="list-disc space-y-1 pl-5 text-sm">
               {c.unresolvedIssues.map((u) => (
@@ -274,7 +374,7 @@ export default async function DossierPage(props: PageProps<"/case/[id]/dossier">
           )}
         </Section>
 
-        <Section n={issuesNo + 1} title="Exhibit index">
+        <Section n={n()} title="Exhibit index">
           <ol className="space-y-1 text-sm">
             {[...exhibitNo.entries()].map(([url, n]) => (
               <li key={url} className="break-all">

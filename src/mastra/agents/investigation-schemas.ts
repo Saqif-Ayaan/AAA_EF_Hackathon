@@ -21,6 +21,7 @@ import {
   type Measurement,
   type QueueStatus,
 } from "../../lib/schemas";
+import { HIGH_CONFIDENCE } from "../../lib/decision";
 import { cleanSources } from "./output-schemas";
 import { INVESTIGATE_LIMITS } from "./investigate";
 
@@ -135,6 +136,11 @@ export function toHypothesisFinding(
     reasoning = `${reasoning} (Kept open: "${result}" needs a sourced, measured value about this applicant.)`;
     result = "still_unknown";
   }
+  // Lax rule: confirming a failure mode drops evidence, so it needs HIGH confidence the measurement is about this person.
+  if (result === "confirmed" && !reliedOn.some((i) => isUsable(measurements[i]) && measurements[i].identityConfidence >= HIGH_CONFIDENCE)) {
+    reasoning = `${reasoning} (Kept open: confirming needs a measurement we are at least ${HIGH_CONFIDENCE * 100}% sure is about this applicant.)`;
+    result = "still_unknown";
+  }
   const sharpened = raw.sharpenedQuestion?.trim() || hypothesis.questionIfUnresolved;
   return {
     finding: {
@@ -148,11 +154,16 @@ export function toHypothesisFinding(
   };
 }
 
-/** Queue status after investigation (spec §5 table). */
-export function queueStatusAfter(before: "applies" | "unknown", result: HypothesisResult): QueueStatus {
+/**
+ * Queue status after investigation (spec §5 table, made laxer): only a
+ * confirmed failure mode stays `applies`. A sceptic `applies` the
+ * investigation could neither confirm nor clear becomes `unknown` (a question
+ * for the applicant), not a rejection: being lax is safer.
+ */
+export function queueStatusAfter(_before: "applies" | "unknown", result: HypothesisResult): QueueStatus {
   if (result === "cleared") return "does_not_apply"; // for `applies` this is the rescue
   if (result === "confirmed") return "applies";
-  return before; // still_unknown: unchanged (unknown keeps its sharpened question)
+  return "unknown";
 }
 
 /** The drafter's answer → a valid Hypothesis (at most 4 checks, ids assigned in code). */
