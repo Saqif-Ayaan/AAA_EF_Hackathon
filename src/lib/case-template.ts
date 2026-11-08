@@ -1,7 +1,8 @@
 /**
  * Template case builder used by "Build case" (POST /api/cases/[id]/build) until
  * the real Mastra caseBuilder agent (Opus) exists. Deterministic, no LLM, but it
- * follows the spec rules: only corroborated or applicant-substantiated evidence
+ * follows the spec rules: corroborated or applicant-substantiated evidence (plus partially
+ * verified claims, capped at moderate and flagged)
  * is argued, the strongest 3–5 criteria are picked, everything else is listed
  * with a reason, and nothing is invented beyond what the findings say.
  *
@@ -97,7 +98,11 @@ export function buildTemplateCase({ applicant, claims, findings, discrepancies }
     const rows = claims
       .filter((c) => c.criterion === criterion)
       .map((claim) => ({ claim, finding: latest.get(claim.id), substantiated: substantiated.has(claim.id) }));
-    const usable = rows.filter((r) => r.finding?.status === "corroborated" || r.substantiated);
+    // Corroborated and applicant-substantiated claims are solid; partially verified claims are
+    // argued too, but only ever as moderate evidence and with their gaps spelled out.
+    const isSolid = (r: (typeof rows)[number]) => r.finding?.status === "corroborated" || r.substantiated;
+    const isPartial = (r: (typeof rows)[number]) => !isSolid(r) && r.finding?.status === "partial";
+    const usable = rows.filter((r) => isSolid(r) || isPartial(r));
 
     if (usable.length === 0) {
       const r = rows[0];
@@ -116,25 +121,36 @@ export function buildTemplateCase({ applicant, claims, findings, discrepancies }
       continue;
     }
 
-    const rich = usable.some(
+    // Strong needs solid evidence: two solid claims, or one with 3+ sources and near-certain identity.
+    const solid = usable.filter(isSolid);
+    const rich = solid.some(
       (r) => (r.finding?.sources.length ?? 0) >= 3 && (r.finding?.identityConfidence ?? 0) >= 0.95,
     );
-    const strength = usable.length >= 2 || rich ? "strong" : "moderate";
+    const strength = solid.length >= 2 || rich ? "strong" : "moderate";
 
     const seen = new Set<string>();
     const exhibits = usable.flatMap((r) =>
       (r.finding?.sources ?? [])
         .filter((s) => !seen.has(s.url) && seen.add(s.url))
         .map((s) => ({
-          label: s.title,
+          // Exhibit status only has corroborated | substantiated (schemas.ts), so partially
+          // verified sources are marked in the label instead.
+          label: isPartial(r) ? `${s.title} (partially verified)` : s.title,
           url: s.url,
           status: r.finding?.status === "corroborated" ? ("corroborated" as const) : ("substantiated" as const),
         })),
     );
 
-    const points = usable.map((r) => r.claim.summary).join("; ");
+    const points = usable
+      .map((r) =>
+        isPartial(r) ? `${r.claim.summary} (partially verified${r.finding?.foundValue ? `: ${lowerFirst(r.finding.foundValue)}` : ""})` : r.claim.summary,
+      )
+      .join("; ");
 
     const weaknesses = [
+      ...usable
+        .filter(isPartial)
+        .map((r) => `“${r.claim.summary}” is only partially verified${r.finding?.reasoning ? ` — ${lowerFirst(r.finding.reasoning)}` : "."}`),
       ...rows
         .filter((r) => !usable.includes(r))
         .map((r) => `“${r.claim.summary}” is left out — ${r.finding?.status ?? "not yet verified"}.`),
@@ -173,8 +189,8 @@ export function buildTemplateCase({ applicant, claims, findings, discrepancies }
 
   const summary = [
     chosen.length
-      ? `${applicant.name} meets ${chosen.length} of the 8 O-1A criteria on evidence corroborated online (${plural(exhibitCount, "exhibit")}), led by ${LABEL[chosen[0].criterion].toLowerCase()}.`
-      : `No criterion is supported by corroborated evidence yet for ${applicant.name}.`,
+      ? `${applicant.name} has evidence for ${chosen.length} of the 8 O-1A criteria (${plural(exhibitCount, "exhibit")}), led by ${LABEL[chosen[0].criterion].toLowerCase()}. ${chosen.filter((c) => c.strength === "strong").length} rated strong, ${chosen.filter((c) => c.strength === "moderate").length} moderate (moderate means a single corroborated source set, or evidence that is only partially verified).`
+      : `No criterion is supported by verified evidence yet for ${applicant.name}.`,
     open ? `${plural(open, "open question")} ${open === 1 ? "stays" : "stay"} out of the case until resolved.` : "",
   ]
     .filter(Boolean)
