@@ -1,5 +1,13 @@
 /** Human-readable names for the enum values in schemas.ts. */
-import type { CITATION_SOURCES, Criterion, PRESS_FOCUS } from "./schemas";
+import type { CITATION_SOURCES, Criterion, PRESS_FOCUS, Resolution } from "./schemas";
+
+export const RESOLUTION_LABELS: Record<Resolution, string> = {
+  open: "Open",
+  amended: "Amended",
+  substantiated: "Substantiated",
+  reframed: "Reframed",
+  escalated: "Escalated to an attorney",
+};
 
 export const CRITERION_LABELS: Record<Criterion, string> = {
   awards: "Awards",
