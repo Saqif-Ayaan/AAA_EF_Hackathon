@@ -8,9 +8,9 @@ import { Label, SectionTitle } from "./ui";
 const FRESH_MS = 4000;
 
 export const STRENGTH_STYLE = {
-  strong: { label: "Strong", color: "#15803d" },
-  moderate: { label: "Moderate", color: "#2563eb" },
-  weak: { label: "Weak", color: "#b45309" },
+  strong: { label: "Strong", color: "var(--ok)" },
+  moderate: { label: "Moderate", color: "var(--accent)" },
+  weak: { label: "Weak", color: "var(--warn)" },
 } as const;
 
 export type BuildControl = {
@@ -102,7 +102,7 @@ export function DossierPanel({
             </>
           )}
           {build.error && (
-            <p role="alert" className="mt-3 text-sm text-[#b91c1c]">
+            <p role="alert" className="mt-3 text-sm text-[color:var(--bad)]">
               Build failed: {build.error}
             </p>
           )}

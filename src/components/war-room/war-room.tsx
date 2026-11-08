@@ -177,7 +177,7 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
             {applicant.alternateNames.length > 0 && <> · also published as {applicant.alternateNames.join(", ")}</>}
           </p>
         ) : replay && !replay.ok ? (
-          <p role="alert" className="mt-2 text-sm text-[#b45309]">
+          <p role="alert" className="mt-2 text-sm text-[color:var(--warn)]">
             {replay.error}{" "}
             {replay.command && (
               <code className={`${styles.mono} rounded bg-[color:var(--track)] px-1.5 py-0.5 whitespace-nowrap`}>{replay.command}</code>
@@ -207,7 +207,7 @@ export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?
           <dl className="flex flex-wrap gap-x-10 gap-y-3">
             <Stat label="Research" value={`${research}%`} />
             <Stat label="Claims checked" value={`${findings.length}/${claims.length}`} />
-            <Stat label="Open questions" value={String(openQuestions)} color={openQuestions ? "#b45309" : undefined} />
+            <Stat label="Open questions" value={String(openQuestions)} color={openQuestions ? "var(--warn)" : undefined} />
             {score && <Stat label="Approval likelihood" value={String(Math.round(score.approvalLikelihood))} />}
           </dl>
           <div className="flex flex-wrap items-center gap-2">
@@ -303,11 +303,11 @@ function StatusChip({
 }) {
   const time = elapsed === null ? "" : ` · ${formatElapsed(elapsed)}`;
   if (mode === "connecting") return <span className="text-sm text-[color:var(--dim)]">Connecting…</span>;
-  if (mode === "missing") return <span className="text-sm text-[#b91c1c]">No replay</span>;
+  if (mode === "missing") return <span className="text-sm text-[color:var(--bad)]">No replay</span>;
   if (mode === "offline") {
     return (
-      <span role="status" className="flex items-center gap-2 text-sm text-[#b91c1c]">
-        <span className="size-2 rounded-full bg-[#b91c1c]" aria-hidden /> Offline
+      <span role="status" className="flex items-center gap-2 text-sm text-[color:var(--bad)]">
+        <span className="size-2 rounded-full bg-[color:var(--bad)]" aria-hidden /> Offline
       </span>
     );
   }
@@ -323,7 +323,7 @@ function StatusChip({
   }
   return (
     <span role="status" className="flex items-center gap-2 text-sm tabular-nums text-[color:var(--muted)]">
-      <span className="size-2 rounded-full bg-[#15803d] motion-safe:animate-pulse" aria-hidden />
+      <span className="size-2 rounded-full bg-[color:var(--ok)] motion-safe:animate-pulse" aria-hidden />
       Live{time}
     </span>
   );

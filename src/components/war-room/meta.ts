@@ -12,8 +12,8 @@ import type {
 export const SOURCE_AGENTS: Record<SourceAgentId, { name: string; via: string; color: string }> = {
   devpost: { name: "Devpost", via: "Profile + project pages", color: "#0e8aa0" },
   linkedin: { name: "LinkedIn", via: "Apify profile scraper", color: "#3b6fd4" },
-  github: { name: "GitHub", via: "GitHub REST API", color: "#525252" },
-  scholar: { name: "Scholar", via: "OpenAlex", color: "#7c5cc4" },
+  github: { name: "GitHub", via: "GitHub REST API", color: "var(--muted)" },
+  scholar: { name: "Scholar", via: "OpenAlex", color: "var(--violet)" },
   press: { name: "Press", via: "Exa web search", color: "#c4488f" },
 };
 
@@ -26,8 +26,8 @@ export const AGENT_STATUS_STYLE: Record<PillStatus, { label: string; color: stri
   searching: { label: "Searching", color: "var(--accent)", active: true },
   reading: { label: "Reading", color: "var(--accent)", active: true },
   thinking: { label: "Thinking", color: "var(--accent)", active: true },
-  done: { label: "Done", color: "#15803d", active: false },
-  error: { label: "Error", color: "#b91c1c", active: false },
+  done: { label: "Done", color: "var(--ok)", active: false },
+  error: { label: "Error", color: "var(--bad)", active: false },
 };
 
 export const CRITERION_LABEL: Record<Criterion, string> = {
@@ -45,12 +45,12 @@ export type LedgerStatus = FindingStatus | "pending" | "queued";
 
 /** Verdict colours stay semantic: green / amber / grey / red. */
 export const LEDGER_STYLE: Record<LedgerStatus, { label: string; color: string; text: string }> = {
-  corroborated: { label: "Corroborated", color: "#15803d", text: "#166534" },
-  partial: { label: "Partial", color: "#b45309", text: "#92400e" },
-  unverified: { label: "Unverified", color: "#737373", text: "#525252" },
-  contradicted: { label: "Contradicted", color: "#b91c1c", text: "#991b1b" },
+  corroborated: { label: "Corroborated", color: "var(--ok)", text: "var(--ok-text)" },
+  partial: { label: "Partial", color: "var(--warn)", text: "var(--warn-text)" },
+  unverified: { label: "Unverified", color: "var(--dim)", text: "var(--muted)" },
+  contradicted: { label: "Contradicted", color: "var(--bad)", text: "var(--bad-text)" },
   pending: { label: "Checking", color: "var(--accent)", text: "var(--accent)" },
-  queued: { label: "Queued", color: "#a3a3a3", text: "#737373" },
+  queued: { label: "Queued", color: "var(--dim)", text: "var(--dim)" },
 };
 
 export const DISCREPANCY_LABEL: Record<DiscrepancyType, string> = {
@@ -62,11 +62,11 @@ export const DISCREPANCY_LABEL: Record<DiscrepancyType, string> = {
 };
 
 export const RESOLUTION_STYLE: Record<Resolution, { label: string; color: string }> = {
-  open: { label: "Open", color: "#b45309" },
+  open: { label: "Open", color: "var(--warn)" },
   amended: { label: "Amended", color: "var(--accent)" },
-  substantiated: { label: "Substantiated", color: "#15803d" },
-  reframed: { label: "Reframed", color: "#7c5cc4" },
-  escalated: { label: "Escalated", color: "#b91c1c" },
+  substantiated: { label: "Substantiated", color: "var(--ok)" },
+  reframed: { label: "Reframed", color: "var(--violet)" },
+  escalated: { label: "Escalated", color: "var(--bad)" },
 };
 
 /** `color` at `pct`% opacity. Works for hex values and CSS variables alike. */

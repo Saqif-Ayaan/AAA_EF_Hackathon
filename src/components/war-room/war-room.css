@@ -17,6 +17,13 @@
   --dim: #8c8c8c;
   --accent: #2563eb;
   --ink: #171717;
+  --ok: #15803d;
+  --ok-text: #166534;
+  --warn: #b45309;
+  --warn-text: #92400e;
+  --bad: #b91c1c;
+  --bad-text: #991b1b;
+  --violet: #7c5cc4;
 
   min-height: 100vh;
   background: var(--bg);
@@ -34,6 +41,56 @@
 .wr-root :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+/* ── Dark theme (toggled by the .dark class on <html>) ───────────────── */
+
+.dark .wr-root {
+  --bg: #0b0b0b;
+  --panel: #141414;
+  --line: #262626;
+  --track: #262626;
+  --text: #ededed;
+  --muted: #b0b0b0;
+  --dim: #8a8a8a;
+  --accent: #6ea0ff;
+  --ink: #ededed;
+  --ok: #4ade80;
+  --ok-text: #86efac;
+  --warn: #fbbf24;
+  --warn-text: #fcd34d;
+  --bad: #f87171;
+  --bad-text: #fca5a5;
+  --violet: #b79cff;
+  color-scheme: dark;
+}
+
+.dark .wr-root ::selection {
+  background: #1e3a8a;
+}
+
+.dark .wr-topbar {
+  background: rgb(11 11 11 / 0.85);
+}
+
+.dark .wr-navLink:hover {
+  background: #1f1f1f;
+}
+
+.dark .wr-button {
+  color: #0b0b0b;
+}
+
+.dark .wr-button:hover:not(:disabled) {
+  background: #cfcfcf;
+}
+
+.dark .wr-buttonGhost {
+  background: transparent;
+}
+
+.dark .wr-buttonGhost:hover:not(:disabled) {
+  border-color: #555;
 }
 
 /* ── Type ─────────────────────────────────────────────────────────────── */

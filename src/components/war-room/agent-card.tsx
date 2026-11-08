@@ -46,7 +46,7 @@ export function AgentCard({ id, view, now }: { id: SourceAgentId; view: AgentVie
       >
         <div
           className={styles.barFill}
-          style={{ width: `${view.progress}%`, backgroundColor: done ? "#15803d" : "var(--ink)" }}
+          style={{ width: `${view.progress}%`, backgroundColor: done ? "var(--ok)" : "var(--ink)" }}
         />
       </div>
 

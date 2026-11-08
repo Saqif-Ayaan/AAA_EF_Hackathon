@@ -1,1 +1,47 @@
 @import "tailwindcss";
+
+/*
+ * Dark mode: the pages use Tailwind's neutral scale and a few status colours,
+ * so redefining those variables under .dark re-themes everything at once.
+ * "white" becomes the raised surface colour; text-white on a light button
+ * therefore turns dark automatically.
+ */
+.dark {
+  color-scheme: dark;
+  --color-white: #141414;
+  --color-neutral-50: #0b0b0b;
+  --color-neutral-100: #1a1a1a;
+  --color-neutral-200: #262626;
+  --color-neutral-300: #363636;
+  --color-neutral-400: #8a8a8a;
+  --color-neutral-500: #9d9d9d;
+  --color-neutral-600: #b5b5b5;
+  --color-neutral-700: #cfcfcf;
+  --color-neutral-800: #e2e2e2;
+  --color-neutral-900: #f2f2f2;
+  --color-neutral-950: #fafafa;
+
+  --color-red-50: #2a1214;
+  --color-red-200: #5c2226;
+  --color-red-300: #7f2e33;
+  --color-red-500: #f87171;
+  --color-red-600: #f87171;
+  --color-red-700: #fca5a5;
+  --color-red-800: #fecaca;
+
+  --color-amber-50: #261c0a;
+  --color-amber-100: #33260c;
+  --color-amber-300: #78581a;
+  --color-amber-900: #fcd34d;
+
+  --color-emerald-50: #0c2217;
+  --color-emerald-100: #123222;
+  --color-emerald-200: #1b4a31;
+  --color-emerald-800: #86efac;
+  --color-emerald-900: #bbf7d0;
+
+  --color-sky-100: #12283a;
+  --color-sky-800: #7dd3fc;
+  --color-violet-100: #231a3a;
+  --color-violet-800: #c4b5fd;
+}

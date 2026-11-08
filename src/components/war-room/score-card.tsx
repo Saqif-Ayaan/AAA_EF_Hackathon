@@ -9,15 +9,15 @@ import { Label, SectionTitle } from "./ui";
 const MAX_FLAGS = 4;
 
 function readinessBand(v: number) {
-  if (v >= 70) return { label: "Strong case", color: "#15803d" };
-  if (v >= 45) return { label: "Borderline", color: "#b45309" };
-  return { label: "Weak case", color: "#b91c1c" };
+  if (v >= 70) return { label: "Strong case", color: "var(--ok)" };
+  if (v >= 45) return { label: "Borderline", color: "var(--warn)" };
+  return { label: "Weak case", color: "var(--bad)" };
 }
 
 function rfeBand(v: number) {
-  if (v < 34) return { label: "Low", color: "#15803d" };
-  if (v < 60) return { label: "Elevated", color: "#b45309" };
-  return { label: "High", color: "#b91c1c" };
+  if (v < 34) return { label: "Low", color: "var(--ok)" };
+  if (v < 60) return { label: "Elevated", color: "var(--warn)" };
+  return { label: "High", color: "var(--bad)" };
 }
 
 /**
