@@ -5,7 +5,7 @@
  * built case (dossier).
  */
 import { CaseBundleSchema, type CaseBundle } from "./schemas";
-import { getApplicant, getLatestCaseAndScore, latestFindings, listClaimsAndFindings, listDiscrepancyRows } from "./case-data";
+import { getApplicant, getLatestCaseAndScore, latestFindings, listClaimsAndFindings, listDiscrepancyRows, listHypotheses } from "./case-data";
 
 export class CaseBundleError extends Error {
   constructor(
@@ -31,6 +31,7 @@ export async function loadCaseBundle(applicantId: string): Promise<CaseBundle> {
     claims,
     findings: latestFindings(findings),
     discrepancies,
+    hypotheses: await listHypotheses(applicantId),
     case: caseRow,
   });
 }

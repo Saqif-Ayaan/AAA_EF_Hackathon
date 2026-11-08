@@ -1,0 +1,15 @@
+{
+  "case_id": "JUL312024_01D8101",
+  "date": "2024-07-31",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "tennis coaching / tennis instruction",
+    "role": "Senior tennis instructor (tennis coach)",
+    "employer_type": "tennis training center",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

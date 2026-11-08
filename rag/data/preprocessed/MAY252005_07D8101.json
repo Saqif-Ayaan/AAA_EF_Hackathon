@@ -1,0 +1,15 @@
+{
+  "case_id": "MAY252005_07D8101",
+  "date": "2005-05-25",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "arts (specific discipline not stated)",
+    "role": "self-petitioning individual artist",
+    "employer_type": "self-petitioned (self-represented)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

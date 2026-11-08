@@ -1,0 +1,15 @@
+{
+  "case_id": "Apr062011_01D8101",
+  "date": "2011-04-06",
+  "visa": "O-1A",
+  "outcome": "remanded",
+  "procedural_only": true,
+  "card": {
+    "field": "digital imaging retouching for creative photography",
+    "role": "Digital Imaging Retoucher",
+    "employer_type": "creative photography and retouching studio",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

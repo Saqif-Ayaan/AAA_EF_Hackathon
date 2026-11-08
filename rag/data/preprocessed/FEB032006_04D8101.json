@@ -1,0 +1,15 @@
+{
+  "case_id": "FEB032006_04D8101",
+  "date": "2006-02-03",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "industrial engineering / construction management (specialty occupation analysis)",
+    "role": "industrial engineer (proffered position; AAO found duties match construction manager)",
+    "employer_type": "construction and remodeling company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT082014_02D8101",
+  "date": "2014-10-08",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "racehorse training (assistant horse trainer)",
+    "role": "assistant horse trainer, hands-on training of 20-30 racehorses",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "DEC222005_01D8101",
+  "date": "2005-12-22",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "professional photography consulting (art and intellectual history publishing context)",
+    "role": "professional photography consultant",
+    "employer_type": "publisher specializing in art and intellectual history",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

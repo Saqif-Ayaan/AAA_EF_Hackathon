@@ -1,0 +1,15 @@
+{
+  "case_id": "MAR172021_01D8101",
+  "date": "2021-03-17",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "music composition and album production for Christian music ministry",
+    "role": "composer and music producer (also guitarist and vocalist)",
+    "employer_type": "church (religious music ministry)",
+    "location": "Colombia",
+    "criteria": {}
+  },
+  "sections": []
+}

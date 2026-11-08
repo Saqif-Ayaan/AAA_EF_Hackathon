@@ -1,0 +1,15 @@
+{
+  "case_id": "JAN172023_01D8101",
+  "date": "2023-01-17",
+  "visa": "O-1A",
+  "outcome": "remanded",
+  "procedural_only": true,
+  "card": {
+    "field": "mixed martial arts (MMA) athletic training and strength and conditioning",
+    "role": "athletic trainer / strength and conditioning coach for a professional MMA fighter",
+    "employer_type": "martial arts academy and athletic training facility",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

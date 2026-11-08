@@ -1,0 +1,241 @@
+{
+  "applicant_id": "test_strong",
+  "criteria": {
+    "awards": {
+      "precedent_found": true,
+      "items": []
+    },
+    "published_material": {
+      "precedent_found": true,
+      "items": [
+        {
+          "evidence_id": "ev_2",
+          "evidence_summary": "Feature articles about him and his framework in Wired, The New York Times technology section and InfoWorld, each naming him in the headline or lede and discussing his work",
+          "failure_mode": "An article whose real subject is a product, project or event, with only a passing mention of the person, is not \"about\" them.",
+          "status": "unknown",
+          "reasoning": "The Wired and InfoWorld pieces are plainly centred on him, but the New York Times piece is headlined about the open-source tool and its users at banks; if he appears only as a brief mention in the lede rather than being substantially discussed, the AAO has treated that kind of coverage as about the product and not the person.",
+          "precedent": {
+            "case_id": "MAY052025_01D8101",
+            "quote": "Published material that includes only a brief citation or passing reference to the beneficiary's work is not \"about\" the beneficiary, relating to the beneficiary's work in the field, as required under this criterion. 9 Published material that covers a broader topic but includes a substantial discussion of the beneficiary's work in the field and mentions the beneficiary in connection to the work may be considered material \"about\" the beneficiary relating to the work."
+          },
+          "question_for_applicant": "In the New York Times piece, does the reporter discuss you and your role at length throughout the article, or does your name come up only once or twice as the tool's creator?"
+        }
+      ]
+    },
+    "judging": {
+      "precedent_found": true,
+      "items": []
+    },
+    "original_contributions": {
+      "precedent_found": true,
+      "items": []
+    },
+    "critical_role": {
+      "precedent_found": true,
+      "items": [
+        {
+          "evidence_id": "ev_5",
+          "evidence_summary": "Designed and leads the inference platform that serves all of the company's ML products, which generate $1.2B in annual revenue; described in a detailed letter from the CTO, who supervises him",
+          "failure_mode": "Importance of the product or revenue line is described, but the individual's own duties and how they differ from others in the same role are not, so the role itself is not shown to be critical.",
+          "status": "unknown",
+          "reasoning": "This is the same shape of argument the AAO rejected for a senior engineer whose software underpinned a large revenue line: the $1.2B figure shows the platform matters to the company, not yet what this engineer personally did relative to other senior engineers on it. The description says he designed and leads it, which may well resolve this, but how many peers share that design/ownership is not stated.",
+          "precedent": {
+            "case_id": "FEB142024_01D8101",
+            "quote": "Although the Petitioner indicated the Beneficiary's work on its Radiant software, the Petitioner did not provide specific, detailed information explaining how the Beneficiary has contributed in a way that is of significant importance."
+          },
+          "question_for_applicant": "Are you the sole technical owner of the inference platform's design and direction, or do other principal engineers share that responsibility with you — and what decisions do you make that they do not?"
+        }
+      ]
+    },
+    "high_salary": {
+      "precedent_found": true,
+      "items": []
+    }
+  },
+  "summary": {
+    "criteria_status": {
+      "awards": "clear",
+      "published_material": "open",
+      "judging": "clear",
+      "original_contributions": "clear",
+      "critical_role": "open",
+      "high_salary": "clear"
+    },
+    "criteria_counted": 6,
+    "routing": "to_lawyer",
+    "questions_for_call": [
+      {
+        "criterion": "published_material",
+        "evidence_id": "ev_2",
+        "question": "In the New York Times piece, does the reporter discuss you and your role at length throughout the article, or does your name come up only once or twice as the tool's creator?"
+      },
+      {
+        "criterion": "critical_role",
+        "evidence_id": "ev_5",
+        "question": "Are you the sole technical owner of the inference platform's design and direction, or do other principal engineers share that responsibility with you — and what decisions do you make that they do not?"
+      }
+    ]
+  },
+  "selected_cases": [
+    {
+      "case_id": "APR192021_01D8101",
+      "reason": "shares 6/6 claimed criteria (awards, critical_role, high_salary, judging, original_contributions, published_material); not met: awards, critical_role, high_salary, judging, original_contributions, published_material"
+    },
+    {
+      "case_id": "MAY122017_01D8101",
+      "reason": "shares 6/6 claimed criteria (awards, critical_role, high_salary, judging, original_contributions, published_material); not met: awards, high_salary, judging, original_contributions, published_material"
+    },
+    {
+      "case_id": "MAR232017_01D8101",
+      "reason": "shares 6/6 claimed criteria (awards, critical_role, high_salary, judging, original_contributions, published_material); not met: awards, critical_role, high_salary, original_contributions, published_material"
+    },
+    {
+      "case_id": "NOV132024_01D8101",
+      "reason": "shares 6/6 claimed criteria (awards, critical_role, high_salary, judging, original_contributions, published_material); not met: awards, judging, original_contributions, published_material"
+    },
+    {
+      "case_id": "AUG152024_01D8101",
+      "reason": "shares 6/6 claimed criteria (awards, critical_role, high_salary, judging, original_contributions, published_material); not met: critical_role, high_salary, judging, original_contributions"
+    },
+    {
+      "case_id": "AUG132024_01D8101",
+      "reason": "shares 6/6 claimed criteria (awards, critical_role, high_salary, judging, original_contributions, published_material); not met: critical_role, high_salary, judging, original_contributions"
+    },
+    {
+      "case_id": "AUG012022_01D8101",
+      "reason": "shares 6/6 claimed criteria (awards, critical_role, high_salary, judging, original_contributions, published_material); not met: awards, high_salary, judging, published_material"
+    },
+    {
+      "case_id": "FEB182015_01D8101",
+      "reason": "shares 6/6 claimed criteria (awards, critical_role, high_salary, judging, original_contributions, published_material); not met: awards, judging, original_contributions, published_material"
+    },
+    {
+      "case_id": "APR052021_07D8101",
+      "reason": "shares 6/6 claimed criteria (awards, critical_role, high_salary, judging, original_contributions, published_material); not met: awards, published_material"
+    },
+    {
+      "case_id": "AUG092021_01D8101",
+      "reason": "shares 6/6 claimed criteria (awards, critical_role, high_salary, judging, original_contributions, published_material); not met: awards"
+    },
+    {
+      "case_id": "DEC182019_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, critical_role, judging, original_contributions, published_material); not met: awards, critical_role, judging, original_contributions, published_material"
+    },
+    {
+      "case_id": "NOV082017_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, critical_role, high_salary, original_contributions, published_material); not met: awards, critical_role, high_salary, original_contributions, published_material"
+    },
+    {
+      "case_id": "DEC112025_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, critical_role, judging, original_contributions, published_material); not met: awards, critical_role, original_contributions, published_material"
+    },
+    {
+      "case_id": "JUN022022_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, critical_role, high_salary, judging, published_material); not met: awards, high_salary, judging, published_material"
+    },
+    {
+      "case_id": "FEB102017_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, critical_role, high_salary, original_contributions, published_material); not met: awards, critical_role, original_contributions, published_material"
+    },
+    {
+      "case_id": "MAY052025_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, critical_role, high_salary, judging, published_material); not met: awards, judging, published_material"
+    },
+    {
+      "case_id": "FEB252025_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, critical_role, judging, original_contributions, published_material); not met: awards, original_contributions, published_material"
+    },
+    {
+      "case_id": "MAY262022_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, high_salary, judging, original_contributions, published_material); not met: high_salary, original_contributions, published_material"
+    },
+    {
+      "case_id": "JUL272021_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, critical_role, judging, original_contributions, published_material); not met: awards, critical_role, original_contributions"
+    },
+    {
+      "case_id": "MAY072021_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, critical_role, high_salary, original_contributions, published_material); not met: critical_role, original_contributions, published_material"
+    },
+    {
+      "case_id": "SEP142015_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, critical_role, judging, original_contributions, published_material); not met: awards, critical_role, published_material"
+    },
+    {
+      "case_id": "NOV162023_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, high_salary, judging, original_contributions, published_material); not met: judging, published_material"
+    },
+    {
+      "case_id": "FEB062023_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, critical_role, judging, original_contributions, published_material); not met: judging, original_contributions"
+    },
+    {
+      "case_id": "JAN042023_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, critical_role, high_salary, original_contributions, published_material); not met: high_salary, original_contributions"
+    },
+    {
+      "case_id": "SEP082022_01D8101",
+      "reason": "shares 5/6 claimed criteria (awards, critical_role, high_salary, judging, published_material); not met: judging, published_material"
+    },
+    {
+      "case_id": "NOV272019_01D8101",
+      "reason": "shares 4/6 claimed criteria (critical_role, high_salary, judging, original_contributions); not met: critical_role, high_salary, judging, original_contributions"
+    },
+    {
+      "case_id": "MAR082019_01D8101",
+      "reason": "shares 4/6 claimed criteria (awards, critical_role, original_contributions, published_material); not met: awards, critical_role, original_contributions, published_material"
+    },
+    {
+      "case_id": "MAR042019_01D8101",
+      "reason": "shares 4/6 claimed criteria (awards, critical_role, original_contributions, published_material); not met: awards, critical_role, original_contributions, published_material"
+    },
+    {
+      "case_id": "NOV282017_02D8101",
+      "reason": "shares 4/6 claimed criteria (awards, critical_role, original_contributions, published_material); not met: awards, critical_role, original_contributions, published_material"
+    },
+    {
+      "case_id": "JUL052017_01D8101",
+      "reason": "shares 4/6 claimed criteria (critical_role, judging, original_contributions, published_material); not met: critical_role, judging, original_contributions, published_material"
+    },
+    {
+      "case_id": "APR132016_01D8101",
+      "reason": "shares 4/6 claimed criteria (awards, critical_role, high_salary, published_material); not met: awards, critical_role, high_salary, published_material"
+    },
+    {
+      "case_id": "AUG242015_01D8101",
+      "reason": "shares 4/6 claimed criteria (awards, critical_role, original_contributions, published_material); not met: awards, critical_role, original_contributions, published_material"
+    },
+    {
+      "case_id": "AUG052015_01D8101",
+      "reason": "shares 4/6 claimed criteria (awards, critical_role, original_contributions, published_material); not met: awards, critical_role, original_contributions, published_material"
+    },
+    {
+      "case_id": "MAR232015_01D8101",
+      "reason": "shares 4/6 claimed criteria (awards, critical_role, high_salary, published_material); not met: awards, critical_role, high_salary, published_material"
+    },
+    {
+      "case_id": "MAR242026_01D8101",
+      "reason": "shares 4/6 claimed criteria (awards, critical_role, judging, original_contributions); not met: awards, judging, original_contributions"
+    },
+    {
+      "case_id": "FEB202025_01D8101",
+      "reason": "shares 4/6 claimed criteria (awards, critical_role, judging, original_contributions); not met: awards, judging, original_contributions"
+    },
+    {
+      "case_id": "OCT092024_01D8101",
+      "reason": "shares 4/6 claimed criteria (critical_role, high_salary, original_contributions, published_material); not met: high_salary, original_contributions, published_material"
+    },
+    {
+      "case_id": "SEP192024_01D8101",
+      "reason": "shares 4/6 claimed criteria (critical_role, judging, original_contributions, published_material); not met: critical_role, original_contributions, published_material"
+    },
+    {
+      "case_id": "FEB142024_01D8101",
+      "reason": "shares 4/6 claimed criteria (critical_role, high_salary, judging, original_contributions); not met: critical_role, high_salary, original_contributions"
+    },
+    {
+      "case_id": "MAR152021_03D8101",
+      "reason": "shares 4/6 claimed criteria (awards, critical_role, original_contributions, published_material); not met: awards, critical_role, original_contributions"
+    }
+  ]
+}

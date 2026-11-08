@@ -1,0 +1,15 @@
+{
+  "case_id": "AUG182006_01D8101",
+  "date": "2006-08-18",
+  "visa": "unknown",
+  "outcome": "other",
+  "procedural_only": true,
+  "card": {
+    "field": "unknown",
+    "role": "unknown",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

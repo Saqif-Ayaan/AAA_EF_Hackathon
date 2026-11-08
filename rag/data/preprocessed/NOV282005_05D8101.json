@@ -1,0 +1,15 @@
+{
+  "case_id": "NOV282005_05D8101",
+  "date": "2005-11-28",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "acrobatics / contortion performance arts",
+    "role": "acrobat/contortionist",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

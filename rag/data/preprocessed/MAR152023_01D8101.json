@@ -1,0 +1,15 @@
+{
+  "case_id": "MAR152023_01D8101",
+  "date": "2023-03-15",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "audio, mixing, and recording engineering for music productions",
+    "role": "audio, mixing, and recording engineer",
+    "employer_type": "recording and production services business",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

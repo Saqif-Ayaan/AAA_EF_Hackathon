@@ -1,0 +1,84 @@
+{
+  "applicant_id": "test_01",
+  "name": "Test Applicant (mirrors FEB142024_01D8101)",
+  "field": "machine learning for FPGA design tools / electronic design automation (EDA) software",
+  "role": "senior software development engineer",
+  "employer": "semiconductor manufacturer (FPGA products)",
+  "location": "California",
+  "evidence": [
+    {
+      "id": "ev_1",
+      "criterion": "scholarly_articles",
+      "medium": "conference and journal papers",
+      "description": "Several first-author papers on ML models that predict FPGA size, power and speed from behavioural descriptions, published in ranked EDA journals and conferences",
+      "details": {
+        "first_author_count": 4,
+        "top_citations": [
+          7,
+          4
+        ],
+        "other_papers_citations": "1-2 each"
+      }
+    },
+    {
+      "id": "ev_2",
+      "criterion": "judging",
+      "medium": "peer review records",
+      "description": "Completed peer reviews of submissions for DAC and ICCAD and an EDA journal",
+      "details": {
+        "reviews_completed": 6,
+        "venues": [
+          "DAC",
+          "ICCAD",
+          "EDA journal"
+        ]
+      }
+    },
+    {
+      "id": "ev_3",
+      "criterion": "original_contributions",
+      "medium": "publication record",
+      "description": "Argues the papers are original contributions because they appeared in highly ranked, high-impact-factor journals and he was first author on all but one",
+      "details": {
+        "top_citations": [
+          7,
+          4
+        ],
+        "citation_growth_claim": "citations up 170% between filing and RFE response"
+      }
+    },
+    {
+      "id": "ev_4",
+      "criterion": "original_contributions",
+      "medium": "expert letters",
+      "description": "Letters from four professors describing his ML model for FPGA chip prediction and saying the work 'will extremely benefit the EDA industry' and 'will majorly impact EDA tools that use machine learning'",
+      "details": {
+        "what_the_letters_say": "describe his ML model for FPGA chip prediction and predict it will benefit the EDA industry; none describes anyone else already using the work",
+        "authors": "four professors"
+      }
+    },
+    {
+      "id": "ev_5",
+      "criterion": "critical_role",
+      "medium": "counsel's RFE response letter",
+      "description": "Counsel's letter states he is on the team building the company's Radiant FPGA software, that his 'experience and knowledge is critical' to a new mid-range FPGA launch, and that he is one of only five employees in the same role",
+      "details": {
+        "source_of_claim": "counsel's RFE response letter only; no letter from anyone at the company",
+        "market_charts": "two charts on the company's addressable market, not tied to his work",
+        "headcount_claim": "one of five employees in the same role, out of 343 US employees"
+      }
+    },
+    {
+      "id": "ev_6",
+      "criterion": "high_salary",
+      "medium": "offer letter and compensation confirmation",
+      "description": "Total annual compensation of $217K ($150K base, 10% cash incentive, $10K sign-on, $40K RSUs)",
+      "details": {
+        "total": 217000,
+        "base": 150000,
+        "comparison_data": "levels.fyi and company pages: Cadence lead SWE $160-170K, Intel SWE $134-539K, Synopsys $136-310K, Xilinx $150-240K; FLC Data Center Level 4 software developers in the area $193K",
+        "position_in_own_comparison_data": "mid-range; base salary below Level 4 prevailing wage"
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "SEP132017_01D8101",
+  "date": "2017-09-13",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "motion picture and television direction (feature films, short films, commercials)",
+    "role": "film director",
+    "employer_type": "motion picture production company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

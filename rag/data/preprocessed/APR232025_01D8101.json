@@ -1,0 +1,15 @@
+{
+  "case_id": "APR232025_01D8101",
+  "date": "2025-04-23",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "acting (theatre and film)",
+    "role": "actress",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

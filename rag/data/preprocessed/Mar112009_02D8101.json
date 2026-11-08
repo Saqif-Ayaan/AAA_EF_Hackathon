@@ -1,0 +1,15 @@
+{
+  "case_id": "Mar112009_02D8101",
+  "date": "2009-03-12",
+  "visa": "O-1A",
+  "outcome": "remanded",
+  "procedural_only": true,
+  "card": {
+    "field": "professional boxing training",
+    "role": "boxing trainer (former competitive boxer)",
+    "employer_type": "boxing training company (self-described executive boxing trainer petitioner)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

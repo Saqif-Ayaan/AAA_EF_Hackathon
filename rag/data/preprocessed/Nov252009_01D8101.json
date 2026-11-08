@@ -1,0 +1,15 @@
+{
+  "case_id": "Nov252009_01D8101",
+  "date": "2009-11-25",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "international cultural exchange program (Q-1) for secondary school teaching",
+    "role": "full-time secondary school teacher in a cultural exchange program",
+    "employer_type": "public school district",
+    "location": "Connecticut",
+    "criteria": {}
+  },
+  "sections": []
+}

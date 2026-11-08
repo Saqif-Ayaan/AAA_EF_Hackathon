@@ -1,0 +1,15 @@
+{
+  "case_id": "FEB262021_01D8101",
+  "date": "2021-02-26",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "music",
+    "role": "musician",
+    "employer_type": "entertainment agency (petitioner is an entertainment agent)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

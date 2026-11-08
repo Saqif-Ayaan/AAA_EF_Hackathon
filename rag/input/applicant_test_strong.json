@@ -1,0 +1,98 @@
+{
+  "applicant_id": "test_strong",
+  "name": "Strong Test Applicant",
+  "field": "distributed systems and machine-learning infrastructure software",
+  "role": "principal engineer and creator of a major open-source project",
+  "employer": "publicly traded cloud software company",
+  "location": "Seattle, Washington",
+  "evidence": [
+    {
+      "id": "ev_1",
+      "criterion": "original_contributions",
+      "medium": "adoption evidence and independent expert letters",
+      "description": "Creator and lead maintainer of an open-source ML serving framework used in production by over 40 Fortune 500 companies, including Netflix, Uber and Goldman Sachs; adopted as an incubating project by the Linux Foundation",
+      "details": {
+        "github_stars": 38000,
+        "monthly_downloads": 9000000,
+        "production_users": "used in production at over 40 Fortune 500 companies; engineering leaders at 6 named adopters describe measured latency and cost reductions from it",
+        "independent_expert_letters": "4 experts with no professional ties describe specific downstream systems built on the framework",
+        "citations_of_design_paper": 1450
+      }
+    },
+    {
+      "id": "ev_2",
+      "criterion": "published_material",
+      "medium": "major media and trade press",
+      "description": "Feature articles about him and his framework in Wired, The New York Times technology section and InfoWorld, each naming him in the headline or lede and discussing his work",
+      "details": {
+        "articles": [
+          {
+            "outlet": "Wired",
+            "title": "The engineer who made ML serving boring",
+            "author": "staff writer",
+            "date": "2025-03-04"
+          },
+          {
+            "outlet": "The New York Times",
+            "title": "Inside the open-source tool quietly running AI at big banks",
+            "author": "technology reporter",
+            "date": "2025-09-12"
+          },
+          {
+            "outlet": "InfoWorld",
+            "title": "Interview with the creator of the framework",
+            "author": "senior editor",
+            "date": "2024-11-20"
+          }
+        ],
+        "subject": "each article is about him and his work, naming him in the headline or opening paragraph"
+      }
+    },
+    {
+      "id": "ev_3",
+      "criterion": "high_salary",
+      "medium": "W-2s, offer letter and BLS / survey data",
+      "description": "Total compensation of $1.15M (base $340K plus vested RSUs at grant value), above the 99th percentile for software engineers in the Seattle metro area",
+      "details": {
+        "total": 1150000,
+        "base": 340000,
+        "comparison_data": "BLS OEWS 90th percentile for software developers, Seattle MSA: $240K; Radford survey 90th percentile for principal engineers at public tech companies: $780K total",
+        "position_in_own_comparison_data": "above the top of every comparison range for the same occupation and area"
+      }
+    },
+    {
+      "id": "ev_4",
+      "criterion": "judging",
+      "medium": "program committee records",
+      "description": "Program committee member for OSDI and MLSys for three consecutive years; reviewed 54 submitted papers",
+      "details": {
+        "papers_reviewed": 54,
+        "venues": [
+          "OSDI",
+          "MLSys"
+        ],
+        "years": 3
+      }
+    },
+    {
+      "id": "ev_5",
+      "criterion": "critical_role",
+      "medium": "letter from the CTO plus company documents",
+      "description": "Designed and leads the inference platform that serves all of the company's ML products, which generate $1.2B in annual revenue; described in a detailed letter from the CTO, who supervises him",
+      "details": {
+        "organisation": "Fortune 500 public cloud software company",
+        "source": "letter from the company's CTO, his direct supervisor"
+      }
+    },
+    {
+      "id": "ev_6",
+      "criterion": "awards",
+      "medium": "award certificate and press coverage of the award",
+      "description": "USENIX Test of Time Award for the framework's design paper, awarded to him by name",
+      "details": {
+        "awarded_to": "him by name, as lead author",
+        "awarding_body": "USENIX"
+      }
+    }
+  ]
+}

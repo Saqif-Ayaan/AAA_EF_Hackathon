@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT112024_01D8101",
+  "date": "2024-10-11",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "physiotherapy",
+    "role": "physiotherapist",
+    "employer_type": "entertainment and management services business",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

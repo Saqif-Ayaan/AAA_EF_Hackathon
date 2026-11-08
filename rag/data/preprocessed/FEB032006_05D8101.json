@@ -1,0 +1,15 @@
+{
+  "case_id": "FEB032006_05D8101",
+  "date": "2006-02-03",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "human resources / training and development for landscaping services",
+    "role": "training and development specialist",
+    "employer_type": "landscaping company (services to offices, industrial, retail and HOA customers; ~200 employees)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

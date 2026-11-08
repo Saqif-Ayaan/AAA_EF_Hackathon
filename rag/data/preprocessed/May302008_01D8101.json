@@ -1,0 +1,15 @@
+{
+  "case_id": "May302008_01D8101",
+  "date": "2008-05-30",
+  "visa": "O-1B",
+  "outcome": "other",
+  "procedural_only": true,
+  "card": {
+    "field": "fine art painting",
+    "role": "part-time painter",
+    "employer_type": "art studio",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "MAY252005_10D8101",
+  "date": "2005-05-25",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "recorded music (singer/recording artist)",
+    "role": "musician seeking O-1 extension, represented by agent",
+    "employer_type": "agent petitioner (no direct employer; multiple event employers)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

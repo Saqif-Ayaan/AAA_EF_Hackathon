@@ -1,0 +1,358 @@
+{
+  "applicant_id": "test_01",
+  "criteria": {
+    "judging": {
+      "precedent_found": true,
+      "items": []
+    },
+    "original_contributions": {
+      "precedent_found": true,
+      "items": [
+        {
+          "evidence_id": "ev_3",
+          "evidence_summary": "Argues the papers are original contributions because they appeared in highly ranked, high-impact-factor journals and he was first author on all but one",
+          "failure_mode": "Publication in highly ranked or high-impact-factor journals shows originality but not major significance in the field.",
+          "status": "applies",
+          "reasoning": "The applicant's argument rests on the journals' rankings and impact factors, which the AAO treats as reflecting the journal's overall citation rate rather than the influence of his own work.",
+          "precedent": {
+            "case_id": "FEB142024_01D8101",
+            "quote": "Here, the Petitioner did not show how the publication of articles in highly ranked or popular journals automatically demonstrates the research and work to be original contributions of major significance. Moreover, publications bearing high rankings or impact factors reflect the publications' overall citation rates; they do not establish the reported research's influence or automatically indicate a contribution of major significance in the field."
+          },
+          "question_for_applicant": null
+        },
+        {
+          "evidence_id": "ev_3",
+          "evidence_summary": "Argues the papers are original contributions because they appeared in highly ranked, high-impact-factor journals and he was first author on all but one",
+          "failure_mode": "Being first author does not by itself reflect a majorly significant contribution.",
+          "status": "applies",
+          "reasoning": "The applicant offers first authorship on all but one paper as proof of major significance, the exact argument the AAO rejected because every paper has a first author.",
+          "precedent": {
+            "case_id": "FEB142024_01D8101",
+            "quote": "However, the Petitioner did not show how serving as first author for published papers automatically reflects majorly significant contributions. In fact, any published paper inevitably contains a first author, and thus we are not persuaded by the Petitioner's reasoning that first-authored papers certainly indicates contributions of major significance in the field."
+          },
+          "question_for_applicant": null
+        },
+        {
+          "evidence_id": "ev_3",
+          "evidence_summary": "Argues the papers are original contributions because they appeared in highly ranked, high-impact-factor journals and he was first author on all but one",
+          "failure_mode": "Low or uncontextualized citation counts do not show the field regards the work as majorly significant.",
+          "status": "applies",
+          "reasoning": "His highest-cited papers have 7 and 4 citations, with no comparison to other work in machine learning for EDA that the field treats as majorly significant.",
+          "precedent": {
+            "case_id": "FEB142024_01D8101",
+            "quote": "Here, the Petitioner has not shown that the citation figures for any of the Beneficiary's published articles are commensurate with contributions of major significance. The Petitioner did not articulate the significance or relevance of the citation data."
+          },
+          "question_for_applicant": null
+        },
+        {
+          "evidence_id": "ev_4",
+          "evidence_summary": "Letters from four professors describing his ML model for FPGA chip prediction and saying the work 'will extremely benefit the EDA industry' and 'will majorly impact EDA tools that use machine learning'",
+          "failure_mode": "Expert letters predict future impact rather than describing impact the work has already had.",
+          "status": "applies",
+          "reasoning": "The four professors' letters say the ML model 'will extremely benefit the EDA industry' and 'will majorly impact EDA tools' — prospective language about potential influence, which is exactly what the AAO rejected in a case with the same ML-for-FPGA subject matter.",
+          "precedent": {
+            "case_id": "FEB142024_01D8101",
+            "quote": "While the letters show promise in the Beneficiary's work, they do not establish how his work already qualifies as a contribution ofmajor significance in the field; rather than prospective, potential impacts. The significant nature of the Beneficiary's work has yet to be determined or measured."
+          },
+          "question_for_applicant": null
+        },
+        {
+          "evidence_id": "ev_4",
+          "evidence_summary": "Letters from four professors describing his ML model for FPGA chip prediction and saying the work 'will extremely benefit the EDA industry' and 'will majorly impact EDA tools that use machine learning'",
+          "failure_mode": "Letters establish the novelty of the research but do not show anyone in the wider field has taken up or been influenced by it.",
+          "status": "applies",
+          "reasoning": "By the applicant's own account none of the four letters describes anyone else already using the ML model, so the letters show originality without any demonstrated influence on the EDA field.",
+          "precedent": {
+            "case_id": "MAR242026_01D8101",
+            "quote": "Here, the letters point to the Petitioner's work but do not demonstrate how the field views it as original contributions of major significance in the field, such as widespread impact or influence."
+          },
+          "question_for_applicant": null
+        }
+      ]
+    },
+    "scholarly_articles": {
+      "precedent_found": true,
+      "items": []
+    },
+    "critical_role": {
+      "precedent_found": true,
+      "items": [
+        {
+          "evidence_id": "ev_5",
+          "evidence_summary": "Counsel's letter states he is on the team building the company's Radiant FPGA software, that his 'experience and knowledge is critical' to a new mid-range FPGA launch, and that he is one of only five employees in the same role",
+          "failure_mode": "The claim of a critical role rests only on counsel's own argument rather than on an account from someone at the organisation with personal knowledge of the role.",
+          "status": "applies",
+          "reasoning": "This evidence item is, by its own description, counsel's RFE response letter with no input from anyone at the semiconductor company — the exact posture the AAO rejected in a near-identical FPGA software case.",
+          "precedent": {
+            "case_id": "FEB142024_01D8101",
+            "quote": "Here, the Petitioner did not provide a detailed letter\nfrom a person with personal knowledge of the significance of the Beneficiary's role; rather the record\ncontains an RFE response letter from counsel."
+          },
+          "question_for_applicant": null
+        },
+        {
+          "evidence_id": "ev_5",
+          "evidence_summary": "Counsel's letter states he is on the team building the company's Radiant FPGA software, that his 'experience and knowledge is critical' to a new mid-range FPGA launch, and that he is one of only five employees in the same role",
+          "failure_mode": "The role is described through broad references to the person's experience and knowledge rather than specific contributions of significant importance to the organisation's activities.",
+          "status": "applies",
+          "reasoning": "The letter says he is on the team building Radiant and that his \"experience and knowledge is critical,\" without articulating what he did that substantially affected Radiant's or the company's success.",
+          "precedent": {
+            "case_id": "FEB142024_01D8101",
+            "quote": "Although the Petitioner indicated the Beneficiary's work on its Radiant software, the Petitioner did\nnot provide specific, detailed information explaining how the Beneficiary has contributed in a way\nthat is of significant importance. Rather, the Petitioner broadly referenced the Beneficiary's\nexperience and knowledge."
+          },
+          "question_for_applicant": null
+        },
+        {
+          "evidence_id": "ev_5",
+          "evidence_summary": "Counsel's letter states he is on the team building the company's Radiant FPGA software, that his 'experience and knowledge is critical' to a new mid-range FPGA launch, and that he is one of only five employees in the same role",
+          "failure_mode": "The criticality claim is framed around a future product launch or projected impact rather than impact already achieved.",
+          "status": "applies",
+          "reasoning": "The stated criticality is to an upcoming mid-range FPGA launch and to future addressable-market growth, which is prospective rather than past critical employment.",
+          "precedent": {
+            "case_id": "FEB142024_01D8101",
+            "quote": "At the outset, this criterion requires evidence of the beneficiary having been\nemployed in a critical or essential capacity rather than whether the beneficiary will have a prospective\ncritical or essential role."
+          },
+          "question_for_applicant": null
+        },
+        {
+          "evidence_id": "ev_5",
+          "evidence_summary": "Counsel's letter states he is on the team building the company's Radiant FPGA software, that his 'experience and knowledge is critical' to a new mid-range FPGA launch, and that he is one of only five employees in the same role",
+          "failure_mode": "Being one of a small number of people holding the same title does not itself show a critical role, absent anything distinguishing the person from the others in that same position.",
+          "status": "applies",
+          "reasoning": "The headcount claim here (one of five in the role out of 343 US employees) is the identical argument the AAO rejected, and nothing in the description says what sets him apart from the other four.",
+          "precedent": {
+            "case_id": "FEB142024_01D8101",
+            "quote": "the critical or essential capacity, as well as how the Beneficiary differentiated from the other four\nindividuals who hold the same position."
+          },
+          "question_for_applicant": null
+        },
+        {
+          "evidence_id": "ev_5",
+          "evidence_summary": "Counsel's letter states he is on the team building the company's Radiant FPGA software, that his 'experience and knowledge is critical' to a new mid-range FPGA launch, and that he is one of only five employees in the same role",
+          "failure_mode": "Company-level market or revenue figures are offered without connecting that growth to the individual's own work.",
+          "status": "applies",
+          "reasoning": "The two addressable-market charts describe company-wide market expansion and, as described, are not tied to anything he personally did.",
+          "precedent": {
+            "case_id": "FEB142024_01D8101",
+            "quote": "The rcord,I\nfor example, does not contain evidence showing the Beneficiary's contributions resulted in\ndoubling the market for the Petitioner."
+          },
+          "question_for_applicant": null
+        }
+      ]
+    },
+    "high_salary": {
+      "precedent_found": true,
+      "items": [
+        {
+          "evidence_id": "ev_6",
+          "evidence_summary": "Total annual compensation of $217K ($150K base, 10% cash incentive, $10K sign-on, $40K RSUs)",
+          "failure_mode": "The compensation sits in the middle of the applicant's own comparison data rather than at the high end, so it shows an above-average rather than a high salary.",
+          "status": "applies",
+          "reasoning": "The applicant's $217K total compensation falls mid-range within the Cadence/Intel/Synopsys/Xilinx figures they themselves supply, and the base salary is below the Level 4 prevailing wage for the area — the exact posture the AAO rejected.",
+          "precedent": {
+            "case_id": "FEB142024_01D8101",
+            "quote": "The Beneficiary's total compensation of $21 7K falls within the average salary data supplied by the Petitioner rather than at the higher end of the spectrum."
+          },
+          "question_for_applicant": null
+        },
+        {
+          "evidence_id": "ev_6",
+          "evidence_summary": "Total annual compensation of $217K ($150K base, 10% cash incentive, $10K sign-on, $40K RSUs)",
+          "failure_mode": "The comparison data covers a mix of other job titles and levels rather than the applicant's own occupation, so no like-for-like comparison is made.",
+          "status": "applies",
+          "reasoning": "The applicant is a senior software development engineer but the benchmarks are generic \"software engineer,\" \"lead software engineer\" and mixed-level company ranges, some of which pay more than $217K.",
+          "precedent": {
+            "case_id": "FEB142024_01D8101",
+            "quote": "Furthermore, the Petitioner employs the Beneficiary as a senior software development engineer while the comparable evidence reflects a range of occupations, such as software engineer, lead software engineer, and various grades and levels ofsoftware engineers."
+          },
+          "question_for_applicant": null
+        },
+        {
+          "evidence_id": "ev_6",
+          "evidence_summary": "Total annual compensation of $217K ($150K base, 10% cash incentive, $10K sign-on, $40K RSUs)",
+          "failure_mode": "Comparison is drawn against a small hand-picked set of employers rather than the full compensation range for the same occupation in the same area.",
+          "status": "applies",
+          "reasoning": "The applicant benchmarks against four selected EDA/semiconductor employers (Cadence, Intel, Synopsys, Xilinx) rather than total compensation for senior software development engineers generally in the California area.",
+          "precedent": {
+            "case_id": "FEB142024_01D8101",
+            "quote": "Moreover, the Petitioner compares the Beneficiary's total compensation to a limited, selected pool of positions rather than the total compensation figures for senior software development engineers in the area."
+          },
+          "question_for_applicant": null
+        }
+      ]
+    }
+  },
+  "summary": {
+    "criteria_status": {
+      "judging": "clear",
+      "original_contributions": "flagged",
+      "scholarly_articles": "clear",
+      "critical_role": "flagged",
+      "high_salary": "flagged"
+    },
+    "criteria_counted": 2,
+    "routing": "needs_more_evidence",
+    "questions_for_call": []
+  },
+  "selected_cases": [
+    {
+      "case_id": "APR192021_01D8101",
+      "reason": "shares 5/5 claimed criteria (critical_role, high_salary, judging, original_contributions, scholarly_articles); not met: critical_role, high_salary, judging, original_contributions, scholarly_articles"
+    },
+    {
+      "case_id": "MAY122017_01D8101",
+      "reason": "shares 5/5 claimed criteria (critical_role, high_salary, judging, original_contributions, scholarly_articles); not met: high_salary, judging, original_contributions, scholarly_articles"
+    },
+    {
+      "case_id": "FEB142024_01D8101",
+      "reason": "shares 5/5 claimed criteria (critical_role, high_salary, judging, original_contributions, scholarly_articles); not met: critical_role, high_salary, original_contributions"
+    },
+    {
+      "case_id": "AUG012022_01D8101",
+      "reason": "shares 5/5 claimed criteria (critical_role, high_salary, judging, original_contributions, scholarly_articles); not met: high_salary, judging, scholarly_articles"
+    },
+    {
+      "case_id": "NOV132024_01D8101",
+      "reason": "shares 5/5 claimed criteria (critical_role, high_salary, judging, original_contributions, scholarly_articles); not met: judging, original_contributions"
+    },
+    {
+      "case_id": "AUG152024_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, high_salary, judging, original_contributions); not met: critical_role, high_salary, judging, original_contributions"
+    },
+    {
+      "case_id": "AUG132024_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, high_salary, judging, original_contributions); not met: critical_role, high_salary, judging, original_contributions"
+    },
+    {
+      "case_id": "DEC182019_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, judging, original_contributions, scholarly_articles); not met: critical_role, judging, original_contributions, scholarly_articles"
+    },
+    {
+      "case_id": "NOV272019_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, high_salary, judging, original_contributions); not met: critical_role, high_salary, judging, original_contributions"
+    },
+    {
+      "case_id": "MAR232017_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, high_salary, judging, original_contributions); not met: critical_role, high_salary, original_contributions"
+    },
+    {
+      "case_id": "MAR242026_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, judging, original_contributions, scholarly_articles); not met: judging, original_contributions"
+    },
+    {
+      "case_id": "DEC112025_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, judging, original_contributions, scholarly_articles); not met: critical_role, original_contributions"
+    },
+    {
+      "case_id": "FEB202025_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, judging, original_contributions, scholarly_articles); not met: judging, original_contributions"
+    },
+    {
+      "case_id": "OCT092024_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, high_salary, original_contributions, scholarly_articles); not met: high_salary, original_contributions"
+    },
+    {
+      "case_id": "SEP192024_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, judging, original_contributions, scholarly_articles); not met: critical_role, original_contributions"
+    },
+    {
+      "case_id": "MAR232023_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, judging, original_contributions, scholarly_articles); not met: critical_role, original_contributions"
+    },
+    {
+      "case_id": "FEB062023_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, judging, original_contributions, scholarly_articles); not met: judging, original_contributions"
+    },
+    {
+      "case_id": "JAN042023_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, high_salary, original_contributions, scholarly_articles); not met: high_salary, original_contributions"
+    },
+    {
+      "case_id": "DEC112019_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, high_salary, judging, original_contributions); not met: judging, original_contributions"
+    },
+    {
+      "case_id": "MAR272019_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, judging, original_contributions, scholarly_articles); not met: critical_role, original_contributions"
+    },
+    {
+      "case_id": "APR232018_02D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, high_salary, judging, original_contributions); not met: high_salary, original_contributions"
+    },
+    {
+      "case_id": "FEB182015_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, high_salary, judging, original_contributions); not met: judging, original_contributions"
+    },
+    {
+      "case_id": "SEP082022_01D8101",
+      "reason": "shares 4/5 claimed criteria (critical_role, high_salary, judging, scholarly_articles); not met: judging"
+    },
+    {
+      "case_id": "MAR152021_03D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, original_contributions, scholarly_articles); not met: critical_role, original_contributions, scholarly_articles"
+    },
+    {
+      "case_id": "MAR142019_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, judging, original_contributions); not met: critical_role, judging, original_contributions"
+    },
+    {
+      "case_id": "MAR082019_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, original_contributions, scholarly_articles); not met: critical_role, original_contributions, scholarly_articles"
+    },
+    {
+      "case_id": "NOV082017_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, high_salary, original_contributions); not met: critical_role, high_salary, original_contributions"
+    },
+    {
+      "case_id": "JUL052017_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, judging, original_contributions); not met: critical_role, judging, original_contributions"
+    },
+    {
+      "case_id": "MAR112015_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, original_contributions, scholarly_articles); not met: critical_role, original_contributions, scholarly_articles"
+    },
+    {
+      "case_id": "MAY132025_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, high_salary, scholarly_articles); not met: high_salary, scholarly_articles"
+    },
+    {
+      "case_id": "JUN022022_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, high_salary, judging); not met: high_salary, judging"
+    },
+    {
+      "case_id": "MAY262022_01D8101",
+      "reason": "shares 3/5 claimed criteria (high_salary, judging, original_contributions); not met: high_salary, original_contributions"
+    },
+    {
+      "case_id": "JUL272021_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, judging, original_contributions); not met: critical_role, original_contributions"
+    },
+    {
+      "case_id": "MAY072021_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, high_salary, original_contributions); not met: critical_role, original_contributions"
+    },
+    {
+      "case_id": "APR192018_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, original_contributions, scholarly_articles); not met: critical_role, original_contributions"
+    },
+    {
+      "case_id": "MAY192017_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, high_salary, judging); not met: critical_role, high_salary"
+    },
+    {
+      "case_id": "FEB102017_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, high_salary, original_contributions); not met: critical_role, original_contributions"
+    },
+    {
+      "case_id": "APR022026_01D8101",
+      "reason": "shares 3/5 claimed criteria (judging, original_contributions, scholarly_articles); not met: original_contributions"
+    },
+    {
+      "case_id": "NOV052025_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, judging, original_contributions); not met: judging"
+    },
+    {
+      "case_id": "MAY052025_01D8101",
+      "reason": "shares 3/5 claimed criteria (critical_role, high_salary, judging); not met: judging"
+    }
+  ]
+}

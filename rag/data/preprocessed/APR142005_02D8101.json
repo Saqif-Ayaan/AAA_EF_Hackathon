@@ -1,0 +1,15 @@
+{
+  "case_id": "APR142005_02D8101",
+  "date": "unknown",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "interior design",
+    "role": "interior designer",
+    "employer_type": "interior design firm",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

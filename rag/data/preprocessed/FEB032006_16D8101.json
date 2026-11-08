@@ -1,0 +1,15 @@
+{
+  "case_id": "FEB032006_16D8101",
+  "date": "2006-02-03",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "respiratory therapy (H-1B specialty occupation and state licensure)",
+    "role": "respiratory therapist beneficiary (foreign-educated, unlicensed in California)",
+    "employer_type": "independent contractor supplying medical professionals to hospitals and medical facilities",
+    "location": "California",
+    "criteria": {}
+  },
+  "sections": []
+}

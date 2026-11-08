@@ -1,0 +1,15 @@
+{
+  "case_id": "AUG302022_01D8101",
+  "date": "2022-08-30",
+  "visa": "O-1B",
+  "outcome": "other",
+  "procedural_only": true,
+  "card": {
+    "field": "online content creation",
+    "role": "content creator",
+    "employer_type": "agent petitioner representing the beneficiary",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

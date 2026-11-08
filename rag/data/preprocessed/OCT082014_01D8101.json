@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT082014_01D8101",
+  "date": "2014-10-08",
+  "visa": "O-2",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "equine athletics (horse training)",
+    "role": "assistant horse trainer, O-2 accompanying alien",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

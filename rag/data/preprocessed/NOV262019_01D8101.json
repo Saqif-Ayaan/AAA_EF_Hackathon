@@ -1,0 +1,15 @@
+{
+  "case_id": "NOV262019_01D8101",
+  "date": "2019-11-26",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "culinary arts (chef)",
+    "role": "chef",
+    "employer_type": "property management business",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

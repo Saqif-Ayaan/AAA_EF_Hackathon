@@ -1,0 +1,15 @@
+{
+  "case_id": "MAR252015_01D8101",
+  "date": "2015-03-25",
+  "visa": "unknown",
+  "outcome": "remanded",
+  "procedural_only": true,
+  "card": {
+    "field": "unknown",
+    "role": "unknown",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT042013_02D8101",
+  "date": "2013-10-04",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "fine art",
+    "role": "fine artist",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

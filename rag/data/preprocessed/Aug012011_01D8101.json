@@ -1,0 +1,15 @@
+{
+  "case_id": "Aug012011_01D8101",
+  "date": "2011-04-01",
+  "visa": "O-1A",
+  "outcome": "remanded",
+  "procedural_only": true,
+  "card": {
+    "field": "competitive ballroom dance (DanceSport)",
+    "role": "professional competitive dancer (Dance Competitor)",
+    "employer_type": "dance studio",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "Dec122011_05D8101",
+  "date": "2011-12-12",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "music production / recording (arts)",
+    "role": "musician/producer",
+    "employer_type": "music production and consulting company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

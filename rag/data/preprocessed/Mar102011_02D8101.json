@@ -1,0 +1,15 @@
+{
+  "case_id": "Mar102011_02D8101",
+  "date": "2011-03-10",
+  "visa": "O-2",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "athletics (gymnastics) - support staff accompanying an O-1 gymnast",
+    "role": "O-2 accompanying alien providing essential support to an O-1 athlete",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT162025_01D8101",
+  "date": "2025-10-16",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "vocal music performance (singing competitions and talent events)",
+    "role": "vocalist performer",
+    "employer_type": "artist management and concert/event promotion company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

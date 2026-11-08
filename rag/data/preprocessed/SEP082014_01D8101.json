@@ -1,0 +1,15 @@
+{
+  "case_id": "SEP082014_01D8101",
+  "date": "2014-09-08",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "flight instruction at a flight training school (aviation training)",
+    "role": "Assistant Chief Flight Instructor",
+    "employer_type": "flight training school",
+    "location": "Texas",
+    "criteria": {}
+  },
+  "sections": []
+}

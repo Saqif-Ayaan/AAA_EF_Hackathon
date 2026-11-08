@@ -1,0 +1,15 @@
+{
+  "case_id": "FEB032006_09D8101",
+  "date": "2006-02-03",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "medical research (H-1B specialty occupation)",
+    "role": "medical researcher",
+    "employer_type": "medical services corporation",
+    "location": "California",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -9,7 +9,7 @@
  * - `url` on an event without an action updates the page being read.
  * - `found` appends to the card's log of finds.
  */
-import { AGENT_IDS, type AgentEvent, type AgentId } from "@/lib/schemas";
+import { AGENT_IDS, type AgentEvent, type AgentId, type AgentMode } from "@/lib/schemas";
 import type { PillStatus } from "./meta";
 
 export type Find = { id: number; text: string; /** The agent's plain-English explanation (finding events only). */ detail: string | null; url: string | null; at: number };
@@ -28,9 +28,12 @@ export type AgentView = {
   /** When it reached done/error; cleared if it starts working again. */
   endedAt: number | null;
   eventCount: number;
+  /** PART 3: the phase of the latest event that had one (verify, then investigate). */
+  mode: AgentMode | null;
 };
 
 const emptyView = (): AgentView => ({
+  mode: null,
   status: "idle",
   currentAction: null,
   progress: 0,
@@ -56,6 +59,7 @@ export function deriveAgents(events: AgentEvent[]): Record<AgentId, AgentView> {
     if (!v) continue; // an agent id this UI doesn't know yet
     const at = Date.parse(e.createdAt);
     v.eventCount++;
+    if (e.mode) v.mode = e.mode;
     v.lastMessage = e.message;
     if (e.url) {
       const seen = urls.get(e.agentId) ?? new Set<string>();

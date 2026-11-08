@@ -1,0 +1,15 @@
+{
+  "case_id": "JAN062015_01D8101",
+  "date": "2015-01-06",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "ballet / classical dance performance",
+    "role": "dancer (professional company dancer, previously trained at dance schools)",
+    "employer_type": "ballet company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "Oct252011_01D8101",
+  "date": "2011-10-25",
+  "visa": "O-1A",
+  "outcome": "remanded",
+  "procedural_only": true,
+  "card": {
+    "field": "medicine (physician)",
+    "role": "physician",
+    "employer_type": "university and teaching hospital",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

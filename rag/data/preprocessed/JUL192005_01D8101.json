@@ -1,0 +1,15 @@
+{
+  "case_id": "JUL192005_01D8101",
+  "date": "2005-07-19",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "plastic arts (painting, calligraphy, mural and caricature work)",
+    "role": "plastic artist / painter and professional caricaturist",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

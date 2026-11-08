@@ -1,0 +1,36 @@
+{
+  "case_id": "MAY252023_01D8101",
+  "date": "2023-05-25",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "professional bodybuilding and fitness coaching (posing, nutrition, contest preparation)",
+    "role": "sponsored professional bodybuilder and trainer",
+    "employer_type": "fitness management company",
+    "location": "unknown",
+    "criteria": {
+      "awards": "met_not_reviewed",
+      "membership": "not_met",
+      "published_material": "not_met",
+      "high_salary": "not_met"
+    }
+  },
+  "sections": [
+    {
+      "criterion": "membership",
+      "status": "not_met",
+      "text": "nonimmigrant classification, the Petitioner made the identical arguments it used in response to the\nDirector's NOIR. In fact, the Director's NOR discussed the submitted evidence and addressed the\narguments and explained how the evidence did not show that the Beneficiary satisfied the membership,\npublished material, and high salary criteria. Again, the Petitioner did not address any ofthe Director's\nspecific findings or explained how the Director erred as a matter oflaw, statement offact, or evaluation\nofthe evidence. Accordingly, the Petitioner did not demonstrate that the Beneficiary met at least three\ncriteria."
+    },
+    {
+      "criterion": "published_material",
+      "status": "not_met",
+      "text": "nonimmigrant classification, the Petitioner made the identical arguments it used in response to the\nDirector's NOIR. In fact, the Director's NOR discussed the submitted evidence and addressed the\narguments and explained how the evidence did not show that the Beneficiary satisfied the membership,\npublished material, and high salary criteria. Again, the Petitioner did not address any ofthe Director's\nspecific findings or explained how the Director erred as a matter oflaw, statement offact, or evaluation\nofthe evidence. Accordingly, the Petitioner did not demonstrate that the Beneficiary met at least three\ncriteria."
+    },
+    {
+      "criterion": "high_salary",
+      "status": "not_met",
+      "text": "nonimmigrant classification, the Petitioner made the identical arguments it used in response to the\nDirector's NOIR. In fact, the Director's NOR discussed the submitted evidence and addressed the\narguments and explained how the evidence did not show that the Beneficiary satisfied the membership,\npublished material, and high salary criteria. Again, the Petitioner did not address any ofthe Director's\nspecific findings or explained how the Director erred as a matter oflaw, statement offact, or evaluation\nofthe evidence. Accordingly, the Petitioner did not demonstrate that the Beneficiary met at least three\ncriteria."
+    }
+  ]
+}

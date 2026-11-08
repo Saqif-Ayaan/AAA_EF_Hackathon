@@ -1,0 +1,15 @@
+{
+  "case_id": "MAR082005_01D8101",
+  "date": "2005-03-08",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "audio production / mastering (arts)",
+    "role": "Audio Production Engineer (Mastering)",
+    "employer_type": "church",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

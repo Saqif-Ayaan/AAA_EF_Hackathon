@@ -1,0 +1,15 @@
+{
+  "case_id": "Feb022011_01D8101",
+  "date": "2011-02-02",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "fine arts painting (oil paintings, religious/cathedral murals, gallery exhibitions)",
+    "role": "painter / visual artist",
+    "employer_type": "art gallery (petitioner)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

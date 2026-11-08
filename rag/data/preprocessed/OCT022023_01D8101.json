@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT022023_01D8101",
+  "date": "2023-10-02",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "animal science research (animal products)",
+    "role": "researcher beneficiary represented by a U.S. agent under a representation agreement",
+    "employer_type": "U.S. agent petitioner; prospective U.S. organizations listed in itinerary",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

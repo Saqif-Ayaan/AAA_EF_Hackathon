@@ -1,0 +1,15 @@
+{
+  "case_id": "JUL152015_01D8101",
+  "date": "2015-07-15",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "singing / performing arts, managed through talent representation",
+    "role": "singer/performer",
+    "employer_type": "talent management representation business",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "APR292005_02D8101",
+  "date": "2005-04-29",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "Indian classical tabla performance and teaching",
+    "role": "tabla performer and teacher",
+    "employer_type": "non-profit organization promoting Indian performing arts",
+    "location": "Texas",
+    "criteria": {}
+  },
+  "sections": []
+}

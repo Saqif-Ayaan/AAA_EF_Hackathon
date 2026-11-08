@@ -52,6 +52,8 @@ export type FollowupResult = {
   reframedCriterion: Criterion | null;
   newSources: Source[];
   remainingOpen: number;
+  /** PART 3: set when this was a sceptic question; the caller runs recheckHypothesis() in the background. */
+  recheck: { hypothesisId: string } | null;
 };
 
 export function buildResolverPrompt(input: ResolverInput): string {
@@ -253,5 +255,6 @@ export async function resolveDiscrepancy(
     reframedCriterion,
     newSources,
     remainingOpen,
+    recheck: row.d.hypothesisId ? { hypothesisId: row.d.hypothesisId } : null,
   };
 }

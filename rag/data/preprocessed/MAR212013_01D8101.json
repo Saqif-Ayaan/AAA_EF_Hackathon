@@ -1,0 +1,15 @@
+{
+  "case_id": "MAR212013_01D8101",
+  "date": "2013-03-21",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "motion picture and television acting",
+    "role": "actress seeking lead/starring roles in a feature film and future productions",
+    "employer_type": "motion picture production and distribution company",
+    "location": "California",
+    "criteria": {}
+  },
+  "sections": []
+}

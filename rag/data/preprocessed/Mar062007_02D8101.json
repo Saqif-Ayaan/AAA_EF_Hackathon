@@ -1,0 +1,15 @@
+{
+  "case_id": "Mar062007_02D8101",
+  "date": "2007-03-06",
+  "visa": "unknown",
+  "outcome": "other",
+  "procedural_only": true,
+  "card": {
+    "field": "unknown",
+    "role": "unknown",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

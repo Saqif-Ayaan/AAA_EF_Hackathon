@@ -1,0 +1,15 @@
+{
+  "case_id": "Nov302009_02D8101",
+  "date": "2009-11-30",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "medical insurance billing",
+    "role": "medical insurance administrator",
+    "employer_type": "small business (medical insurance billing company, about 3 years in operation)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

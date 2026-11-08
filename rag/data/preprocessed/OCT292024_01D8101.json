@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT292024_01D8101",
+  "date": "2024-10-29",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "squash (athletics)",
+    "role": "squash professional (pro)",
+    "employer_type": "squash club",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

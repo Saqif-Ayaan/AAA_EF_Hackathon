@@ -1,0 +1,15 @@
+{
+  "case_id": "MAR082013_02D8101",
+  "date": "2013-03-08",
+  "visa": "O-2",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "thoroughbred training and racing (jockey support / valet services)",
+    "role": "jockey valet, essential support alien to an O-1 jockey",
+    "employer_type": "individual involved in the business of thoroughbred training and racing",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

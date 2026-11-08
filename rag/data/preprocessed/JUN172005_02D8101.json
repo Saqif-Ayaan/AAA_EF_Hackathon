@@ -1,0 +1,15 @@
+{
+  "case_id": "JUN172005_02D8101",
+  "date": "2005-06-17",
+  "visa": "O-1B",
+  "outcome": "other",
+  "procedural_only": true,
+  "card": {
+    "field": "musical arts (AGMA-represented performing artist)",
+    "role": "performing artist beneficiary of an O-1 petition",
+    "employer_type": "entertainment company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "Oct282011_01D8101",
+  "date": "2011-10-28",
+  "visa": "O-1A",
+  "outcome": "remanded",
+  "procedural_only": true,
+  "card": {
+    "field": "modeling",
+    "role": "model",
+    "employer_type": "model talent agency (petitioner)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

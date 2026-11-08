@@ -1,0 +1,15 @@
+{
+  "case_id": "DEC222017_01D8101",
+  "date": "2017-12-22",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "hair styling for entertainment, advertising, and salon clients",
+    "role": "hair stylist",
+    "employer_type": "hair salon (private business)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

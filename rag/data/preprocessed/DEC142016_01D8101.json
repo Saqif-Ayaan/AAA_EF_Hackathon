@@ -1,0 +1,15 @@
+{
+  "case_id": "DEC142016_01D8101",
+  "date": "2016-12-14",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "feature film direction (motion picture, including genre films)",
+    "role": "feature film director on a seven-week engagement",
+    "employer_type": "motion picture production company",
+    "location": "Brazil",
+    "criteria": {}
+  },
+  "sections": []
+}

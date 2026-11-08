@@ -1,0 +1,15 @@
+{
+  "case_id": "SEP072017_01D8101",
+  "date": "2017-09-07",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "fine art painting / visual arts",
+    "role": "visual artist (resident artist at petitioning gallery)",
+    "employer_type": "art studio and gallery",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

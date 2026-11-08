@@ -1,0 +1,25 @@
+{
+  "case_id": "SEP232026_01D8101",
+  "date": "2026-09-23",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "export sales for prefabricated log homes",
+    "role": "export sales director",
+    "employer_type": "prefabricated log home manufacturer (private company)",
+    "location": "unknown",
+    "criteria": {
+      "published_material": "not_met",
+      "critical_role": "met_not_reviewed",
+      "high_salary": "met_not_reviewed"
+    }
+  },
+  "sections": [
+    {
+      "criterion": "published_material",
+      "status": "not_met",
+      "text": "The regulation at 8 C.F.R. § 214.2(o)(3)(iii)(B)(3) requires \"[p]ublished material in professional or\nmajor trade publications or major media about the alien, relating to the alien's work in the field for\nwhich classification is sought, which shall include the title, date, and author ofsuch published material,\nand any necessary translation.\" USCIS first determines whether the published material was related to\nthe person and the person's specific work in the field for which classification is sought. 2 USCIS then\ndetermines whether the publication qualifies as a professional publication, major trade publication, or\nmajor media publication. 3\nThe Petitioner provided material from reuters.com, dwell.com, archdaily.com, markets.ft.com,\nhonka.com, and kauppalehti.fi. The evidence, however, does not reflect published material about the\nBeneficiary. Rather, the documentation shows material about the Beneficiary's employer,\nI I In fact, the Beneficiary is never mentioned. Although the Petitioner argues that\nthe \"media evidence reflects consistent third-party reporting on [the Beneficiary's] work with\nHonkarakenne across multiple internationally recognized platforms,\" the submission of evidence\nabout the Beneficiary's employer does not constitute published material about the Beneficiary, as\nrequired by this regulatory criterion. Cf, Gadhave v. Thompson, No. 3:21-CV-2938-D, 2023 WL\n6931334, at *3-4 (N.D. Tex. Oct. 19, 2023) (upholding published material must be specifically about\nthe applicant and focus on his personal work in the relevant field, not merely relate to the applicant's\nwork); Joseph v. Dir. of Texas Serv. Ctr., United States Citizenship & Immigr. Servs., No. 24-40249,\n2025 WL 458001, at *3 (5th Cir. Feb. 11, 2025) (upholding USCIS' determination that an article about\na house being built did \"not make the article about\" the petitioner); Kinuthia v. Rosenberg, No. CV\n17-10255-LTS, 2018 WL 1243955, at *5 (D. Mass. Mar. 8, 2018), aff'd sub nom., Kinuthia v. Velarde,\nNo. 18-1244, 2019 WL 11671989 (1st Cir. July 3, 2019), cert. denied, 140 S. Ct. 2643, 206 L. Ed. 2d\n714 (2020) (finding it is not enough that the material merely relates to the applicant's work).\n1 See also generally 2 USC1S Policy Manual, M.4(C)(2), https://www.uscis.gov/policymanual.\n2 See generally 2 USC1S Policy Manual, supra, at M.4(C)(2).\n3 Id.\n2\nBecause the Petitioner did not show that the evidence reflects published material about the Beneficiary,\nwe need not discuss the other eligibility requirements of the criterion. 4"
+    }
+  ]
+}

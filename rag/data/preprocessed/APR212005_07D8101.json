@@ -1,0 +1,15 @@
+{
+  "case_id": "APR212005_07D8101",
+  "date": "2005-04-21",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "business (new business method / start-up company formation)",
+    "role": "President and inventor of a new business method",
+    "employer_type": "start-up corporation (established 2003)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT062022_01D8101",
+  "date": "2022-10-06",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "acting (film/television)",
+    "role": "actress",
+    "employer_type": "artist representative and production company (petitioner)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

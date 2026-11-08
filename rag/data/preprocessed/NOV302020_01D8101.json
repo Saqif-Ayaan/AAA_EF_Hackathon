@@ -1,0 +1,15 @@
+{
+  "case_id": "NOV302020_01D8101",
+  "date": "2020-11-30",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "keyboard/piano performance, music arranging and production for a music group",
+    "role": "keyboardist / pianist and music arranger for a band",
+    "employer_type": "music group (band)",
+    "location": "Texas",
+    "criteria": {}
+  },
+  "sections": []
+}

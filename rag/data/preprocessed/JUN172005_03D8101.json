@@ -1,0 +1,15 @@
+{
+  "case_id": "JUN172005_03D8101",
+  "date": "2005-06-17",
+  "visa": "O-1B",
+  "outcome": "other",
+  "procedural_only": false,
+  "card": {
+    "field": "performing arts (musical artist, consultation letter from American Guild of Musical Artists)",
+    "role": "beneficiary artist seeking extraordinary ability classification",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

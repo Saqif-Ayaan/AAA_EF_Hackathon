@@ -1,0 +1,15 @@
+{
+  "case_id": "SEP282017_01D8101",
+  "date": "2017-09-28",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "culinary arts / Japanese eel (unagi) cuisine",
+    "role": "executive chef (head chef at a Japanese eel restaurant)",
+    "employer_type": "restaurant company (LLC opening a new Japanese eel restaurant)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

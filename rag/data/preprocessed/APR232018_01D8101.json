@@ -1,0 +1,15 @@
+{
+  "case_id": "APR232018_01D8101",
+  "date": "2018-04-23",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "hairstyling / hair design for salons, advertising and television productions",
+    "role": "hairstylist artist",
+    "employer_type": "hair salon",
+    "location": "Japan",
+    "criteria": {}
+  },
+  "sections": []
+}

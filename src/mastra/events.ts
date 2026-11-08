@@ -10,10 +10,12 @@
  * read, a short "found" result, and a progress value that creeps toward 90%.
  */
 import type { ToolHooks } from "@mastra/core/tools";
-import type { AgentId, AgentStatus, EventType, NewAgentEvent } from "../lib/schemas";
+import type { AgentId, AgentMode, AgentStatus, EventType, NewAgentEvent } from "../lib/schemas";
 import { logEvent } from "./tools/log-event";
 
 export async function emit(event: NewAgentEvent): Promise<void> {
+  // CLI runs without a database applicant (npm run investigate -- --rag-applicant ...) turn the war-room feed off.
+  if (process.env.EVENTS_OFF === "1") return;
   try {
     const execute = logEvent.execute as (input: NewAgentEvent, context: object) => Promise<unknown>;
     const result = (await execute(event, {})) as { error?: boolean; message?: string } | undefined;
@@ -29,23 +31,28 @@ type Extra = {
   progress?: number;
   url?: string | null;
   found?: string | null;
+  hypothesisId?: string | null;
 };
 
-/** emit() bound to one applicant and one agent. */
-export function eventLogger(applicantId: string, agentId: AgentId) {
+/** Defaults stamped on every event a logger writes (PART 3: verify vs. investigate phase). */
+export type LoggerScope = { mode?: AgentMode | null; hypothesisId?: string | null };
+
+/** emit() bound to one applicant and one agent (and optionally a mode / hypothesis). */
+export function eventLogger(applicantId: string, agentId: AgentId, scope: LoggerScope = {}) {
   return (type: EventType, message: string, extra: Extra = {}) =>
     emit({
       applicantId,
       agentId,
       type,
       message,
+      ...scope,
       ...extra,
       ...(extra.progress !== undefined ? { progress: Math.max(0, Math.min(100, Math.round(extra.progress))) } : {}),
     });
 }
 
 const truncate = (s: string, max = 140) => (s.length > max ? `${s.slice(0, max - 1)}…` : s);
-const READING_TOOLS = new Set(["exaContents", "devpostFetch", "apifyLinkedIn"]);
+const READING_TOOLS = new Set(["exaContents", "devpostFetch", "apifyLinkedIn", "patentCitations"]);
 
 type In = Record<string, unknown>;
 type Out = Record<string, unknown>;
@@ -80,6 +87,16 @@ export function describeToolCall(toolName: string, input: In): { action: string;
       return { action: `Listing OpenAlex works for author ${str(input.authorId)}`, url: `https://openalex.org/${str(input.authorId).replace(/^.*openalex\.org\//, "")}` };
     case "devpostFetch":
       return { action: `Reading Devpost page ${str(input.url)}`, url: str(input.url) || null };
+    case "openAlexWork":
+      return { action: `Checking citations and field-normalised impact of ${str(input.doiOrId)}`, url: null };
+    case "patentCitations":
+      return { action: `Counting citations of patent ${str(input.patentNumber)}`, url: null };
+    case "npmDownloads":
+      return { action: `Counting npm downloads of ${str(input.pkg)}`, url: `https://www.npmjs.com/package/${str(input.pkg)}` };
+    case "pypiDownloads":
+      return { action: `Counting PyPI downloads of ${str(input.pkg)}`, url: `https://pypistats.org/packages/${str(input.pkg)}` };
+    case "wageBenchmark":
+      return { action: `Comparing salary with the OFLC prevailing wage${input.location ? ` in ${str(input.location)}` : ""}`, url: null };
     default:
       return { action: `Calling ${toolName}`, url: null };
   }
@@ -128,6 +145,21 @@ export function summarizeToolResult(toolName: string, output: Out): string {
       const winners = arr(output.projects).filter((p) => (p as Out).winner).length;
       return `Read a Devpost ${str(output.pageType)} page: ${n(arr(output.projects).length, "project")}, ${n(winners, "winner")}${output.via === "exa" ? " (found via web search)" : ""}.`;
     }
+    case "openAlexWork": {
+      const pct = typeof output.citationPercentile === "number" ? `, ${output.citationPercentile}th percentile for its field and year` : "";
+      return `"${str(output.title)}" (${output.year ?? "?"}) has ${n(num(output.citedByCount), "citation")} on OpenAlex${pct}.`;
+    }
+    case "patentCitations": {
+      const years = typeof output.yearsSinceGrant === "number" ? ` ${output.yearsSinceGrant} years after grant` : "";
+      return `Patent ${str(output.patentNumber)} is cited by ${n(num(output.forwardCitations), "later patent")}${years} (${num(output.familyForwardCitations)} more via its family).`;
+    }
+    case "npmDownloads":
+    case "pypiDownloads":
+      return `${str(output.package)} was downloaded ${num(output.lastMonth).toLocaleString("en-US")} times in the last month.`;
+    case "wageBenchmark": {
+      const levels = output.levels as Out | undefined;
+      return `OFLC Level 4 for ${str(output.occupation)} in ${str(output.areaName)} is $${num(levels?.level4).toLocaleString("en-US")}.`;
+    }
     default:
       return "Done.";
   }
@@ -137,13 +169,21 @@ export function summarizeToolResult(toolName: string, output: Out): string {
  * Hooks for agent.generate(): log a tool_call before and a tool_result after
  * every tool call. Progress climbs from `start` toward 90 with each call.
  */
-export function toolEventHooks(applicantId: string, agentId: AgentId, start = 10): ToolHooks & { progress: () => number } {
-  const log = eventLogger(applicantId, agentId);
+export function toolEventHooks(
+  applicantId: string,
+  agentId: AgentId,
+  start = 10,
+  scope: LoggerScope = {},
+): ToolHooks & { progress: () => number; calls: () => number } {
+  const log = eventLogger(applicantId, agentId, scope);
+  let calls = 0;
   let progress = start;
   const urls = new Map<string, string | null>();
   return {
     progress: () => progress,
+    calls: () => calls,
     beforeToolCall: async ({ toolName, input }) => {
+      calls++;
       const { action, url } = describeToolCall(toolName, (input ?? {}) as In);
       urls.set(toolName, url);
       progress += (90 - progress) * 0.2;

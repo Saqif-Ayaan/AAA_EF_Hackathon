@@ -1,0 +1,15 @@
+{
+  "case_id": "Sep252007_01D8101",
+  "date": "2007-09-25",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "computer programming (Internet services and telecommunications software)",
+    "role": "lead programmer",
+    "employer_type": "Internet services and telecommunications firm",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

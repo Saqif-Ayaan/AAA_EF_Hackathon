@@ -1,0 +1,15 @@
+{
+  "case_id": "Oct162009_01D8101",
+  "date": "2009-10-16",
+  "visa": "O-1A",
+  "outcome": "other",
+  "procedural_only": true,
+  "card": {
+    "field": "clinical research coordination (sciences)",
+    "role": "clinical research coordinator",
+    "employer_type": "university",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

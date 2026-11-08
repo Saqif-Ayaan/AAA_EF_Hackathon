@@ -1,0 +1,61 @@
+{
+  "case_id": "SEP242020_01D8101",
+  "date": "2020-09-24",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "taekwondo (martial arts athletics and instruction)",
+    "role": "athlete and taekwondo headmaster/instructor",
+    "employer_type": "taekwondo school (petitioner)",
+    "location": "unknown",
+    "criteria": {
+      "awards": "not_met",
+      "membership": "not_met",
+      "published_material": "not_met",
+      "judging": "not_met"
+    }
+  },
+  "sections": [
+    {
+      "criterion": "awards",
+      "status": "not_met",
+      "text": "the eight evidentiary criteria. Further, although the Petitioner did not contest the Director's evidentiary\ncriteria determinations, we reviewed the record and discussed each of the four claimed criteria and\ndecided that the Beneficiary did not fulfill any of them."
+    },
+    {
+      "criterion": "awards",
+      "status": "not_met",
+      "text": "adjudications. Further, we discussed the Petitioner's documentation providing an analysis for each of\nthe claimed four criteria."
+    },
+    {
+      "criterion": "membership",
+      "status": "not_met",
+      "text": "the eight evidentiary criteria. Further, although the Petitioner did not contest the Director's evidentiary\ncriteria determinations, we reviewed the record and discussed each of the four claimed criteria and\ndecided that the Beneficiary did not fulfill any of them."
+    },
+    {
+      "criterion": "membership",
+      "status": "not_met",
+      "text": "adjudications. Further, we discussed the Petitioner's documentation providing an analysis for each of\nthe claimed four criteria."
+    },
+    {
+      "criterion": "published_material",
+      "status": "not_met",
+      "text": "the eight evidentiary criteria. Further, although the Petitioner did not contest the Director's evidentiary\ncriteria determinations, we reviewed the record and discussed each of the four claimed criteria and\ndecided that the Beneficiary did not fulfill any of them."
+    },
+    {
+      "criterion": "published_material",
+      "status": "not_met",
+      "text": "adjudications. Further, we discussed the Petitioner's documentation providing an analysis for each of\nthe claimed four criteria."
+    },
+    {
+      "criterion": "judging",
+      "status": "not_met",
+      "text": "the eight evidentiary criteria. Further, although the Petitioner did not contest the Director's evidentiary\ncriteria determinations, we reviewed the record and discussed each of the four claimed criteria and\ndecided that the Beneficiary did not fulfill any of them."
+    },
+    {
+      "criterion": "judging",
+      "status": "not_met",
+      "text": "adjudications. Further, we discussed the Petitioner's documentation providing an analysis for each of\nthe claimed four criteria."
+    }
+  ]
+}

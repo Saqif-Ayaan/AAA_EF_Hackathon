@@ -1,0 +1,15 @@
+{
+  "case_id": "JAN262005_02D8101",
+  "date": "2005-01-26",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "French pastry / culinary arts",
+    "role": "French pastry chef (pastry expert)",
+    "employer_type": "private culinary/bakery services company",
+    "location": "Nebraska",
+    "criteria": {}
+  },
+  "sections": []
+}

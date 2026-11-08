@@ -1,0 +1,15 @@
+{
+  "case_id": "Jan102012_02D8101",
+  "date": "2012-01-10",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "trumpet performance",
+    "role": "trumpet player",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "JUN222022_01D8101",
+  "date": "2022-06-22",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "pastry arts / culinary (boutique pastry shop)",
+    "role": "executive head pastry chef",
+    "employer_type": "boutique pastry shop",
+    "location": "Wyoming",
+    "criteria": {}
+  },
+  "sections": []
+}

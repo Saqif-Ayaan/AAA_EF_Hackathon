@@ -1,0 +1,15 @@
+{
+  "case_id": "FEB032006_03D8101",
+  "date": "2006-02-03",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "systems analysis and software development (management consulting services)",
+    "role": "systems analyst assigned as consultant to client motels",
+    "employer_type": "management services corporation contracting beneficiary to third-party clients",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

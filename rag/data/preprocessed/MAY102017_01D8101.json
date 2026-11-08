@@ -1,0 +1,15 @@
+{
+  "case_id": "MAY102017_01D8101",
+  "date": "2017-05-10",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "classical ballet performance",
+    "role": "principal ballet dancer (beneficiary, a former student who became a professional apprentice and then company member)",
+    "employer_type": "ballet company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

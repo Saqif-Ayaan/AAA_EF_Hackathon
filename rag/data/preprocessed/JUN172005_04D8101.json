@@ -1,0 +1,15 @@
+{
+  "case_id": "JUN172005_04D8101",
+  "date": "2005-06-17",
+  "visa": "O-1B",
+  "outcome": "other",
+  "procedural_only": true,
+  "card": {
+    "field": "arts (musical performance, per AGMA reference)",
+    "role": "unknown",
+    "employer_type": "entertainment company (Times Entertainment, Inc.)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

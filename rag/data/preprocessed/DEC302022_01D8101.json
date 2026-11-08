@@ -1,0 +1,15 @@
+{
+  "case_id": "DEC302022_01D8101",
+  "date": "2022-12-30",
+  "visa": "O-1B",
+  "outcome": "remanded",
+  "procedural_only": true,
+  "card": {
+    "field": "music performance (musician)",
+    "role": "musician / performer",
+    "employer_type": "entertainment business",
+    "location": "California",
+    "criteria": {}
+  },
+  "sections": []
+}

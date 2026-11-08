@@ -1,7 +1,7 @@
-import { CRITERIA, type FindingRecord } from "@/lib/schemas";
+import { CRITERIA, type FindingRecord, type HypothesisRecord } from "@/lib/schemas";
 import type { WarRoomClaim } from "@/lib/war-room";
 import type { AgentView } from "./derive";
-import { CRITERION_LABEL, LEDGER_STYLE, splitUrl, type LedgerStatus } from "./meta";
+import { CRITERION_LABEL, HYPOTHESIS_STYLE, LEDGER_STYLE, SOURCE_AGENTS, splitUrl, type LedgerStatus } from "./meta";
 import { StatusPill } from "./status-pill";
 import styles from "./styles";
 import { Label, SectionTitle } from "./ui";
@@ -12,14 +12,18 @@ const LEGEND: LedgerStatus[] = ["corroborated", "partial", "unverified", "contra
 export function EvidenceLedger({
   claims,
   findings,
+  hypotheses,
   researchStarted,
   reconciler,
+  hypothesisResolver,
   now,
 }: {
   claims: WarRoomClaim[];
   findings: FindingRecord[];
+  hypotheses: HypothesisRecord[];
   researchStarted: boolean;
   reconciler: AgentView;
+  hypothesisResolver: AgentView;
   now: number;
 }) {
   const byClaim = new Map(findings.map((f) => [f.claimId, f]));
@@ -36,9 +40,16 @@ export function EvidenceLedger({
         title="Evidence ledger"
         sub={`${byClaim.size} of ${claims.length} claims checked`}
         right={
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+
             <Label>Reconciler</Label>
             <StatusPill status={reconciler.status} />
+            {(hypotheses.length > 0 || hypothesisResolver.status !== "idle") && (
+              <>
+                <Label>Failure modes</Label>
+                <StatusPill status={hypothesisResolver.status} />
+              </>
+            )}
           </div>
         }
       />
@@ -56,6 +67,7 @@ export function EvidenceLedger({
       <div className="divide-y divide-[color:var(--line)]">
         {CRITERIA.map((criterion) => {
           const rows = claims.filter((c) => c.criterion === criterion);
+          const failureModes = hypotheses.filter((h) => h.criterion === criterion);
           return (
             <div key={criterion} className="grid grid-cols-1 gap-x-6 gap-y-1 py-4 md:grid-cols-[10rem_minmax(0,1fr)]">
               <h3 className={`text-sm font-medium ${rows.length ? "" : "text-[color:var(--dim)]"}`}>
@@ -76,12 +88,71 @@ export function EvidenceLedger({
                     />
                   ))
                 )}
+                {failureModes.length > 0 && <FailureModes items={failureModes} now={now} />}
               </div>
             </div>
           );
         })}
       </div>
     </section>
+  );
+}
+
+/** PART 3: the sceptic's failure modes for one criterion, with what the investigation measured. */
+function FailureModes({ items, now }: { items: HypothesisRecord[]; now: number }) {
+  return (
+    <div className="border-l-2 border-dashed border-[color:var(--line)] pl-3">
+      <Label className="mb-2 block">Failure modes from past AAO denials · {items.length}</Label>
+      <ul className="space-y-3">
+        {items.map((h) => {
+          const s = HYPOTHESIS_STYLE[h.result];
+          const rescued = h.queueStatusBefore === "applies" && h.queueStatusAfter === "does_not_apply";
+          const fresh = now - Date.parse(h.createdAt) < FRESH_MS;
+          const shown = h.reliedOn.length ? h.reliedOn.map((i) => h.measurements[i]).filter(Boolean) : h.measurements;
+          return (
+            <li key={h.id} className={fresh ? styles.enter : undefined}>
+              <p className="flex items-center gap-2 text-xs font-medium" style={{ color: s.text }}>
+                <span className="size-2 rounded-full" style={{ backgroundColor: s.color }} aria-hidden />
+                {s.label}
+                {rescued && " · rescued"}
+              </p>
+              <p className="mt-1 text-[0.95rem] leading-snug">{h.failureMode}</p>
+              <p className="mt-1 text-sm leading-snug text-[color:var(--muted)]">
+                <span className={`${styles.mono} text-xs`}>{h.hypothesis.precedent.caseId}</span> “{h.hypothesis.precedent.quote}”
+              </p>
+              {shown.length > 0 && (
+                <ul className="mt-1.5 space-y-1">
+                  {shown.map((m, i) => (
+                    <li key={`${m.checkId}:${m.agentId}:${i}`} className="flex flex-wrap items-baseline gap-x-2 text-sm">
+                      <span className="size-1.5 shrink-0 translate-y-[-1px] rounded-full" style={{ backgroundColor: SOURCE_AGENTS[m.agentId].color }} aria-hidden />
+                      <span className="font-medium">{m.metric.replace(/_/g, " ")}:</span>
+                      <span>{m.value === null ? "couldn't measure" : typeof m.value === "number" ? m.value.toLocaleString("en-US") : m.value}</span>
+                      {m.benchmark && (
+                        <span className="text-[color:var(--muted)]">
+                          vs {m.benchmark.description} ({typeof m.benchmark.value === "number" ? m.benchmark.value.toLocaleString("en-US") : m.benchmark.value})
+                        </span>
+                      )}
+                      {m.sources[0] && (
+                        <a
+                          href={m.sources[0].url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title={m.sources[0].url}
+                          className={`${styles.mono} text-xs text-[color:var(--accent)] hover:underline`}
+                        >
+                          {splitUrl(m.sources[0].url).host} ↗
+                        </a>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <p className="mt-1.5 text-sm leading-snug">{h.reasoning.split("\n\n")[0]}</p>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }
 

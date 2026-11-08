@@ -1,20 +1,37 @@
 /** Display metadata for the war room: names, colours, labels. No logic beyond formatting. */
 import type {
+  AgentMode,
   AgentStatus,
   Criterion,
   DiscrepancyType,
   FindingStatus,
+  HypothesisResult,
+  InvestigatorId,
   Resolution,
-  SourceAgentId,
 } from "@/lib/schemas";
 
-/** Each source gets a small identity dot. */
-export const SOURCE_AGENTS: Record<SourceAgentId, { name: string; via: string; color: string }> = {
+/** Each source gets a small identity dot. `patents` and `wages` only work in investigate mode (PART 3). */
+export const SOURCE_AGENTS: Record<InvestigatorId, { name: string; via: string; color: string }> = {
   devpost: { name: "Devpost", via: "Profile + project pages", color: "#0e8aa0" },
   linkedin: { name: "LinkedIn", via: "Apify profile scraper", color: "#3b6fd4" },
-  github: { name: "GitHub", via: "GitHub REST API", color: "var(--muted)" },
+  github: { name: "GitHub", via: "GitHub REST API + npm / PyPI downloads", color: "var(--muted)" },
   scholar: { name: "Scholar", via: "OpenAlex", color: "var(--violet)" },
   press: { name: "Press", via: "Exa web search", color: "#c4488f" },
+  patents: { name: "Patents", via: "Google Patents forward citations", color: "#b8860b" },
+  wages: { name: "Wages", via: "DOL OFLC prevailing wages (code only)", color: "var(--ok)" },
+};
+
+/** The phase label on an agent card. */
+export const MODE_LABEL: Record<AgentMode, string> = {
+  verify: "Verifying claims",
+  investigate: "Investigating",
+};
+
+/** Status chip for a sceptic failure mode after investigation. */
+export const HYPOTHESIS_STYLE: Record<HypothesisResult, { label: string; color: string; text: string }> = {
+  confirmed: { label: "Confirmed", color: "var(--bad)", text: "var(--bad-text)" },
+  cleared: { label: "Cleared", color: "var(--ok)", text: "var(--ok-text)" },
+  still_unknown: { label: "Open", color: "var(--warn)", text: "var(--warn-text)" },
 };
 
 export type PillStatus = AgentStatus | "idle";
@@ -59,6 +76,7 @@ export const DISCREPANCY_LABEL: Record<DiscrepancyType, string> = {
   evidence: "Contradicting evidence",
   insufficient_proof: "Needs documents",
   criterion_fit: "Criterion fit",
+  failure_mode: "Failure mode",
 };
 
 export const RESOLUTION_STYLE: Record<Resolution, { label: string; color: string }> = {

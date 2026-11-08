@@ -1,0 +1,15 @@
+{
+  "case_id": "APR072005_02D8101",
+  "date": "2005-03-17",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "unknown",
+    "role": "unknown",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

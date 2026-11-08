@@ -10,6 +10,9 @@
 import { Mastra } from "@mastra/core";
 import { LibSQLStore } from "@mastra/libsql";
 import { resolveFileUrl } from "../lib/project-root";
+import { hypothesisDrafterAgent } from "./agents/hypothesis-drafter";
+import { hypothesisResolverAgent } from "./agents/hypothesis-resolver";
+import { patentsAgent } from "./agents/investigate";
 import { questionerAgent } from "./agents/questioner";
 import { reconcilerAgent } from "./agents/reconciler";
 import { resolverAgent } from "./agents/resolver";
@@ -24,6 +27,10 @@ export const mastra = new Mastra({
     reconciler: reconcilerAgent,
     questioner: questionerAgent,
     resolver: resolverAgent,
+    // PART 3 investigate mode
+    patents: patentsAgent,
+    hypothesisResolver: hypothesisResolverAgent,
+    hypothesisDrafter: hypothesisDrafterAgent,
   },
   workflows: { o1Pipeline },
   tools,

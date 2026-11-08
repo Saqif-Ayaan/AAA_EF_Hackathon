@@ -1,0 +1,15 @@
+{
+  "case_id": "Mar162010_01D8101",
+  "date": "2010-03-16",
+  "visa": "O-2",
+  "outcome": "other",
+  "procedural_only": true,
+  "card": {
+    "field": "unknown",
+    "role": "unknown",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

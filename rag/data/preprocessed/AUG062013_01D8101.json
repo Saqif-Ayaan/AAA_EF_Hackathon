@@ -1,0 +1,15 @@
+{
+  "case_id": "AUG062013_01D8101",
+  "date": "2013-08-06",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "business / advertising management (petitioner is a self-described art dealer)",
+    "role": "Advertising Director",
+    "employer_type": "art dealer (self-described petitioner)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

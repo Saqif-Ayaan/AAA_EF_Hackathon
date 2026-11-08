@@ -1,0 +1,15 @@
+{
+  "case_id": "MAR092013_01D8101",
+  "date": "2013-03-09",
+  "visa": "O-1B",
+  "outcome": "other",
+  "procedural_only": true,
+  "card": {
+    "field": "Indian specialty cuisine (culinary arts)",
+    "role": "executive chef",
+    "employer_type": "Indian specialty restaurant",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

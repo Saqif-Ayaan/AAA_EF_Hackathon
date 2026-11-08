@@ -1,16 +1,16 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { SourceAgentId } from "@/lib/schemas";
+import type { InvestigatorId } from "@/lib/schemas";
 import type { AgentView } from "./derive";
-import { AGENT_STATUS_STYLE, SOURCE_AGENTS, splitUrl } from "./meta";
+import { AGENT_STATUS_STYLE, MODE_LABEL, SOURCE_AGENTS, splitUrl } from "./meta";
 import { StatusPill } from "./status-pill";
 import styles from "./styles";
 import { Label } from "./ui";
 
 const FRESH_MS = 3000;
 
-export function AgentCard({ id, view, now }: { id: SourceAgentId; view: AgentView; now: number }) {
+export function AgentCard({ id, view, now }: { id: InvestigatorId; view: AgentView; now: number }) {
   const meta = SOURCE_AGENTS[id];
   const status = AGENT_STATUS_STYLE[view.status];
   const done = view.status === "done";
@@ -35,6 +35,9 @@ export function AgentCard({ id, view, now }: { id: SourceAgentId; view: AgentVie
         </h3>
         <StatusPill status={view.status} />
       </header>
+      <Label className={view.mode === "investigate" ? "text-[color:var(--accent)]" : undefined}>
+        {view.mode ? MODE_LABEL[view.mode] : id === "patents" || id === "wages" ? "Investigate mode only" : "Verify, then investigate"}
+      </Label>
 
       <div
         className={`${styles.bar} h-1`}
@@ -51,7 +54,9 @@ export function AgentCard({ id, view, now }: { id: SourceAgentId; view: AgentVie
       </div>
 
       <p className="line-clamp-2 min-h-[2.5rem] text-sm leading-snug text-[color:var(--muted)]">
-        {view.currentAction ?? <span className="text-[color:var(--dim)]">Waiting for claims…</span>}
+        {view.currentAction ?? (
+          <span className="text-[color:var(--dim)]">{id === "patents" || id === "wages" ? "Waiting for the sceptic's hypotheses…" : "Waiting for claims…"}</span>
+        )}
       </p>
 
       <div className="h-5 min-w-0">

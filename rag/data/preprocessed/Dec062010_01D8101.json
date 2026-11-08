@@ -1,0 +1,29 @@
+{
+  "case_id": "Dec062010_01D8101",
+  "date": "2010-12-06",
+  "visa": "O-1B",
+  "outcome": "remanded",
+  "procedural_only": false,
+  "card": {
+    "field": "classical viola performance and instruction",
+    "role": "Associate Professor (Adjunct) of Viola in graduate school of music; concert violist and classical recording artist",
+    "employer_type": "university",
+    "location": "unknown",
+    "criteria": {
+      "awards": "not_reached",
+      "critical_role": "not_reached"
+    }
+  },
+  "sections": [
+    {
+      "criterion": "awards",
+      "status": "not_reached",
+      "text": "documented the beneficiary's eligibility. For example, the petitioner indicates that the beneficiary won two prizes\nin the Lionel Tertis International Viola Competition in 2000, but has provided no direct evidence of these prizes,\nnor sufficient evidence to establish the significance of these prizes or the event at which they were received."
+    },
+    {
+      "criterion": "critical_role",
+      "status": "not_reached",
+      "text": "Similarly, while the record contains a list of venues all over the world at which the beneficiary has performed, this\nlist alone is insufficient to satisfY the criteria at 8 C.F.R. § 214.2(0)(3)(iv)(l) or (3), which require specific\ndocumentary evidence of the beneficiary's services or performances in a lead, starring or critical role for\norganizations, establishments, productions or events which have a distinguished reputation."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+.env
+# Large / regenerable corpus artefacts
+data/raw/
+data/text/
+data/logs/
+data/*.log
+# Real-applicant data must never reach the public repo
+input/applicant_jatin*.json
+out/queue_jatin*.json
+# Queues the app's pipeline writes for real applicants (their ids are UUIDs), and investigated copies
+out/queue_*-*-*-*-*.json
+out/*.investigated.json

@@ -1,0 +1,15 @@
+{
+  "case_id": "FEB042005_05D8101",
+  "date": "2005-02-04",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "classical ballet performance and instruction",
+    "role": "ballet instructor (former principal dancer with a national ballet company)",
+    "employer_type": "ballet company and school",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}
