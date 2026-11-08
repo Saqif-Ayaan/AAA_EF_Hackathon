@@ -1,0 +1,15 @@
+{
+  "case_id": "FEB042005_03D8101",
+  "date": "2005-02-04",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "taekwondo instruction and competition (athletics)",
+    "role": "instructor and athlete",
+    "employer_type": "taekwondo school (private martial arts business)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

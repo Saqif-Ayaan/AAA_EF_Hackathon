@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT312022_01D8101",
+  "date": "2022-10-31",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "band instrument repair (BIR) technology",
+    "role": "band instrument repair technician",
+    "employer_type": "retail music store",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "DEC132016_01D8101",
+  "date": "2016-12-13",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "motion picture production (feature film producer)",
+    "role": "film producer / co-founder of a film production company",
+    "employer_type": "film production company (petitioner)",
+    "location": "Denmark",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "JAN242023_01D8101",
+  "date": "2023-01-24",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "basketball",
+    "role": "basketball player",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

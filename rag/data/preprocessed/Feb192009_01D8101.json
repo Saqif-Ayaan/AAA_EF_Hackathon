@@ -1,0 +1,15 @@
+{
+  "case_id": "Feb192009_01D8101",
+  "date": "2009-02-19",
+  "visa": "O-1B",
+  "outcome": "remanded",
+  "procedural_only": true,
+  "card": {
+    "field": "art (university art department lecturer)",
+    "role": "part-time lecturer",
+    "employer_type": "university",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

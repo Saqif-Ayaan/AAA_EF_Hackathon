@@ -1,0 +1,28 @@
+{
+  "case_id": "MAY212014_01D8101",
+  "date": "2014-05-21",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "business",
+    "role": "unknown",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {
+      "awards": "waived",
+      "published_material": "waived",
+      "judging": "waived",
+      "original_contributions": "waived",
+      "critical_role": "not_reached",
+      "high_salary": "waived"
+    }
+  },
+  "sections": [
+    {
+      "criterion": "critical_role",
+      "status": "not_reached",
+      "text": "set forth at 8 C.F.R. § 214.2(o)(3)(iii)(B)? Here, the petitioner only asserts eligibility under one criterion\nat 8 C.F.R. § 214.2(o)(3)(iii)(B), specifically, 8 C.F.R. § 214.2(o)(3)(iii)(B)(7). Therefore, even if the\npetitioner were able to establish eligibility under 8 C.F.R. § 214.2(o)(3)(iii)(B)(7), the petitioner has not\nexplained and established how the AAO's ultimate conclusion that the petitioner failed to satisfy the\nregulatory requirement of three types of evidence was incorrect. As such, the instant motion fails to meet\nthe regulatory requirements for a motion to reconsider pursuant to 8 C.F.R. § 103.5(a)(3). The instant\nmotion to reconsider must be dismissed. 3 ."
+    }
+  ]
+}

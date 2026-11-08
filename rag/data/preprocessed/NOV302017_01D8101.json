@@ -1,0 +1,15 @@
+{
+  "case_id": "NOV302017_01D8101",
+  "date": "2017-11-30",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "custom hot rod fabrication and automotive painting",
+    "role": "fabricator and painter",
+    "employer_type": "custom hot rod company",
+    "location": "Nevada",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "Dec042007_02D8101",
+  "date": "2007-12-04",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "acupuncture",
+    "role": "Director of the Acupuncture Department",
+    "employer_type": "educational institution",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

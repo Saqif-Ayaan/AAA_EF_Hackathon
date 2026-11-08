@@ -1,0 +1,15 @@
+{
+  "case_id": "DEC192005_01D8101",
+  "date": "unknown",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "Not applicable: family-based VAWA battered-spouse self-petition (Form I-360, INA 204(a)(1)(A)(iii))",
+    "role": "Self-petitioning spouse of a U.S. citizen",
+    "employer_type": "Not applicable",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

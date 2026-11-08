@@ -1,0 +1,15 @@
+{
+  "case_id": "APR202023_01D8101",
+  "date": "2023-04-20",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "professional chef / culinary arts (Nepali cuisine; hotel and event catering in the UAE)",
+    "role": "chef",
+    "employer_type": "restaurant",
+    "location": "Ohio",
+    "criteria": {}
+  },
+  "sections": []
+}

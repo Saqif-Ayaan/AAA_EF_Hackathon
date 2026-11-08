@@ -1,0 +1,15 @@
+{
+  "case_id": "NOV122015_01D8101",
+  "date": "2015-11-12",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "sculpture (fine arts)",
+    "role": "sculptor",
+    "employer_type": "fine arts studio",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

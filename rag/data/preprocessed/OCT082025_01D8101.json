@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT082025_01D8101",
+  "date": "2025-10-08",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "ballroom dance",
+    "role": "ballroom dancer",
+    "employer_type": "dance studio",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

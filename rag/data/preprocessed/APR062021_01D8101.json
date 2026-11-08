@@ -1,0 +1,15 @@
+{
+  "case_id": "APR062021_01D8101",
+  "date": "2021-04-06",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "motion picture direction (feature film)",
+    "role": "film director",
+    "employer_type": "motion picture production company (LLC)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

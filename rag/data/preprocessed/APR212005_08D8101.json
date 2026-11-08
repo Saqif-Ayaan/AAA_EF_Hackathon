@@ -1,0 +1,15 @@
+{
+  "case_id": "APR212005_08D8101",
+  "date": "unknown",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "professional body boarding (athletics)",
+    "role": "professional body boarder",
+    "employer_type": "marketing and talent management company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "DEC222017_02D8101",
+  "date": "2017-12-22",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "automotive restoration and custom fabrication of classic cars",
+    "role": "restoration designer and fabricator",
+    "employer_type": "automobile restoration, exhibition and sales company",
+    "location": "Brazil",
+    "criteria": {}
+  },
+  "sections": []
+}

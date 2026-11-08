@@ -1,0 +1,15 @@
+{
+  "case_id": "MAY192025_01D8101",
+  "date": "2025-05-19",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "tattoo art",
+    "role": "tattoo artist (beneficiary) seeking extraordinary ability classification in the arts",
+    "employer_type": "tattoo arts studio",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

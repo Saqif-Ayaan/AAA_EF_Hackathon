@@ -1,0 +1,15 @@
+{
+  "case_id": "APR052021_05D8101",
+  "date": "2021-04-05",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "business (specific field not stated)",
+    "role": "unknown",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

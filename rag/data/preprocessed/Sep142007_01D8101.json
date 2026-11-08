@@ -1,0 +1,15 @@
+{
+  "case_id": "Sep142007_01D8101",
+  "date": "2007-09-14",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "multimedia art",
+    "role": "multimedia artist, petitioned for by an artist acting as agent",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

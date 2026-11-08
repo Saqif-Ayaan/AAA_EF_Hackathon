@@ -1,0 +1,15 @@
+{
+  "case_id": "Feb222011_01D8101",
+  "date": "2011-02-22",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "business (specific field not stated)",
+    "role": "unknown",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

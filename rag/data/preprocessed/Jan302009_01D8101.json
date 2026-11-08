@@ -1,0 +1,15 @@
+{
+  "case_id": "Jan302009_01D8101",
+  "date": "2009-01-30",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "radio broadcasting (speaking and programming)",
+    "role": "temporary radio speaker and programming broadcaster",
+    "employer_type": "non-profit religious organization",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

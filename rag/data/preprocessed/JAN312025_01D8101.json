@@ -1,0 +1,15 @@
+{
+  "case_id": "JAN312025_01D8101",
+  "date": "2025-01-31",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "dance choreography (hip-hop and modern dance)",
+    "role": "dance choreographer",
+    "employer_type": "dance studio",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

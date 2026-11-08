@@ -1,0 +1,15 @@
+{
+  "case_id": "MAY012017_01D8101",
+  "date": "2017-05-01",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "Chinese language and culture instruction",
+    "role": "Chinese language and culture specialist",
+    "employer_type": "Chinese cultural and language center (corporation)",
+    "location": "Massachusetts",
+    "criteria": {}
+  },
+  "sections": []
+}

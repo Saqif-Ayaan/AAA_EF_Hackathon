@@ -1,0 +1,15 @@
+{
+  "case_id": "MAR152021_01D8101",
+  "date": "2021-03-15",
+  "visa": "O-2",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "fashion design (accompanying O-2 support staff for an O-1 fashion designer)",
+    "role": "O-2 accompanying alien supporting an O-1 fashion designer",
+    "employer_type": "talent management company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "Sep302010_01D8101",
+  "date": "2010-09-30",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "ballet / dance performance and choreography",
+    "role": "dancer and choreographer",
+    "employer_type": "ballet company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

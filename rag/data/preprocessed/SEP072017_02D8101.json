@@ -1,0 +1,15 @@
+{
+  "case_id": "SEP072017_02D8101",
+  "date": "2017-09-07",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "high school biology education",
+    "role": "high school biology teacher",
+    "employer_type": "public school system",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

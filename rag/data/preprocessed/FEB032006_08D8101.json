@@ -1,0 +1,15 @@
+{
+  "case_id": "FEB032006_08D8101",
+  "date": "2006-02-03",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "respiratory therapy (medical staffing for hospitals and medical facilities)",
+    "role": "respiratory therapist beneficiary (foreign-educated, H-1B specialty occupation petition)",
+    "employer_type": "independent contractor supplying medical professionals to hospitals and other medical facilities",
+    "location": "California",
+    "criteria": {}
+  },
+  "sections": []
+}

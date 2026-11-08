@@ -1,0 +1,15 @@
+{
+  "case_id": "Feb102011_01D8101",
+  "date": "2011-02-10",
+  "visa": "O-1A",
+  "outcome": "other",
+  "procedural_only": true,
+  "card": {
+    "field": "tennis coaching (athletics)",
+    "role": "professional junior tennis coach",
+    "employer_type": "tennis academy",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

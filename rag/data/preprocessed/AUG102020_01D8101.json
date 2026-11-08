@@ -1,0 +1,15 @@
+{
+  "case_id": "AUG102020_01D8101",
+  "date": "2020-08-10",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "acting in motion pictures and television (short and feature films)",
+    "role": "actress (lead and starring roles in short and feature films)",
+    "employer_type": "talent management agency (petitioner)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

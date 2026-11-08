@@ -1,0 +1,15 @@
+{
+  "case_id": "JUN262013_01D8101",
+  "date": "2013-06-26",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "acting in motion picture / television",
+    "role": "actor",
+    "employer_type": "talent agency (petitioner)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

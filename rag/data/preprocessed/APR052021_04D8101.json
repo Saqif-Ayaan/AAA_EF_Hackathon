@@ -1,0 +1,15 @@
+{
+  "case_id": "APR052021_04D8101",
+  "date": "2021-04-05",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "unknown",
+    "role": "unknown",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

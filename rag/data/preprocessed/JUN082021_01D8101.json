@@ -1,0 +1,19 @@
+{
+  "case_id": "JUN082021_01D8101",
+  "date": "2021-06-08",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "badminton coaching",
+    "role": "badminton coach",
+    "employer_type": "badminton club and sports team",
+    "location": "unknown",
+    "criteria": {
+      "awards": "waived",
+      "membership": "waived",
+      "critical_role": "waived"
+    }
+  },
+  "sections": []
+}

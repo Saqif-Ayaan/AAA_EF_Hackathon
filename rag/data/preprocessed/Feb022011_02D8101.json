@@ -1,0 +1,15 @@
+{
+  "case_id": "Feb022011_02D8101",
+  "date": "2011-02-02",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "singing / entertainment (arts)",
+    "role": "singer",
+    "employer_type": "entertainment and distribution company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

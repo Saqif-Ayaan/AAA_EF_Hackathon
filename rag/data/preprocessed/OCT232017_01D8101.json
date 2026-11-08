@@ -1,0 +1,54 @@
+{
+  "case_id": "OCT232017_01D8101",
+  "date": "2017-10-23",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "dance (classified as athletics)",
+    "role": "unknown",
+    "employer_type": "dance studio (petitioner)",
+    "location": "unknown",
+    "criteria": {
+      "awards": "not_met",
+      "membership": "not_met",
+      "published_material": "not_met",
+      "judging": "met_not_reviewed",
+      "original_contributions": "not_met",
+      "critical_role": "not_met",
+      "high_salary": "not_met"
+    }
+  },
+  "sections": [
+    {
+      "criterion": "awards",
+      "status": "not_met",
+      "text": "least three. On appeal, we found that the Petitioner did not establish that the Beneficiary satisfied\nthe following contested criteria: awards under 8 C.F.R.§ 214.2(o)(3)(iii)(B)(l), memberships under\n8 C.F.R. § 214.2(o)(3)(iii)(B)(2), published material under 8 C.F.R. § 214.2(o)(3)(iii)(B)(3). original\ncontributions under 8 C.F.R. § 214.2(o)(3)(iii)(B)(5), critical or essential capacity under 8 C.F.R.\n§ 214.2(o)(3)(iii)(B)(7), and high salary under 8 C.F.R. § 214.2(o)(3)(iii)(B)(R)."
+    },
+    {
+      "criterion": "membership",
+      "status": "not_met",
+      "text": "least three. On appeal, we found that the Petitioner did not establish that the Beneficiary satisfied\nthe following contested criteria: awards under 8 C.F.R.§ 214.2(o)(3)(iii)(B)(l), memberships under\n8 C.F.R. § 214.2(o)(3)(iii)(B)(2), published material under 8 C.F.R. § 214.2(o)(3)(iii)(B)(3). original\ncontributions under 8 C.F.R. § 214.2(o)(3)(iii)(B)(5), critical or essential capacity under 8 C.F.R.\n§ 214.2(o)(3)(iii)(B)(7), and high salary under 8 C.F.R. § 214.2(o)(3)(iii)(B)(R)."
+    },
+    {
+      "criterion": "published_material",
+      "status": "not_met",
+      "text": "least three. On appeal, we found that the Petitioner did not establish that the Beneficiary satisfied\nthe following contested criteria: awards under 8 C.F.R.§ 214.2(o)(3)(iii)(B)(l), memberships under\n8 C.F.R. § 214.2(o)(3)(iii)(B)(2), published material under 8 C.F.R. § 214.2(o)(3)(iii)(B)(3). original\ncontributions under 8 C.F.R. § 214.2(o)(3)(iii)(B)(5), critical or essential capacity under 8 C.F.R.\n§ 214.2(o)(3)(iii)(B)(7), and high salary under 8 C.F.R. § 214.2(o)(3)(iii)(B)(R)."
+    },
+    {
+      "criterion": "original_contributions",
+      "status": "not_met",
+      "text": "least three. On appeal, we found that the Petitioner did not establish that the Beneficiary satisfied\nthe following contested criteria: awards under 8 C.F.R.§ 214.2(o)(3)(iii)(B)(l), memberships under\n8 C.F.R. § 214.2(o)(3)(iii)(B)(2), published material under 8 C.F.R. § 214.2(o)(3)(iii)(B)(3). original\ncontributions under 8 C.F.R. § 214.2(o)(3)(iii)(B)(5), critical or essential capacity under 8 C.F.R.\n§ 214.2(o)(3)(iii)(B)(7), and high salary under 8 C.F.R. § 214.2(o)(3)(iii)(B)(R)."
+    },
+    {
+      "criterion": "critical_role",
+      "status": "not_met",
+      "text": "least three. On appeal, we found that the Petitioner did not establish that the Beneficiary satisfied\nthe following contested criteria: awards under 8 C.F.R.§ 214.2(o)(3)(iii)(B)(l), memberships under\n8 C.F.R. § 214.2(o)(3)(iii)(B)(2), published material under 8 C.F.R. § 214.2(o)(3)(iii)(B)(3). original\ncontributions under 8 C.F.R. § 214.2(o)(3)(iii)(B)(5), critical or essential capacity under 8 C.F.R.\n§ 214.2(o)(3)(iii)(B)(7), and high salary under 8 C.F.R. § 214.2(o)(3)(iii)(B)(R)."
+    },
+    {
+      "criterion": "high_salary",
+      "status": "not_met",
+      "text": "least three. On appeal, we found that the Petitioner did not establish that the Beneficiary satisfied\nthe following contested criteria: awards under 8 C.F.R.§ 214.2(o)(3)(iii)(B)(l), memberships under\n8 C.F.R. § 214.2(o)(3)(iii)(B)(2), published material under 8 C.F.R. § 214.2(o)(3)(iii)(B)(3). original\ncontributions under 8 C.F.R. § 214.2(o)(3)(iii)(B)(5), critical or essential capacity under 8 C.F.R.\n§ 214.2(o)(3)(iii)(B)(7), and high salary under 8 C.F.R. § 214.2(o)(3)(iii)(B)(R)."
+    }
+  ]
+}

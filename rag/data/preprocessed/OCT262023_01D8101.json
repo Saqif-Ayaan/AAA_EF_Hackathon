@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT262023_01D8101",
+  "date": "2023-10-26",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "hair styling for beauty salon clients",
+    "role": "hairstylist of extraordinary ability",
+    "employer_type": "beauty salon",
+    "location": "New Jersey, USA",
+    "criteria": {}
+  },
+  "sections": []
+}

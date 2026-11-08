@@ -1,0 +1,15 @@
+{
+  "case_id": "DEC162020_01D8101",
+  "date": "2020-12-16",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "tattoo artistry (studio work and flash-day events)",
+    "role": "tattoo artist",
+    "employer_type": "unknown (petitioner is an agent)",
+    "location": "Brazil",
+    "criteria": {}
+  },
+  "sections": []
+}

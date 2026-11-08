@@ -1,0 +1,15 @@
+{
+  "case_id": "MAY242005_04D8101",
+  "date": "2005-05-24",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "business / project management",
+    "role": "project manager",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

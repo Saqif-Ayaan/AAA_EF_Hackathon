@@ -1,0 +1,15 @@
+{
+  "case_id": "Jan302008_02D8101",
+  "date": "2008-01-30",
+  "visa": "unknown",
+  "outcome": "other",
+  "procedural_only": true,
+  "card": {
+    "field": "unknown",
+    "role": "unknown",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

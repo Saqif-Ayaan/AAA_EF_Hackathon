@@ -1,0 +1,15 @@
+{
+  "case_id": "JAN312018_01D8101",
+  "date": "2018-01-31",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "pattern making and fashion design",
+    "role": "pattern maker and fashion designer",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

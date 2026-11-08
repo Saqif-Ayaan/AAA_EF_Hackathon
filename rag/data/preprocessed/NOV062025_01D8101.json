@@ -1,0 +1,15 @@
+{
+  "case_id": "NOV062025_01D8101",
+  "date": "2025-11-06",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "culinary arts (executive chef)",
+    "role": "executive chef",
+    "employer_type": "restaurant",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

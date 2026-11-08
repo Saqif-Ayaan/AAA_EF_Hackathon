@@ -1,0 +1,15 @@
+{
+  "case_id": "APR062021_02D8101",
+  "date": "2021-04-06",
+  "visa": "O-2",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "film production, accompanying support for an O-1 film director",
+    "role": "O-2 accompanying individual supporting an O-1 film director",
+    "employer_type": "film production business",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "APR062015_01D8101",
+  "date": "2015-04-06",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "circus performance (athletics)",
+    "role": "circus performer",
+    "employer_type": "circus entertainment / business",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

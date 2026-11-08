@@ -1,0 +1,15 @@
+{
+  "case_id": "Mar082011_01D8101",
+  "date": "2011-03-08",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "jiu-jitsu instruction (athletics)",
+    "role": "jiu-jitsu instructor/coach",
+    "employer_type": "jiu-jitsu school",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

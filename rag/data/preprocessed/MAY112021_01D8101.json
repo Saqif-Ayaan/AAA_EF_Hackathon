@@ -1,0 +1,15 @@
+{
+  "case_id": "MAY112021_01D8101",
+  "date": "2021-05-11",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "contemporary art curation (exhibitions, catalogues, art criticism)",
+    "role": "associate curator",
+    "employer_type": "art museum",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

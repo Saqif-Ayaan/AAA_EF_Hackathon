@@ -1,0 +1,15 @@
+{
+  "case_id": "Sep192007_02D8101",
+  "date": "2007-09-19",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "real estate development, general contracting, real estate sales and architectural design",
+    "role": "engineer supervisor",
+    "employer_type": "real estate development, general contracting and architectural design company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "AUG312005_01D8101",
+  "date": "2005-08-31",
+  "visa": "O-1A",
+  "outcome": "remanded",
+  "procedural_only": false,
+  "card": {
+    "field": "fine art / art gallery curation and Japan-US art and culture exchange tours",
+    "role": "artist whose proposed duties were primarily curator, tour guide and culture-division manager",
+    "employer_type": "tour and limousine services company that claims to operate an art gallery",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

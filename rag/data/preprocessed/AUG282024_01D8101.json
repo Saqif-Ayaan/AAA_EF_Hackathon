@@ -1,0 +1,15 @@
+{
+  "case_id": "AUG282024_01D8101",
+  "date": "2024-08-28",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "culinary arts (executive chef)",
+    "role": "executive chef",
+    "employer_type": "restaurant",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

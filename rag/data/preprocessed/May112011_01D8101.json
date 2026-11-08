@@ -1,0 +1,20 @@
+{
+  "case_id": "May112011_01D8101",
+  "date": "2011-05-11",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "executive chef (Indian restaurant cuisine)",
+    "role": "executive chef",
+    "employer_type": "Indian restaurant",
+    "location": "Nevada",
+    "criteria": {
+      "awards": "not_reached",
+      "published_material": "not_reached",
+      "original_contributions": "not_reached",
+      "critical_role": "not_reached"
+    }
+  },
+  "sections": []
+}

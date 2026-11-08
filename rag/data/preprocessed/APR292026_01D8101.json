@@ -1,0 +1,15 @@
+{
+  "case_id": "APR292026_01D8101",
+  "date": "2026-04-29",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "culinary arts / pastry and confectionery baking",
+    "role": "pastry chef (confectionery bakery chef)",
+    "employer_type": "pastry bakery restaurant",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "NOV262019_02D8101",
+  "date": "2019-11-26",
+  "visa": "O-2",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "film and television production support (accompanying individual to an O-1 film director)",
+    "role": "O-2 accompanying individual",
+    "employer_type": "film and television production company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

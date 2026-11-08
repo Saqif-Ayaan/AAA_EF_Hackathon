@@ -1,0 +1,15 @@
+{
+  "case_id": "SEP272024_01D8101",
+  "date": "2024-09-27",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "ballroom dance (performance, choreography, competition, and teaching)",
+    "role": "ballroom dance teacher, choreographer, and competitor",
+    "employer_type": "ballroom dance academy",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

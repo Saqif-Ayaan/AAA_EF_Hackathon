@@ -1,0 +1,29 @@
+{
+  "case_id": "MAY222014_01D8101",
+  "date": "2014-05-22",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "business / marketing in thermal technology",
+    "role": "Marketing Manager (also referred to as Director of U.S. Operations)",
+    "employer_type": "U.S. company (petitioner)",
+    "location": "unknown",
+    "criteria": {
+      "critical_role": "met",
+      "high_salary": "met"
+    }
+  },
+  "sections": [
+    {
+      "criterion": "critical_role",
+      "status": "met",
+      "text": "3 The petitioner only asserts eligibility under 8 C.F.R. § 214.2(o)(3)(iii)(B)(7), 8 C.F.R. §\n214.2(o)(3)(iii)(B)(8), and 8 C.F.R. § 214.2(o)(3)(iii)(C). The director determined that the petitioner\nestablished eligibility under 8 C.F.R. §§ 214.2(o)(3)(iii)(B)(7) and (8). Upon review, we agree that the\npetitioner has established eligibility under 8 C.F.R. §§ 214.2(o)(3)(iii)(B)(7) and (8)."
+    },
+    {
+      "criterion": "high_salary",
+      "status": "met",
+      "text": "3 The petitioner only asserts eligibility under 8 C.F.R. § 214.2(o)(3)(iii)(B)(7), 8 C.F.R. §\n214.2(o)(3)(iii)(B)(8), and 8 C.F.R. § 214.2(o)(3)(iii)(C). The director determined that the petitioner\nestablished eligibility under 8 C.F.R. §§ 214.2(o)(3)(iii)(B)(7) and (8). Upon review, we agree that the\npetitioner has established eligibility under 8 C.F.R. §§ 214.2(o)(3)(iii)(B)(7) and (8)."
+    }
+  ]
+}

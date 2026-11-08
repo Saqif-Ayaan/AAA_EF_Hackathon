@@ -1,0 +1,15 @@
+{
+  "case_id": "JUL262005_01D8101",
+  "date": "2005-07-26",
+  "visa": "O-1A",
+  "outcome": "other",
+  "procedural_only": true,
+  "card": {
+    "field": "gymnastics",
+    "role": "gymnast (beneficiary)",
+    "employer_type": "gymnastics company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

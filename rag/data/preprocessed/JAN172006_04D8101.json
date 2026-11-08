@@ -1,0 +1,15 @@
+{
+  "case_id": "JAN172006_04D8101",
+  "date": "2006-01-17",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "fine art (photographs, conceptual drawings, video)",
+    "role": "fine artist / art consultant",
+    "employer_type": "art gallery",
+    "location": "Germany",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "Mar012011_02D8101",
+  "date": "2011-03-01",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "arts (specific field not stated)",
+    "role": "unknown",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

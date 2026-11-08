@@ -1,0 +1,15 @@
+{
+  "case_id": "AUG252020_02D8101",
+  "date": "2020-08-25",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "modeling",
+    "role": "model",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

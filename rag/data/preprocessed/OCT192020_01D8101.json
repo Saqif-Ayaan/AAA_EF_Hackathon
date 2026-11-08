@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT192020_01D8101",
+  "date": "2020-10-19",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "film and television acting",
+    "role": "actor seeking lead or starring roles in films and a TV miniseries",
+    "employer_type": "film production company (petitioner)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

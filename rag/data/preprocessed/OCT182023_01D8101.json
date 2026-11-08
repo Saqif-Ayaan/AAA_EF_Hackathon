@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT182023_01D8101",
+  "date": "2023-10-18",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "singing (music performance) for an entertainment group",
+    "role": "singer / lead performer of an entertainment group",
+    "employer_type": "entertainment group (petitioner)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "SEP282005_03D8101",
+  "date": "2005-09-28",
+  "visa": "unknown",
+  "outcome": "other",
+  "procedural_only": true,
+  "card": {
+    "field": "unknown",
+    "role": "unknown",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

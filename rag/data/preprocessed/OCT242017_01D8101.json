@@ -1,0 +1,15 @@
+{
+  "case_id": "OCT242017_01D8101",
+  "date": "2017-10-24",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "motion picture and television acting",
+    "role": "actress",
+    "employer_type": "motion picture production company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

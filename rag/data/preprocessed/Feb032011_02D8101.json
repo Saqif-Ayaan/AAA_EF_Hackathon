@@ -1,0 +1,15 @@
+{
+  "case_id": "Feb032011_02D8101",
+  "date": "2011-02-03",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "abstract painting / fine art",
+    "role": "painter (O-1 extension beneficiary)",
+    "employer_type": "art representation, digital publications and media consultation company",
+    "location": "California",
+    "criteria": {}
+  },
+  "sections": []
+}

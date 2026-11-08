@@ -1,0 +1,15 @@
+{
+  "case_id": "SEP282005_02D8101",
+  "date": "2005-09-28",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "unknown",
+    "role": "self-petitioning beneficiary (self-represented)",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "MAR042019_02D8101",
+  "date": "2019-03-04",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "television hosting and production",
+    "role": "host/producer",
+    "employer_type": "television and internet production business",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

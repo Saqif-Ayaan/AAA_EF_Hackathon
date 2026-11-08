@@ -1,0 +1,15 @@
+{
+  "case_id": "JUL102018_01D8101",
+  "date": "2018-07-10",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "classical piano performance",
+    "role": "pianist (guest artist)",
+    "employer_type": "symphony orchestra",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

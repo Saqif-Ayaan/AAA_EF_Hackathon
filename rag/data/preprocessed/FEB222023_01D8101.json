@@ -1,0 +1,15 @@
+{
+  "case_id": "FEB222023_01D8101",
+  "date": "2023-02-22",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "Armenian-language singing / music performance",
+    "role": "singer and performer",
+    "employer_type": "entertainment business",
+    "location": "California",
+    "criteria": {}
+  },
+  "sections": []
+}

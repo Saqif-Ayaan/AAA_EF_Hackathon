@@ -1,0 +1,15 @@
+{
+  "case_id": "MAR042015_01D8101",
+  "date": "2015-03-04",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "business operations, investment and consulting",
+    "role": "managing director (sole member of petitioning LLC)",
+    "employer_type": "California limited liability company (business operations, investment and consulting)",
+    "location": "California",
+    "criteria": {}
+  },
+  "sections": []
+}

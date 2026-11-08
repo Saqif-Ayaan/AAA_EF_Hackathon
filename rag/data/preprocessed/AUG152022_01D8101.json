@@ -1,0 +1,15 @@
+{
+  "case_id": "AUG152022_01D8101",
+  "date": "2022-08-15",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "writing, poetry, academic scholarship and curation",
+    "role": "writer, academic, curator, and poet",
+    "employer_type": "unknown",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

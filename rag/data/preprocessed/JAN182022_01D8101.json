@@ -1,0 +1,15 @@
+{
+  "case_id": "JAN182022_01D8101",
+  "date": "2022-01-18",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "motion picture and television writing, creation, and executive production",
+    "role": "writer, creator, and executive producer",
+    "employer_type": "business management company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

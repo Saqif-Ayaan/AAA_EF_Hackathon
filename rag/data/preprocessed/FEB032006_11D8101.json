@@ -1,0 +1,15 @@
+{
+  "case_id": "FEB032006_11D8101",
+  "date": "2006-02-03",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "computer systems analysis / software development for consulting clients (H-1B specialty occupation)",
+    "role": "systems analyst (consultant placed at client sites)",
+    "employer_type": "management services corporation (consulting contractor)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

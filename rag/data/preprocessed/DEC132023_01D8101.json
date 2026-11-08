@@ -1,0 +1,15 @@
+{
+  "case_id": "DEC132023_01D8101",
+  "date": "2023-12-13",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "professional piano performance (church services, rehearsals, concerts, solo recitals, accompaniment)",
+    "role": "professional pianist",
+    "employer_type": "music and entertainment agency (petitioner)",
+    "location": "Florida",
+    "criteria": {}
+  },
+  "sections": []
+}

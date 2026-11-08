@@ -1,0 +1,15 @@
+{
+  "case_id": "JAN142022_01D8101",
+  "date": "2022-01-14",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "fine art painting",
+    "role": "fine artist (painter) seeking O-1 classification, represented by an artist agent",
+    "employer_type": "artist agent / individual petitioner (graduate studio arts professor and mentor)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

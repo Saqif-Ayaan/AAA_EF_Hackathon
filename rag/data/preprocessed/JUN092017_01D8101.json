@@ -1,0 +1,15 @@
+{
+  "case_id": "JUN092017_01D8101",
+  "date": "2017-06-09",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "Dancesport instruction",
+    "role": "Dancesport instructor",
+    "employer_type": "talent agency (petitioner represents beneficiary)",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

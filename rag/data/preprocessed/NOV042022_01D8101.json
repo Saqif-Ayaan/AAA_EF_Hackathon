@@ -1,0 +1,15 @@
+{
+  "case_id": "NOV042022_01D8101",
+  "date": "2022-11-04",
+  "visa": "unknown",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "professional boxing (P-1 internationally recognized athlete)",
+    "role": "professional boxer",
+    "employer_type": "boxing promotional and management company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

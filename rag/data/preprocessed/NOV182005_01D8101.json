@@ -1,0 +1,15 @@
+{
+  "case_id": "NOV182005_01D8101",
+  "date": "2005-11-18",
+  "visa": "O-1A",
+  "outcome": "remanded",
+  "procedural_only": true,
+  "card": {
+    "field": "rugby (competitive player and coach)",
+    "role": "rugby player and assistant coach",
+    "employer_type": "sports association (rugby union)",
+    "location": "California",
+    "criteria": {}
+  },
+  "sections": []
+}

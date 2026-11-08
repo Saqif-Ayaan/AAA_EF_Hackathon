@@ -1,0 +1,15 @@
+{
+  "case_id": "DEC232015_01D8101",
+  "date": "2015-12-23",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "culinary arts (Chinese cuisine)",
+    "role": "chef (culinary professional)",
+    "employer_type": "Chinese restaurant and Asian produce grocery market",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}

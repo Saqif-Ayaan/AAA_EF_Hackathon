@@ -1,0 +1,15 @@
+{
+  "case_id": "APR032015_01D8101",
+  "date": "2015-04-03",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "opera singing (soprano)",
+    "role": "student opera singer seeking an artist position in a training studio of an opera company",
+    "employer_type": "non-profit opera company",
+    "location": "Texas",
+    "criteria": {}
+  },
+  "sections": []
+}

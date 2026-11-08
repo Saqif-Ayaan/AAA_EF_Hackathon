@@ -1,0 +1,15 @@
+{
+  "case_id": "JAN172006_05D8101",
+  "date": "2006-01-17",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": false,
+  "card": {
+    "field": "Highland bagpiping (performing arts / music)",
+    "role": "Highland bagpiper and bagpipe advisor",
+    "employer_type": "retail music store",
+    "location": "Texas",
+    "criteria": {}
+  },
+  "sections": []
+}

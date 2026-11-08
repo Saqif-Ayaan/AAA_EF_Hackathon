@@ -1,0 +1,15 @@
+{
+  "case_id": "MAY222025_01D8101",
+  "date": "2025-05-22",
+  "visa": "O-1A",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "mixology (bartending / cocktail preparation)",
+    "role": "mixologist",
+    "employer_type": "restaurant and bar",
+    "location": "Armenia",
+    "criteria": {}
+  },
+  "sections": []
+}

@@ -1,0 +1,15 @@
+{
+  "case_id": "JAN142013_01D8101",
+  "date": "2013-01-14",
+  "visa": "O-1B",
+  "outcome": "dismissed",
+  "procedural_only": true,
+  "card": {
+    "field": "music production / arts",
+    "role": "unknown",
+    "employer_type": "production and music company",
+    "location": "unknown",
+    "criteria": {}
+  },
+  "sections": []
+}
