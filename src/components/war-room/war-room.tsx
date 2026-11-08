@@ -1,102 +1,96 @@
 "use client";
 
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
-import { SOURCE_AGENT_IDS, type AgentEvent } from "@/lib/schemas";
-import type { CaseEventsResponse } from "@/lib/war-room";
+import { useCallback, useMemo, useState, type CSSProperties } from "react";
+import { SOURCE_AGENT_IDS, type FindingRecord } from "@/lib/schemas";
+import type { ReplayLoad, WarRoomApplicant, WarRoomClaim } from "@/lib/war-room";
 import { AgentCard } from "./agent-card";
 import { Backdrop, Viewfinder } from "./backdrop";
-import { deriveAgents } from "./derive";
+import { deriveAgents, type AgentView } from "./derive";
 import { DiscrepancyPanel } from "./discrepancy-panel";
+import { BuildCaseButton, DossierPanel, type BuildControl } from "./dossier-panel";
 import { EvidenceLedger } from "./evidence-ledger";
 import { fontVariables } from "./fonts";
 import { Corners, Micro, Timecode } from "./hud";
 import { AGENT_STATUS_STYLE } from "./meta";
 import { PALETTES, setPalette, usePalette } from "./palette";
+import { ScoreCard } from "./score-card";
 import { SectionTitle } from "./section-title";
-import { Ticker } from "./ticker";
 import styles from "./styles";
+import { Ticker } from "./ticker";
+import { useLiveFeed, useReplayFeed } from "./use-case-feed";
 
-const POLL_MS = 500;
+/** How long after a click the button stays in "Building…" before events confirm it. */
+const BUILD_GRACE_MS = 2500;
 
-type Snapshot = Pick<CaseEventsResponse, "applicant" | "claims" | "findings" | "discrepancies">;
+function useBuildControl({
+  caseId,
+  now,
+  isReplay,
+  applicant,
+  claims,
+  findings,
+  caseBuilder,
+  scorer,
+}: {
+  caseId: string;
+  now: number;
+  isReplay: boolean;
+  applicant: WarRoomApplicant | null;
+  claims: WarRoomClaim[];
+  findings: FindingRecord[];
+  caseBuilder: AgentView;
+  scorer: AgentView;
+}): BuildControl {
+  const [state, setState] = useState<{ requestedAt: number | null; pending: boolean; error: string | null }>({
+    requestedAt: null,
+    pending: false,
+    error: null,
+  });
 
-/**
- * Polls GET /api/cases/[id]/events every 500ms. Events are fetched
- * incrementally (?after=lastId); if the server's first event id changes, the
- * run was reset (e.g. the mock re-ran) and everything is refetched from 0.
- */
-function useCaseEvents(caseId: string) {
-  const [events, setEvents] = useState<AgentEvent[]>([]);
-  const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
-  const [online, setOnline] = useState<boolean | null>(null);
-  const [now, setNow] = useState(0);
-
-  useEffect(() => {
-    let after = 0;
-    let knownFirstId: number | null = null;
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    const ctrl = new AbortController();
-
-    const schedule = (ms: number) => {
-      if (!ctrl.signal.aborted) timer = setTimeout(tick, ms);
-    };
-
-    async function tick() {
-      const requestedAfter = after;
-      try {
-        const res = await fetch(
-          `/api/cases/${encodeURIComponent(caseId)}/events?after=${requestedAfter}`,
-          { cache: "no-store", signal: ctrl.signal },
-        );
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = (await res.json()) as CaseEventsResponse;
-
-        if (requestedAfter > 0 && data.firstEventId !== knownFirstId) {
-          after = 0; // reset detected
-          return schedule(0);
-        }
-        knownFirstId = data.firstEventId;
-        if (requestedAfter === 0) setEvents(data.events);
-        else if (data.events.length) setEvents((prev) => prev.concat(data.events));
-        if (data.events.length) after = data.events[data.events.length - 1].id;
-
-        setSnapshot({
-          applicant: data.applicant,
-          claims: data.claims,
-          findings: data.findings,
-          discrepancies: data.discrepancies,
-        });
-        setOnline(true);
-        setNow(Date.now());
-        schedule(data.hasMore ? 0 : POLL_MS);
-      } catch (err) {
-        if (ctrl.signal.aborted) return;
-        console.warn("[war-room] poll failed", err);
-        setOnline(false);
-        setNow(Date.now());
-        schedule(POLL_MS * 2);
-      }
+  const onBuild = useCallback(async () => {
+    setState({ requestedAt: Date.now(), pending: true, error: null });
+    try {
+      const res = await fetch(`/api/cases/${encodeURIComponent(caseId)}/build`, { method: "POST" });
+      const body = (await res.json().catch(() => ({}))) as { error?: string };
+      if (!res.ok) throw new Error(body.error ?? `HTTP ${res.status}`);
+      setState((s) => ({ ...s, pending: false }));
+    } catch (err) {
+      setState({ requestedAt: null, pending: false, error: err instanceof Error ? err.message : String(err) });
     }
-
-    tick();
-    return () => {
-      ctrl.abort();
-      clearTimeout(timer);
-    };
   }, [caseId]);
 
-  return { events, snapshot, online, now };
+  const agentsBusy = AGENT_STATUS_STYLE[caseBuilder.status].active || AGENT_STATUS_STYLE[scorer.status].active;
+  const building =
+    state.pending || (state.requestedAt !== null && now - state.requestedAt < BUILD_GRACE_MS) || agentsBusy;
+
+  const disabledReason = isReplay
+    ? "Replay mode — the recorded build plays from the file"
+    : !applicant
+      ? "No case loaded yet"
+      : claims.length === 0
+        ? "No claims yet"
+        : findings.length < claims.length
+          ? "Available once every claim is reconciled"
+          : null;
+
+  return { onBuild: () => void onBuild(), building, disabledReason, error: state.error };
 }
 
 function splitName(name: string) {
   const parts = name.trim().split(/\s+/);
-  return parts.length < 2 ? { first: "", last: parts[0] ?? "" } : { first: parts.slice(0, -1).join(" "), last: parts[parts.length - 1] };
+  return parts.length < 2
+    ? { first: "", last: parts[0] ?? "" }
+    : { first: parts.slice(0, -1).join(" "), last: parts[parts.length - 1] };
 }
 
-const pad2 = (n: number) => String(n).padStart(2, "0");
+const pad2 = (n: number) => String(Math.round(n)).padStart(2, "0");
 
-export function WarRoom({ caseId }: { caseId: string }) {
-  const { events, snapshot, online, now } = useCaseEvents(caseId);
+export function WarRoom({ caseId, replay, speed = 1 }: { caseId: string; replay?: ReplayLoad; speed?: number }) {
+  const isReplay = replay !== undefined;
+  const live = useLiveFeed(caseId, !isReplay);
+  const playback = useReplayFeed(replay?.ok ? replay.file : null, speed);
+  const { events, snapshot, online, now } = isReplay ? playback : live;
+
   const views = useMemo(() => deriveAgents(events), [events]);
   const palette = usePalette();
 
@@ -104,6 +98,8 @@ export function WarRoom({ caseId }: { caseId: string }) {
   const claims = snapshot?.claims ?? [];
   const findings = snapshot?.findings ?? [];
   const discrepancies = snapshot?.discrepancies ?? [];
+  const caseRecord = snapshot?.case ?? null;
+  const score = snapshot?.score ?? null;
 
   const sourceViews = SOURCE_AGENT_IDS.map((id) => views[id]);
   const research = Math.round(sourceViews.reduce((sum, v) => sum + v.progress, 0) / sourceViews.length);
@@ -112,20 +108,36 @@ export function WarRoom({ caseId }: { caseId: string }) {
   const pagesRead = sourceViews.reduce((sum, v) => sum + v.pagesRead, 0);
   const caseStart = events.length ? Date.parse(events[0].createdAt) : null;
   const caseEnd = views.pipeline.endedAt;
+  const openQuestions = discrepancies.filter((d) => d.resolution === "open").length;
+
+  const build = useBuildControl({
+    caseId,
+    now,
+    isReplay,
+    applicant,
+    claims,
+    findings,
+    caseBuilder: views.caseBuilder,
+    scorer: views.scorer,
+  });
 
   const phase = !applicant
     ? { label: "Awaiting signal", color: "var(--dim)" }
-    : caseEnd !== null
-      ? { label: "Vetting complete", color: "#2ee68a" }
-      : researchStarted
-        ? { label: "Vetting in progress", color: "var(--accent)" }
-        : { label: "Standing by", color: "var(--muted)" };
+    : score
+      ? { label: "Case scored", color: "#2ee68a" }
+      : caseRecord
+        ? { label: "Dossier built", color: "var(--accent)" }
+        : caseEnd !== null
+          ? { label: "Vetting complete", color: "#2ee68a" }
+          : researchStarted
+            ? { label: "Vetting in progress", color: "var(--accent)" }
+            : { label: "Standing by", color: "var(--muted)" };
 
-  // Latest orchestration-level event (pipeline, reconciler, questioner, handoffs).
+  // Latest orchestration-level event (pipeline, reconciler, questioner, case builder, scorer, handoffs).
   const pipelineEvent = useMemo(() => {
     for (let i = events.length - 1; i >= 0; i--) {
       const e = events[i];
-      if (e.type === "handoff" || ["pipeline", "reconciler", "questioner"].includes(e.agentId)) return e;
+      if (e.type === "handoff" || !(SOURCE_AGENT_IDS as readonly string[]).includes(e.agentId)) return e;
     }
     return null;
   }, [events]);
@@ -138,7 +150,7 @@ export function WarRoom({ caseId }: { caseId: string }) {
       style={{ "--accent": palette.accent, "--accent-2": palette.accent2 } as CSSProperties}
     >
       <Backdrop />
-      <Viewfinder caseId={caseId} palette={palette.label} />
+      <Viewfinder caseId={caseId} palette={isReplay ? `${palette.label} · playback` : palette.label} />
 
       {/* ── Pill nav ─────────────────────────────────────────────────────── */}
       <div className="sticky top-3 z-30 flex justify-center px-4 pt-3">
@@ -152,21 +164,26 @@ export function WarRoom({ caseId }: { caseId: string }) {
           >
             <span aria-hidden>◆</span> O-1A
           </a>
-          <span className={`${styles.micro} hidden pr-2 lg:inline`}>War room</span>
-          <ul className="flex items-center">
+          <span className={`${styles.micro} hidden pr-2 2xl:inline`}>War room</span>
+          <ul className="flex flex-wrap items-center justify-center">
             {[
               { href: "#agents", label: "Agents" },
               { href: "#ledger", label: "Ledger" },
               { href: "#discrepancies", label: "Questions", count: discrepancies.length },
+              { href: "#dossier", label: "Dossier", dot: caseRecord !== null },
             ].map((l) => (
               <li key={l.href}>
-                <a href={l.href} className={`${styles.navLink} flex items-center gap-2 px-3.5 py-2 text-base font-semibold sm:text-lg`}>
+                <a
+                  href={l.href}
+                  className={`${styles.navLink} flex items-center gap-2 px-3.5 py-2 text-base font-semibold sm:text-lg`}
+                >
                   {l.label}
                   {l.count ? (
                     <span className={`${styles.mono} rounded-full bg-[#ffb224] px-1.5 text-xs font-bold text-[#050807]`}>
                       {l.count}
                     </span>
                   ) : null}
+                  {l.dot ? <span className="size-2 rounded-full bg-[color:var(--accent)]" aria-label="ready" /> : null}
                 </a>
               </li>
             ))}
@@ -174,23 +191,13 @@ export function WarRoom({ caseId }: { caseId: string }) {
           <span className="hidden h-6 w-px bg-[color:var(--line)] sm:block" aria-hidden />
           <PaletteSwitcher current={palette.id} />
           <span className="hidden h-6 w-px bg-[color:var(--line)] sm:block" aria-hidden />
-          <div
-            className={`${styles.mono} flex items-center gap-2.5 rounded-full border border-[color:var(--line)] bg-black/40 px-4 py-2 text-base`}
-            role="status"
-            aria-label={online === false ? "Connection lost" : "Recording, live"}
-          >
-            {online === false ? (
-              <span className="font-semibold tracking-[0.14em] text-[#ff4d5e] uppercase">Signal lost</span>
-            ) : (
-              <>
-                <span className={styles.rec} aria-hidden />
-                <span className="font-semibold tracking-[0.14em] text-[#ff6b7a] uppercase">Rec</span>
-                <span className="text-[color:var(--text)]">
-                  <Timecode start={caseStart} end={caseEnd} />
-                </span>
-              </>
-            )}
-          </div>
+          <CameraChip
+            mode={isReplay ? (replay?.ok ? "replay" : "missing") : online === false ? "lost" : "live"}
+            caseStart={caseStart}
+            caseEnd={caseEnd}
+            onRestart={playback.restart}
+            ended={playback.ended}
+          />
         </nav>
       </div>
 
@@ -203,6 +210,13 @@ export function WarRoom({ caseId }: { caseId: string }) {
           <Micro className="mb-4 block">
             Case {caseId} <span className="opacity-60">{"//"}</span> Subject 01 <span className="opacity-60">{"//"}</span>{" "}
             <span style={{ color: phase.color }}>{phase.label}</span>
+            {isReplay && (
+              <>
+                {" "}
+                <span className="opacity-60">{"//"}</span>{" "}
+                <span className="text-[color:var(--accent)]">Replay{speed !== 1 ? ` ×${speed}` : ""}</span>
+              </>
+            )}
           </Micro>
           <h1 className={`${styles.display} text-[clamp(4rem,10vw,11rem)] break-words`}>
             {name ? (
@@ -220,17 +234,28 @@ export function WarRoom({ caseId }: { caseId: string }) {
             <p className="mt-4 max-w-4xl text-xl text-[color:var(--muted)] sm:text-2xl">
               {applicant.currentRole}, {applicant.currentOrganization} · {applicant.field}
               {applicant.alternateNames.length > 0 && (
-                <span className={`${styles.mono} ml-3 text-base tracking-[0.14em] whitespace-nowrap text-[color:var(--accent)] uppercase`}>
+                <span
+                  className={`${styles.mono} ml-3 text-base tracking-[0.14em] whitespace-nowrap text-[color:var(--accent)] uppercase`}
+                >
                   AKA {applicant.alternateNames.join(" / ")}
                 </span>
+              )}
+            </p>
+          ) : replay && !replay.ok ? (
+            <p role="alert" className={`${styles.mono} mt-4 max-w-4xl text-xl text-[#ffc95c]`}>
+              {replay.error}
+              {replay.command && (
+                <code className="ml-3 inline-block bg-black/50 px-2 py-0.5 whitespace-nowrap text-[color:var(--accent)]">
+                  {replay.command}
+                </code>
               )}
             </p>
           ) : (
             snapshot && (
               <p className="mt-4 max-w-3xl text-xl text-[color:var(--muted)] sm:text-2xl">
                 No data yet for this case. Start a run (
-                <code className={`${styles.mono} bg-black/50 px-2 py-0.5 text-[color:var(--accent)]`}>npm run mock</code>) and
-                this page picks it up automatically.
+                <code className={`${styles.mono} bg-black/50 px-2 py-0.5 text-[color:var(--accent)]`}>npm run mock</code>
+                ) and this page picks it up automatically.
               </p>
             )
           )}
@@ -249,9 +274,16 @@ export function WarRoom({ caseId }: { caseId: string }) {
           </p>
 
           <div className="mt-7 flex flex-wrap gap-4">
-            {discrepancies.length > 0 ? (
+            {caseRecord ? (
+              <a href="#dossier" className={`${styles.cta} ${styles.display} px-8 py-4 text-2xl`}>
+                View dossier <span aria-hidden>↓</span>
+              </a>
+            ) : build.disabledReason === null || build.building ? (
+              <BuildCaseButton control={build} />
+            ) : discrepancies.length > 0 ? (
               <a href="#discrepancies" className={`${styles.cta} ${styles.display} px-8 py-4 text-2xl`}>
-                Review {discrepancies.length} {discrepancies.length === 1 ? "question" : "questions"} <span aria-hidden>↓</span>
+                Review {discrepancies.length} {discrepancies.length === 1 ? "question" : "questions"}{" "}
+                <span aria-hidden>↓</span>
               </a>
             ) : (
               <a href="#agents" className={`${styles.cta} ${styles.display} px-8 py-4 text-2xl`}>
@@ -267,7 +299,11 @@ export function WarRoom({ caseId }: { caseId: string }) {
         <aside aria-label="Case readout" className={`${styles.panel} relative grid grid-cols-2`}>
           <Readout label="Research" value={`${research}%`} accent={researchStarted && caseEnd === null} />
           <Readout label="Claims checked" value={`${pad2(findings.length)}/${pad2(claims.length)}`} />
-          <Readout label="Pages read" value={pad2(pagesRead)} />
+          {score ? (
+            <Readout label="Readiness" value={pad2(score.approvalLikelihood)} color="#2ee68a" />
+          ) : (
+            <Readout label="Pages read" value={pad2(pagesRead)} />
+          )}
           <Readout
             label="Anomalies"
             value={pad2(discrepancies.length)}
@@ -303,14 +339,74 @@ export function WarRoom({ caseId }: { caseId: string }) {
             reconciler={views.reconciler}
             now={now}
           />
-          <DiscrepancyPanel
-            discrepancies={discrepancies}
-            claims={claims}
-            questioner={views.questioner}
+          <DiscrepancyPanel discrepancies={discrepancies} claims={claims} questioner={views.questioner} now={now} />
+        </div>
+
+        <div className="mt-10 grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
+          <DossierPanel
+            caseRecord={caseRecord}
+            caseBuilder={views.caseBuilder}
+            build={build}
+            openQuestions={openQuestions}
             now={now}
           />
+          <ScoreCard score={score} caseRecord={caseRecord} scorer={views.scorer} now={now} />
         </div>
       </main>
+    </div>
+  );
+}
+
+/** REC timecode while live; PLAYBACK + restart in replay mode. */
+function CameraChip({
+  mode,
+  caseStart,
+  caseEnd,
+  onRestart,
+  ended,
+}: {
+  mode: "live" | "lost" | "replay" | "missing";
+  caseStart: number | null;
+  caseEnd: number | null;
+  onRestart: () => void;
+  ended: boolean;
+}) {
+  const shell = `${styles.mono} flex items-center gap-2.5 rounded-full border border-[color:var(--line)] bg-black/40 px-4 py-2 text-base`;
+  if (mode === "lost" || mode === "missing") {
+    return (
+      <div className={shell} role="status">
+        <span className="font-semibold tracking-[0.14em] text-[#ff4d5e] uppercase">
+          {mode === "lost" ? "Signal lost" : "No replay"}
+        </span>
+      </div>
+    );
+  }
+  if (mode === "replay") {
+    return (
+      <div className={`${shell} !py-1.5 !pr-1.5`} role="status" aria-label={ended ? "Replay finished" : "Replaying"}>
+        <span className="font-semibold tracking-[0.14em] text-[color:var(--accent)] uppercase">
+          {ended ? "■ End" : "▶ Replay"}
+        </span>
+        <span className="text-[color:var(--text)]">
+          <Timecode start={caseStart} end={caseEnd} />
+        </span>
+        <button
+          type="button"
+          onClick={onRestart}
+          className="rounded-full border border-[color:var(--line)] px-3 py-1 text-sm tracking-[0.14em] uppercase hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
+        >
+          Restart
+        </button>
+      </div>
+    );
+  }
+  return (
+    <div className={shell} role="status" aria-label="Recording, live">
+      <span className={styles.rec} aria-hidden />
+      <span className="font-semibold tracking-[0.14em] text-[#ff6b7a] uppercase">Rec</span>
+      <span className="text-[color:var(--text)]">
+        <Timecode start={caseStart} end={caseEnd} />
+      </span>
     </div>
   );
 }

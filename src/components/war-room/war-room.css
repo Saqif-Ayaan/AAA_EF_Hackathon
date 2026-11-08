@@ -565,6 +565,19 @@
   }
 }
 
+/* ── Score gauge: the readiness arc draws in once ─────────────────────── */
+
+.wr-gaugeArc {
+  stroke-dasharray: var(--gauge) 100;
+  animation: wr-gauge 1.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes wr-gauge {
+  from {
+    stroke-dasharray: 0 100;
+  }
+}
+
 /* ── One-shot feedback ────────────────────────────────────────────────── */
 
 .wr-flash {
@@ -609,7 +622,8 @@
   .wr-segActive,
   .wr-tickerTrack,
   .wr-flash,
-  .wr-enter {
+  .wr-enter,
+  .wr-gaugeArc {
     animation: none;
   }
 

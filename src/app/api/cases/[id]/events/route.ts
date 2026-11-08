@@ -1,7 +1,7 @@
-import { and, asc, eq, gt, inArray, min, sql } from "drizzle-orm";
+import { and, asc, desc, eq, gt, inArray, min, sql } from "drizzle-orm";
 import type { NextRequest } from "next/server";
 import { db } from "@/db";
-import { applicants, claims, discrepancies, events, findings } from "@/db/schema";
+import { applicants, cases, claims, discrepancies, events, findings, scores } from "@/db/schema";
 import type { CaseEventsResponse } from "@/lib/war-room";
 
 const PAGE_SIZE = 1000;
@@ -17,7 +17,7 @@ export async function GET(req: NextRequest, ctx: RouteContext<"/api/cases/[id]/e
   const after = Math.max(0, Number(req.nextUrl.searchParams.get("after")) || 0);
 
   try {
-    const [applicantRows, eventRows, firstRows, claimRows] = await Promise.all([
+    const [applicantRows, eventRows, firstRows, claimRows, caseRows] = await Promise.all([
       db
         .select({
           id: applicants.id,
@@ -46,7 +46,23 @@ export async function GET(req: NextRequest, ctx: RouteContext<"/api/cases/[id]/e
         .from(claims)
         .where(eq(claims.applicantId, id))
         .orderBy(sql`rowid`),
+      db
+        .select()
+        .from(cases)
+        .where(eq(cases.applicantId, id))
+        .orderBy(desc(cases.createdAt), desc(sql`rowid`))
+        .limit(1),
     ]);
+
+    const latestCase = caseRows[0] ?? null;
+    const scoreRows = latestCase
+      ? await db
+          .select()
+          .from(scores)
+          .where(eq(scores.caseId, latestCase.id))
+          .orderBy(desc(scores.createdAt), desc(sql`rowid`))
+          .limit(1)
+      : [];
 
     const claimIds = claimRows.map((c) => c.id);
     const [findingRows, discrepancyRows] = claimIds.length
@@ -75,6 +91,8 @@ export async function GET(req: NextRequest, ctx: RouteContext<"/api/cases/[id]/e
       claims: claimRows,
       findings: [...latestFinding.values()],
       discrepancies: discrepancyRows,
+      case: latestCase,
+      score: scoreRows[0] ?? null,
     };
     return Response.json(body, { headers: { "Cache-Control": "no-store" } });
   } catch (err) {

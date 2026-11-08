@@ -16,6 +16,7 @@ const styles = {
   flash: "wr-flash",
   floor: "wr-floor",
   floorPlane: "wr-floorPlane",
+  gaugeArc: "wr-gaugeArc",
   hex: "wr-hex",
   horizonLine: "wr-horizonLine",
   hoverLift: "wr-hoverLift",
